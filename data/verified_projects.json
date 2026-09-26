@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "dataset": "verified",
+  "notes": "Paste trusted DESC and GPC records from gridlock-data-pipeline here. Do not invent coordinates, routes, years, or ownership. Empty is valid — the app will render an empty verified state.",
+  "projects": []
+}

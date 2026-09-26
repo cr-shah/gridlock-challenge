@@ -1,0 +1,1453 @@
+{
+  "generated_at": "2026-09-26T09:20:48.136973+00:00",
+  "dataset": "demo",
+  "data_source": "demo",
+  "data_disclaimer": "DEMO / LEGACY dataset. Coordinates are approximate placeholders. Do not present these results as verified DESC or Georgia Power data.",
+  "utilities": [
+    "DESC",
+    "GPC"
+  ],
+  "input_project_count": 10,
+  "match_count": 11,
+  "summary": {
+    "total_projects": 10,
+    "desc_projects": 5,
+    "gpc_projects": 5,
+    "pairs_checked": 25,
+    "pairs_within_40km": 11,
+    "pairs_with_timeline_overlap": 7,
+    "projects_without_geometry": 0,
+    "projects_without_timing": 0
+  },
+  "projects": [
+    {
+      "id": "desc-001",
+      "utility": "DESC",
+      "name": "Jasper County 115kV Substation Upgrade",
+      "project_type": null,
+      "planned_start_year": 2027,
+      "planned_end_year": 2028,
+      "in_service_year": null,
+      "voltage_kv": [
+        115
+      ],
+      "geometry": [
+        -81.15,
+        32.47
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.scrtp.com/document-library.html",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.47,
+      "lng1": -81.15,
+      "lat2": 32.47,
+      "lng2": -81.15,
+      "start_year": 2027,
+      "end_year": 2028,
+      "has_geometry": true
+    },
+    {
+      "id": "desc-002",
+      "utility": "DESC",
+      "name": "Okatie - McIntosh 115kV Tie Reactor",
+      "project_type": null,
+      "planned_start_year": 2027,
+      "planned_end_year": 2027,
+      "in_service_year": null,
+      "voltage_kv": [
+        115
+      ],
+      "geometry": [
+        [
+          -80.87,
+          32.26
+        ],
+        [
+          -81.24,
+          32.15
+        ]
+      ],
+      "geometry_type": "LineString",
+      "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.26,
+      "lng1": -80.87,
+      "lat2": 32.15,
+      "lng2": -81.24,
+      "start_year": 2027,
+      "end_year": 2027,
+      "has_geometry": true
+    },
+    {
+      "id": "desc-003",
+      "utility": "DESC",
+      "name": "Bluffton Substation Upgrade",
+      "project_type": null,
+      "planned_start_year": 2028,
+      "planned_end_year": 2029,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -80.86,
+        32.24
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.scrtp.com/document-library.html",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.24,
+      "lng1": -80.86,
+      "lat2": 32.24,
+      "lng2": -80.86,
+      "start_year": 2028,
+      "end_year": 2029,
+      "has_geometry": true
+    },
+    {
+      "id": "desc-004",
+      "utility": "DESC",
+      "name": "Urquhart Station Upgrade (near Augusta)",
+      "project_type": null,
+      "planned_start_year": 2028,
+      "planned_end_year": 2030,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -81.93,
+        33.5
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.scrtp.com/document-library.html",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 33.5,
+      "lng1": -81.93,
+      "lat2": 33.5,
+      "lng2": -81.93,
+      "start_year": 2028,
+      "end_year": 2030,
+      "has_geometry": true
+    },
+    {
+      "id": "desc-005",
+      "utility": "DESC",
+      "name": "Martinez GA Hydro Tie Maintenance",
+      "project_type": null,
+      "planned_start_year": 2026,
+      "planned_end_year": 2027,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -82.07,
+        33.52
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.scrtp.com/document-library.html",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 33.52,
+      "lng1": -82.07,
+      "lat2": 33.52,
+      "lng2": -82.07,
+      "start_year": 2026,
+      "end_year": 2027,
+      "has_geometry": true
+    },
+    {
+      "id": "gpc-001",
+      "utility": "GPC",
+      "name": "Plant McIntosh Expansion",
+      "project_type": null,
+      "planned_start_year": 2027,
+      "planned_end_year": 2028,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -81.24,
+        32.15
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.15,
+      "lng1": -81.24,
+      "lat2": 32.15,
+      "lng2": -81.24,
+      "start_year": 2027,
+      "end_year": 2028,
+      "has_geometry": true
+    },
+    {
+      "id": "gpc-002",
+      "utility": "GPC",
+      "name": "Thomson - Vogtle Transmission Line",
+      "project_type": null,
+      "planned_start_year": 2028,
+      "planned_end_year": 2030,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        [
+          -82.51,
+          33.47
+        ],
+        [
+          -81.76,
+          33.14
+        ]
+      ],
+      "geometry_type": "LineString",
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 33.47,
+      "lng1": -82.51,
+      "lat2": 33.14,
+      "lng2": -81.76,
+      "start_year": 2028,
+      "end_year": 2030,
+      "has_geometry": true
+    },
+    {
+      "id": "gpc-003",
+      "utility": "GPC",
+      "name": "Augusta Area Substation Upgrade",
+      "project_type": null,
+      "planned_start_year": 2029,
+      "planned_end_year": 2030,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -81.97,
+        33.47
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 33.47,
+      "lng1": -81.97,
+      "lat2": 33.47,
+      "lng2": -81.97,
+      "start_year": 2029,
+      "end_year": 2030,
+      "has_geometry": true
+    },
+    {
+      "id": "gpc-004",
+      "utility": "GPC",
+      "name": "Savannah Corridor Reinforcement",
+      "project_type": null,
+      "planned_start_year": 2029,
+      "planned_end_year": 2029,
+      "in_service_year": null,
+      "voltage_kv": [],
+      "geometry": [
+        -81.09,
+        32.08
+      ],
+      "geometry_type": "Point",
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.08,
+      "lng1": -81.09,
+      "lat2": 32.08,
+      "lng2": -81.09,
+      "start_year": 2029,
+      "end_year": 2029,
+      "has_geometry": true
+    },
+    {
+      "id": "gpc-005",
+      "utility": "GPC",
+      "name": "Coastal Georgia 230kV Line",
+      "project_type": null,
+      "planned_start_year": 2026,
+      "planned_end_year": 2027,
+      "in_service_year": null,
+      "voltage_kv": [
+        230
+      ],
+      "geometry": [
+        [
+          -81.09,
+          32.08
+        ],
+        [
+          -81.31,
+          31.93
+        ]
+      ],
+      "geometry_type": "LineString",
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+      "source_page": null,
+      "data_confidence": "LOW",
+      "lat1": 32.08,
+      "lng1": -81.09,
+      "lat2": 31.93,
+      "lng2": -81.31,
+      "start_year": 2026,
+      "end_year": 2027,
+      "has_geometry": true
+    }
+  ],
+  "matches": [
+    {
+      "project_a_id": "desc-002",
+      "project_b_id": "gpc-001",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [
+          115
+        ],
+        "geometry": [
+          [
+            -80.87,
+            32.26
+          ],
+          [
+            -81.24,
+            32.15
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2028,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.24,
+          32.15
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "has_geometry": true
+      },
+      "distance_km": 0.0,
+      "distance_tier": "must_coordinate",
+      "distance_tier_label": "Must coordinate",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 410,
+      "priority_explanation": "Geography first: Must coordinate at 0.00 km (400 pts). Timeline overlaps (+10 pts). Priority score 410 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.15,
+          "lng": -81.24
+        },
+        "b": {
+          "lat": 32.15,
+          "lng": -81.24
+        }
+      },
+      "tier": "touching_crossing",
+      "tier_label": "Must coordinate",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "overlap_years": [
+        2027,
+        2027
+      ],
+      "closest_point_a": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 410,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Must coordinate (0.00 km apart, closest point to closest point).\nBuild windows overlap in 2027-2027.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m001",
+      "est_savings_usd": {
+        "low_usd": 250000,
+        "high_usd": 600000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-004",
+      "project_b_id": "gpc-003",
+      "project_a": {
+        "id": "desc-004",
+        "utility": "DESC",
+        "name": "Urquhart Station Upgrade (near Augusta)",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.93,
+          33.5
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.5,
+        "lng1": -81.93,
+        "lat2": 33.5,
+        "lng2": -81.93,
+        "start_year": 2028,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-003",
+        "utility": "GPC",
+        "name": "Augusta Area Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2029,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.97,
+          33.47
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.47,
+        "lng1": -81.97,
+        "lat2": 33.47,
+        "lng2": -81.97,
+        "start_year": 2029,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "distance_km": 4.99,
+      "distance_tier": "shared_site_logistics",
+      "distance_tier_label": "Shared site logistics potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 210,
+      "priority_explanation": "Geography first: Shared site logistics potential at 4.99 km (200 pts). Timeline overlaps (+10 pts). Priority score 210 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 33.49999999999999,
+          "lng": -81.92999999999999
+        },
+        "b": {
+          "lat": 33.46999999999999,
+          "lng": -81.97
+        }
+      },
+      "tier": "shared_logistics",
+      "tier_label": "Shared site logistics potential",
+      "years_a": [
+        2028,
+        2030
+      ],
+      "years_b": [
+        2029,
+        2030
+      ],
+      "overlap_years": [
+        2029,
+        2030
+      ],
+      "closest_point_a": {
+        "lat": 33.49999999999999,
+        "lng": -81.92999999999999
+      },
+      "closest_point_b": {
+        "lat": 33.46999999999999,
+        "lng": -81.97
+      },
+      "score": 210,
+      "coordination_brief": "DESC \u2013 Urquhart Station Upgrade (near Augusta)  <->  GPC \u2013 Augusta Area Substation Upgrade\nWhy coordinate: Shared site logistics potential (4.99 km apart, closest point to closest point).\nBuild windows overlap in 2029-2030.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m002",
+      "est_savings_usd": {
+        "low_usd": 75000,
+        "high_usd": 200000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-002",
+      "project_b_id": "gpc-005",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [
+          115
+        ],
+        "geometry": [
+          [
+            -80.87,
+            32.26
+          ],
+          [
+            -81.24,
+            32.15
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-005",
+        "utility": "GPC",
+        "name": "Coastal Georgia 230kV Line",
+        "project_type": null,
+        "planned_start_year": 2026,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [
+          230
+        ],
+        "geometry": [
+          [
+            -81.09,
+            32.08
+          ],
+          [
+            -81.31,
+            31.93
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 31.93,
+        "lng2": -81.31,
+        "start_year": 2026,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "distance_km": 12.02,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 110,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 12.02 km (100 pts). Timeline overlaps (+10 pts). Priority score 110 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.18202698483474,
+          "lng": -81.13227286919224
+        },
+        "b": {
+          "lat": 32.08,
+          "lng": -81.09
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2026,
+        2027
+      ],
+      "overlap_years": [
+        2027,
+        2027
+      ],
+      "closest_point_a": {
+        "lat": 32.18202698483474,
+        "lng": -81.13227286919224
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.09
+      },
+      "score": 110,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Coastal Georgia 230kV Line\nWhy coordinate: Shared crews / equipment potential (12.02 km apart, closest point to closest point).\nBuild windows overlap in 2027-2027.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m003",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-003",
+      "project_b_id": "gpc-004",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2029,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -80.86,
+          32.24
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-004",
+        "utility": "GPC",
+        "name": "Savannah Corridor Reinforcement",
+        "project_type": null,
+        "planned_start_year": 2029,
+        "planned_end_year": 2029,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.09,
+          32.08
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 32.08,
+        "lng2": -81.09,
+        "start_year": 2029,
+        "end_year": 2029,
+        "has_geometry": true
+      },
+      "distance_km": 28.02,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 110,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 28.02 km (100 pts). Timeline overlaps (+10 pts). Priority score 110 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.24,
+          "lng": -80.86000000000001
+        },
+        "b": {
+          "lat": 32.08,
+          "lng": -81.08999999999999
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2029,
+        2029
+      ],
+      "overlap_years": [
+        2029,
+        2029
+      ],
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.86000000000001
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.08999999999999
+      },
+      "score": 110,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Savannah Corridor Reinforcement\nWhy coordinate: Shared crews / equipment potential (28.02 km apart, closest point to closest point).\nBuild windows overlap in 2029-2029.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m004",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-004",
+      "project_b_id": "gpc-002",
+      "project_a": {
+        "id": "desc-004",
+        "utility": "DESC",
+        "name": "Urquhart Station Upgrade (near Augusta)",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.93,
+          33.5
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.5,
+        "lng1": -81.93,
+        "lat2": 33.5,
+        "lng2": -81.93,
+        "start_year": 2028,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-002",
+        "utility": "GPC",
+        "name": "Thomson - Vogtle Transmission Line",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          [
+            -82.51,
+            33.47
+          ],
+          [
+            -81.76,
+            33.14
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.47,
+        "lng1": -82.51,
+        "lat2": 33.14,
+        "lng2": -81.76,
+        "start_year": 2028,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "distance_km": 28.06,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 110,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 28.06 km (100 pts). Timeline overlaps (+10 pts). Priority score 110 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 33.49999999999999,
+          "lng": -81.92999999999999
+        },
+        "b": {
+          "lat": 33.27676575901657,
+          "lng": -82.07083127049222
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2028,
+        2030
+      ],
+      "years_b": [
+        2028,
+        2030
+      ],
+      "overlap_years": [
+        2028,
+        2030
+      ],
+      "closest_point_a": {
+        "lat": 33.49999999999999,
+        "lng": -81.92999999999999
+      },
+      "closest_point_b": {
+        "lat": 33.27676575901657,
+        "lng": -82.07083127049222
+      },
+      "score": 110,
+      "coordination_brief": "DESC \u2013 Urquhart Station Upgrade (near Augusta)  <->  GPC \u2013 Thomson - Vogtle Transmission Line\nWhy coordinate: Shared crews / equipment potential (28.06 km apart, closest point to closest point).\nBuild windows overlap in 2028-2030.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m005",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-001",
+      "project_b_id": "gpc-001",
+      "project_a": {
+        "id": "desc-001",
+        "utility": "DESC",
+        "name": "Jasper County 115kV Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2028,
+        "in_service_year": null,
+        "voltage_kv": [
+          115
+        ],
+        "geometry": [
+          -81.15,
+          32.47
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.47,
+        "lng1": -81.15,
+        "lat2": 32.47,
+        "lng2": -81.15,
+        "start_year": 2027,
+        "end_year": 2028,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2028,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.24,
+          32.15
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "has_geometry": true
+      },
+      "distance_km": 36.57,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 110,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 36.57 km (100 pts). Timeline overlaps (+10 pts). Priority score 110 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.47,
+          "lng": -81.15
+        },
+        "b": {
+          "lat": 32.15,
+          "lng": -81.24
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2027,
+        2028
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "overlap_years": [
+        2027,
+        2028
+      ],
+      "closest_point_a": {
+        "lat": 32.47,
+        "lng": -81.15
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 110,
+      "coordination_brief": "DESC \u2013 Jasper County 115kV Substation Upgrade  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Shared crews / equipment potential (36.57 km apart, closest point to closest point).\nBuild windows overlap in 2027-2028.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m006",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-003",
+      "project_b_id": "gpc-001",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2029,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -80.86,
+          32.24
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2028,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.24,
+          32.15
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "has_geometry": true
+      },
+      "distance_km": 37.13,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": true,
+      "timeline_gap_years": 0,
+      "priority_score": 110,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 37.13 km (100 pts). Timeline overlaps (+10 pts). Priority score 110 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.24,
+          "lng": -80.86
+        },
+        "b": {
+          "lat": 32.15,
+          "lng": -81.24
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "overlap_years": [
+        2028,
+        2028
+      ],
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.86
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 110,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Shared crews / equipment potential (37.13 km apart, closest point to closest point).\nBuild windows overlap in 2028-2028.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m007",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-005",
+      "project_b_id": "gpc-003",
+      "project_a": {
+        "id": "desc-005",
+        "utility": "DESC",
+        "name": "Martinez GA Hydro Tie Maintenance",
+        "project_type": null,
+        "planned_start_year": 2026,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -82.07,
+          33.52
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.52,
+        "lng1": -82.07,
+        "lat2": 33.52,
+        "lng2": -82.07,
+        "start_year": 2026,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-003",
+        "utility": "GPC",
+        "name": "Augusta Area Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2029,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.97,
+          33.47
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.47,
+        "lng1": -81.97,
+        "lat2": 33.47,
+        "lng2": -81.97,
+        "start_year": 2029,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "distance_km": 10.81,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": false,
+      "timeline_gap_years": 2,
+      "priority_score": 100,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 10.81 km (100 pts). Timeline gap of 2 year(s) (0 pts). Priority score 100 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 33.52,
+          "lng": -82.07
+        },
+        "b": {
+          "lat": 33.46999999999999,
+          "lng": -81.96999999999998
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2026,
+        2027
+      ],
+      "years_b": [
+        2029,
+        2030
+      ],
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 33.52,
+        "lng": -82.07
+      },
+      "closest_point_b": {
+        "lat": 33.46999999999999,
+        "lng": -81.96999999999998
+      },
+      "score": 100,
+      "coordination_brief": "DESC \u2013 Martinez GA Hydro Tie Maintenance  <->  GPC \u2013 Augusta Area Substation Upgrade\nWhy coordinate: Shared crews / equipment potential (10.81 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap (gap of 2 year(s)). Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m008",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-002",
+      "project_b_id": "gpc-004",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "project_type": null,
+        "planned_start_year": 2027,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [
+          115
+        ],
+        "geometry": [
+          [
+            -80.87,
+            32.26
+          ],
+          [
+            -81.24,
+            32.15
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-004",
+        "utility": "GPC",
+        "name": "Savannah Corridor Reinforcement",
+        "project_type": null,
+        "planned_start_year": 2029,
+        "planned_end_year": 2029,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -81.09,
+          32.08
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 32.08,
+        "lng2": -81.09,
+        "start_year": 2029,
+        "end_year": 2029,
+        "has_geometry": true
+      },
+      "distance_km": 12.02,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": false,
+      "timeline_gap_years": 2,
+      "priority_score": 100,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 12.02 km (100 pts). Timeline gap of 2 year(s) (0 pts). Priority score 100 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.18201266644319,
+          "lng": -81.1323210310547
+        },
+        "b": {
+          "lat": 32.08,
+          "lng": -81.09
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2029,
+        2029
+      ],
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 32.18201266644319,
+        "lng": -81.1323210310547
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.09
+      },
+      "score": 100,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Savannah Corridor Reinforcement\nWhy coordinate: Shared crews / equipment potential (12.02 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap (gap of 2 year(s)). Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m009",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-005",
+      "project_b_id": "gpc-002",
+      "project_a": {
+        "id": "desc-005",
+        "utility": "DESC",
+        "name": "Martinez GA Hydro Tie Maintenance",
+        "project_type": null,
+        "planned_start_year": 2026,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -82.07,
+          33.52
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.52,
+        "lng1": -82.07,
+        "lat2": 33.52,
+        "lng2": -82.07,
+        "start_year": 2026,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-002",
+        "utility": "GPC",
+        "name": "Thomson - Vogtle Transmission Line",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2030,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          [
+            -82.51,
+            33.47
+          ],
+          [
+            -81.76,
+            33.14
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 33.47,
+        "lng1": -82.51,
+        "lat2": 33.14,
+        "lng2": -81.76,
+        "start_year": 2028,
+        "end_year": 2030,
+        "has_geometry": true
+      },
+      "distance_km": 23.96,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": false,
+      "timeline_gap_years": 1,
+      "priority_score": 100,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 23.96 km (100 pts). Timeline gap of 1 year(s) (0 pts). Priority score 100 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 33.52,
+          "lng": -82.07
+        },
+        "b": {
+          "lat": 33.32933362591875,
+          "lng": -82.19030369526989
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2026,
+        2027
+      ],
+      "years_b": [
+        2028,
+        2030
+      ],
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 33.52,
+        "lng": -82.07
+      },
+      "closest_point_b": {
+        "lat": 33.32933362591875,
+        "lng": -82.19030369526989
+      },
+      "score": 100,
+      "coordination_brief": "DESC \u2013 Martinez GA Hydro Tie Maintenance  <->  GPC \u2013 Thomson - Vogtle Transmission Line\nWhy coordinate: Shared crews / equipment potential (23.96 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap (gap of 1 year(s)). Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m010",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "project_a_id": "desc-003",
+      "project_b_id": "gpc-005",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "project_type": null,
+        "planned_start_year": 2028,
+        "planned_end_year": 2029,
+        "in_service_year": null,
+        "voltage_kv": [],
+        "geometry": [
+          -80.86,
+          32.24
+        ],
+        "geometry_type": "Point",
+        "source_url": "https://www.scrtp.com/document-library.html",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "has_geometry": true
+      },
+      "project_b": {
+        "id": "gpc-005",
+        "utility": "GPC",
+        "name": "Coastal Georgia 230kV Line",
+        "project_type": null,
+        "planned_start_year": 2026,
+        "planned_end_year": 2027,
+        "in_service_year": null,
+        "voltage_kv": [
+          230
+        ],
+        "geometry": [
+          [
+            -81.09,
+            32.08
+          ],
+          [
+            -81.31,
+            31.93
+          ]
+        ],
+        "geometry_type": "LineString",
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf",
+        "source_page": null,
+        "data_confidence": "LOW",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 31.93,
+        "lng2": -81.31,
+        "start_year": 2026,
+        "end_year": 2027,
+        "has_geometry": true
+      },
+      "distance_km": 28.04,
+      "distance_tier": "shared_crews_equipment",
+      "distance_tier_label": "Shared crews / equipment potential",
+      "timeline_overlap": false,
+      "timeline_gap_years": 1,
+      "priority_score": 100,
+      "priority_explanation": "Geography first: Shared crews / equipment potential at 28.04 km (100 pts). Timeline gap of 1 year(s) (0 pts). Priority score 100 = geography + timeline.",
+      "closest_points": {
+        "a": {
+          "lat": 32.24,
+          "lng": -80.86
+        },
+        "b": {
+          "lat": 32.08,
+          "lng": -81.09
+        }
+      },
+      "tier": "shared_crews",
+      "tier_label": "Shared crews / equipment potential",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2026,
+        2027
+      ],
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.86
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.09
+      },
+      "score": 100,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Coastal Georgia 230kV Line\nWhy coordinate: Shared crews / equipment potential (28.04 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap (gap of 1 year(s)). Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "match_id": "m011",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    }
+  ]
+}

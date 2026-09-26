@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "description": "Product-facing project record consumed by gridlock-challenge. Produced by gridlock-data-pipeline. Do not invent missing values.",
+  "dataset_file": "data/verified_projects.json",
+  "utility_enum": ["DESC", "GPC"],
+  "geometry_type_enum": ["Point", "LineString", null],
+  "data_confidence_enum": ["HIGH", "MEDIUM", "LOW"],
+  "project": {
+    "id": "string — stable unique id",
+    "utility": "DESC | GPC",
+    "name": "string",
+    "project_type": "string | null",
+    "planned_start_year": "number | null",
+    "planned_end_year": "number | null",
+    "in_service_year": "number | null",
+    "voltage_kv": "number[]",
+    "geometry": "null | [lng, lat] | [[lng, lat], ...] | GeoJSON Point/LineString",
+    "geometry_type": "Point | LineString | null",
+    "source_url": "string | null",
+    "source_page": "number | string | null",
+    "data_confidence": "HIGH | MEDIUM | LOW"
+  },
+  "notes": [
+    "geometry uses GeoJSON axis order: longitude, latitude.",
+    "A Point may be stored as [lng, lat] with geometry_type Point.",
+    "A LineString may be stored as [[lng, lat], ...] with geometry_type LineString.",
+    "If geometry is null, the project is counted but not geographically compared.",
+    "If timing fields are null, timeline overlap is treated as unknown (not true).",
+    "data/projects.json is demo/legacy only and must not be labeled verified."
+  ]
+}
