@@ -1,44 +1,48 @@
 /* Radar-only tokens: the application theme can override these at integration. */
-.radar-scope {
+.radar-scope, .radar-banner {
   --radar-bg: var(--bg, #0b0e14);
   --radar-surface: var(--panel, #131822);
-  --radar-raised: #1a2230;
+  --radar-raised: #1a2233;
+  --radar-hover: #171d29;
   --radar-border: var(--panel-border, #232b3a);
   --radar-text: var(--text, #e7ecf3);
   --radar-muted: var(--text-dim, #8996a8);
   --radar-accent: var(--utility-a, #4fa8e0);
-  --radar-estimated: #abc4ef;
+  --radar-estimated: var(--text-dim, #8996a8);
   --radar-demo: var(--demo, #c9842a);
-  --radar-radius: 10px;
+  --radar-radius: 4px;
+  --radar-font-ui: "IBM Plex Sans", -apple-system, sans-serif;
+  --radar-font-mono: "IBM Plex Mono", monospace;
   --radar-gap: 16px;
   color: var(--radar-text);
+  font-family: var(--radar-font-ui);
 }
 .radar-toolbar { padding: 14px 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--radar-surface); border-bottom: 1px solid var(--radar-border); }
 .radar-title { margin-right: auto; }
 .radar-title strong { display: block; font-size: 16px; }
 .radar-title small, .radar-muted { color: var(--radar-muted); font-size: 11px; }
-.radar-toolbar button, .radar-action { border: 1px solid var(--radar-border); background: var(--radar-bg); color: var(--radar-text); border-radius: 6px; padding: 7px 10px; cursor: pointer; font: inherit; font-size: 11px; }
+.radar-toolbar button, .radar-action { border: 1px solid var(--radar-border); background: var(--radar-bg); color: var(--radar-text); border-radius: var(--radar-radius); padding: 7px 10px; cursor: pointer; font: inherit; font-size: 11px; }
 .radar-toolbar .dataset-toggle button.active { background: var(--radar-raised); box-shadow: inset 0 -2px var(--radar-accent); }
-.radar-toolbar .dataset-toggle button.estimated.active { box-shadow: inset 0 -2px var(--radar-estimated); }
+.radar-toolbar .dataset-toggle button.estimated.active { border-color: var(--radar-estimated); border-style: dashed; box-shadow: inset 0 -2px var(--radar-estimated); }
 .radar-toolbar .dataset-toggle button.demo.active { box-shadow: inset 0 -2px var(--radar-demo); }
 .radar-workspace.layout { height: max(670px, calc(100dvh - 150px)); min-height: 670px; }
 .radar-workspace .sidebar { width: 320px; min-width: 280px; }
 .radar-workspace .stats { gap: 5px; padding: 12px; }
-.radar-workspace .stat { background: var(--radar-bg); border-radius: 6px; }
+.radar-workspace .stat { background: var(--radar-bg); border-radius: var(--radar-radius); }
 .radar-workspace .sidebar h2 { padding: 16px 14px 10px; font-size: 12px; color: var(--radar-text); }
 .radar-workspace .match-item { margin: 0 9px 8px; padding: 13px; border: 1px solid var(--radar-border); border-radius: var(--radar-radius); background: var(--radar-bg); }
-.radar-workspace .match-item:hover { background: var(--radar-raised); border-color: var(--radar-muted); }
+.radar-workspace .match-item:hover { background: var(--radar-hover); border-color: var(--radar-border); }
 .radar-workspace .match-item.selected { border-color: var(--radar-accent); background: var(--radar-raised); box-shadow: inset 3px 0 var(--radar-accent); }
 .radar-scope :focus-visible { outline: 2px solid var(--radar-accent); outline-offset: 3px; }
 .radar-card-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
-.radar-distance { font: 500 21px 'IBM Plex Mono', monospace; letter-spacing: -1px; }
+.radar-distance { font: 500 21px var(--radar-font-mono); letter-spacing: -1px; }
 .radar-distance small { font-size: 11px; letter-spacing: 0; color: var(--radar-muted); }
 .radar-project-name { font-size: 12px; line-height: 1.5; margin: 6px 0; overflow-wrap: anywhere; }
 .radar-utility { font-size: 9px; letter-spacing: .08em; color: var(--utility-a); display: block; }
 .radar-utility.gpc { color: var(--utility-b); }
 .radar-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .radar-chip { font-size: 10px; padding: 3px 6px; border: 1px solid var(--radar-border); border-radius: 4px; color: var(--radar-muted); }
-.radar-chip.estimated { color: var(--radar-estimated); }
+.radar-chip.estimated { color: var(--radar-estimated); border-style: dashed; }
 .radar-chip.demo { color: var(--radar-demo); }
 .radar-inspector.detail-panel { width: 340px; min-width: 300px; max-height: none; border-top: 0; border-left: 1px solid var(--radar-border); padding: 18px; background: var(--radar-surface); }
 .radar-inspector[hidden] { display: none; }
@@ -59,7 +63,7 @@
 .radar-workspace .legend { bottom: 12px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); background: var(--radar-surface); font-size: 10px; padding: 9px 12px; }
 .radar-workspace .legend summary { cursor: pointer; color: var(--radar-text); font-weight: 600; }
 .radar-workspace .leaflet-popup-content-wrapper, .radar-workspace .leaflet-popup-tip { background: var(--radar-surface); color: var(--radar-text); }
-.radar-workspace .leaflet-popup-content { font: 12px/1.6 'IBM Plex Sans', sans-serif; max-height: 260px; overflow: auto; }
+.radar-workspace .leaflet-popup-content { font: 12px/1.6 var(--radar-font-ui); max-height: 260px; overflow: auto; }
 .radar-workspace .leaflet-popup-content a { color: var(--radar-accent); }
 .radar-workspace .leaflet-bar a { background: var(--radar-surface); color: var(--radar-text); border-color: var(--radar-border); }
 .radar-banner.banner.visible { padding: 10px 20px; font-size: 12px; }
@@ -80,3 +84,43 @@
 }
 
 .radar-action:disabled { opacity: .45; cursor: default; }
+
+/* Theme alignment only: preserve layout, data colors, and interaction hooks. */
+.radar-scope button { font-family: var(--radar-font-ui); }
+.radar-card-top .radar-muted,
+.radar-utility,
+.radar-chip,
+.radar-inspector-head h3,
+.radar-inspector [data-radar-schedule] > p,
+.radar-scope .year-readout,
+.radar-scope .stat .n,
+.radar-scope .confidence,
+.radar-scope .timeline-viz .tname,
+.radar-scope .timeline-viz .taxis,
+.radar-scope .scenario-btn,
+.radar-scope code { font-family: var(--radar-font-mono); font-variant-numeric: tabular-nums; }
+.radar-inspector h4, .radar-title strong { font-weight: 600; }
+.radar-inspector-head h3 { font-weight: 500; }
+.radar-toolbar button:hover:not(:disabled),
+.radar-action:hover:not(:disabled),
+.radar-inspector .copy-brief-btn:hover,
+.radar-inspector .scenario-btn:hover { background: var(--radar-hover); }
+.radar-chip.verified { color: var(--radar-text); }
+.radar-inspector .copy-brief-btn,
+.radar-inspector .coord-areas .chip,
+.radar-inspector .savings,
+.radar-inspector .timeline-viz .ttrack,
+.radar-workspace #load-error code { background: var(--radar-bg); border-radius: var(--radar-radius); }
+.radar-workspace .legend,
+.radar-workspace .leaflet-popup-content-wrapper,
+.radar-workspace .leaflet-bar { border: 1px solid var(--radar-border); border-radius: var(--radar-radius); box-shadow: none; }
+.radar-workspace .leaflet-bar a:hover { background: var(--radar-hover); }
+.radar-workspace .leaflet-bar a.leaflet-disabled { color: var(--radar-muted); background: var(--radar-bg); }
+.radar-workspace .leaflet-container a.leaflet-popup-close-button { color: var(--radar-muted); }
+.radar-workspace .leaflet-container a.leaflet-popup-close-button:hover { color: var(--radar-text); }
+.radar-workspace .leaflet-control-attribution { background: var(--radar-surface); color: var(--radar-muted); font-family: var(--radar-font-ui); }
+.radar-workspace .leaflet-control-attribution a { color: var(--radar-accent); }
+.radar-banner.banner { background: var(--radar-surface); color: var(--radar-muted); border-bottom-color: var(--radar-border); }
+.radar-banner.estimated { border-left: 3px dashed var(--radar-estimated); }
+.radar-banner.demo { color: var(--radar-demo); border-left: 3px solid var(--radar-demo); }
+.radar-banner.load-error { color: var(--text); border-left: 3px solid var(--tier-touching); }
