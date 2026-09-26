@@ -7,18 +7,18 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <style>
   :root {
-    --bg: #0b0e14;
-    --panel: #131822;
-    --panel-border: #232b3a;
-    --text: #e7ecf3;
-    --text-dim: #8996a8;
+    --bg: #2F3E46;
+    --panel: #2F3E46;
+    --panel-border: #496268;
+    --text: #F5F7FA;
+    --text-dim: #b6cdce;
     --utility-a: #4fa8e0;
     --utility-b: #e8a33d;
     --tier-touching: #e5484d;
@@ -275,12 +275,390 @@
     .map-wrap { height: 60vh; }
     .stats { grid-template-columns: repeat(3, 1fr); }
   }
+
+  /* Radar and Methodology surfaces; semantic data colors stay unchanged. */
+  .topbar, .sidebar { background:linear-gradient(145deg, #2F3E46 0%, #0F4C5C 100%); }
+  .detail-panel { background:rgba(21,26,35,.3); }
+  .stat, .dataset-toggle button, .methodology-btn,
+  .detail-panel .savings, .copy-brief-btn, .timeline-viz .ttrack,
+  .scenario, .scenario .starget button, .scenario .soffsets button,
+  .coord-areas .chip, #load-error code { background:#263e46; }
+  .match-item:hover { background:rgba(139,196,185,.1); }
+  .match-item.selected { background:rgba(139,196,185,.16); }
+  .legend { background:rgba(47,62,70,.95); }
+  .modal-overlay { background:rgba(14,32,37,.78); backdrop-filter:blur(8px); }
+  .modal { background:linear-gradient(145deg, #2F3E46 0%, #0F4C5C 100%); border-color:#577d80; }
+  .modal-head { background:#2F3E46; }
+  .modal-close { color:#8BC4B9; }
+  .banner.verified-empty { background:#2F3E46; }
+  .banner.estimated { background:#194651; color:#d5e9ed; }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#2F3E46; color:#F5F7FA; }
+  .leaflet-container a.leaflet-popup-close-button { color:#b6cdce; }
+  .leaflet-bar a, .leaflet-bar a:hover { background:#2F3E46; color:#F5F7FA; border-bottom-color:#496268; }
+
+  /* Shared shell and Overview — Person 1 */
+  body { background:#2F3E46; isolation:isolate; }
+  body::before {
+    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(ellipse at 90% 12%, rgba(139,196,185,.46), transparent 48%),
+      radial-gradient(ellipse at 5% 85%, rgba(27,107,122,.8), transparent 55%),
+      radial-gradient(ellipse at 45% 48%, rgba(15,76,92,.2), #2F3E4666 85%),
+      linear-gradient(120deg, #2F3E46 0%, #0F4C5C 38%, #1B6B7A 72%, #8BC4B9 130%);
+  }
+  .ambient-particles { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:-1; }
+  .ambient-particles span {
+    position:absolute; left:var(--x); top:110%; width:var(--size); height:var(--size);
+    border-radius:50%; background:#8BC4B9; opacity:0;
+    animation:particle-drift var(--duration) linear infinite;
+    animation-delay:var(--delay);
+  }
+  @keyframes particle-drift {
+    0% { transform:translate3d(0,0,0); opacity:0; }
+    12% { opacity:.35; }
+    80% { opacity:.22; }
+    100% { transform:translate3d(65px,-125vh,0); opacity:0; }
+  }
+  @media(prefers-reduced-motion:reduce) { .ambient-particles { display:none; } }
+  .site-nav { backdrop-filter:none; }
+  [hidden] { display: none !important; }
+  .site-nav { min-height: 78px; padding: 0 5%; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid #ffffff12; background:transparent; }
+  .brand { border:0; background:none; color:var(--text); display:flex; align-items:center; gap:12px; font:600 18px "IBM Plex Sans",sans-serif; letter-spacing:2px; cursor:pointer; }
+  .brand-symbol { width:29px; height:29px; display:grid; grid-template-columns:repeat(2,1fr); gap:4px; transform:rotate(-8deg); }
+  .brand-symbol i { border:1px solid #F5F7FA; border-radius:2px; }
+  .brand-symbol i:last-child { background:#F5F7FA; }
+  .nav-links { display:flex; align-items:center; gap:28px; }
+  .nav-link { padding:28px 0; border:0; border-bottom:2px solid transparent; background:none; color:#9ba6bb; font:500 13px "IBM Plex Sans",sans-serif; cursor:pointer; }
+  .nav-link:hover,.nav-link.active { color:#F5F7FA; }
+  .nav-link.active { border-bottom-color:#F5F7FA; }
+  .nav-link:disabled { opacity:.45; cursor:default; }
+  .nav-status { color:#aab5c7; font-size:11px; display:flex; align-items:center; gap:8px; }
+  .status-dot { width:6px; height:6px; border-radius:50%; background:#75a99e; }
+  button:focus-visible,a:focus-visible { outline:2px solid #a9d4ed; outline-offset:5px; }
+  .overview { max-width:1440px; margin:0 auto; padding:72px 6% 36px; }
+  .hero { display:grid; grid-template-columns:1.25fr 1fr; align-items:center; gap:50px; min-height:330px; }
+  .eyebrow { font:500 10px "IBM Plex Mono",monospace; letter-spacing:2px; color:#a9b6cc; text-transform:uppercase; }
+  .hero h1 { font-size:clamp(36px,4.3vw,64px); letter-spacing:-2.6px; line-height:1.08; font-weight:500; margin:23px 0; max-width:690px; }
+  .hero h1 span { color:#9aa9bf; }
+  .hero-copy { max-width:470px; color:#aab5c7; font-size:15px; line-height:1.75; margin-bottom:28px; }
+  .primary-action { display:inline-flex; align-items:center; gap:30px; background:#F5F7FA; color:#0F4C5C; border:1px solid #F5F7FA; border-radius:6px; padding:14px 18px; font:600 13px "IBM Plex Sans",sans-serif; cursor:pointer; transition:background .15s,transform .15s; }
+  .primary-action:hover { background:#dce4ee; transform:translateY(-1px); }
+  .hero-footnote { color:#7f8ea8; font-size:11px; margin-top:16px; }
+  .network-card { position:relative; border:1px solid #ffffff12; background:#151A23; border-radius:12px; overflow:hidden; }
+  .network-top { padding:19px 22px; display:flex; justify-content:space-between; color:#bac4d3; font:10px "IBM Plex Mono",monospace; letter-spacing:1px; }
+  .network-card svg { display:block; width:100%; height:230px; }
+  .network-caption { border-top:1px solid #ffffff12; padding:16px 22px; display:flex; align-items:center; justify-content:space-between; gap:15px; color:#8f9eb3; font-size:11px; }
+  .network-caption strong { color:#F5F7FA; font-weight:500; }
+  .overview-metrics { display:grid; grid-template-columns:repeat(4,1fr); margin-top:55px; border:1px solid #ffffff16; border-radius:8px; background:#151A23; }
+  .overview-metric { padding:25px 28px; border-right:1px solid #ffffff12; }
+  .overview-metric:last-child { border:0; }
+  .overview-metric strong { display:block; font-size:34px; font-weight:500; letter-spacing:-1px; font-variant-numeric:tabular-nums; }
+  .overview-metric span { display:block; color:#a9b4c6; margin-top:6px; font-size:12px; }
+  .coverage-note { display:flex; justify-content:space-between; gap:20px; color:#8e9cb3; font-size:11px; margin:15px 0 45px; line-height:1.6; }
+  .coverage-note b { color:#d4dce8; font-weight:500; }
+  .workflow { border-top:1px solid #ffffff14; padding-top:28px; }
+  .workflow-heading { display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
+  .workflow h3 { font-size:20px; font-weight:500; letter-spacing:-.4px; margin:0; }
+  .workflow-heading p { color:#8e9cb3; font-size:12px; }
+  .workflow-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:22px; margin-top:23px; }
+  .workflow-step { position:relative; border-top:1px solid #ffffff22; padding-top:17px; }
+  .workflow-step .step-number { color:#7c8ba5; font:11px "IBM Plex Mono",monospace; }
+  .workflow-step h4 { font-size:13px; font-weight:500; margin:13px 0 7px; }
+  .workflow-step p { color:#8f9eb3; font-size:11px; line-height:1.6; margin:0; }
+  .overview-footer { display:flex; justify-content:space-between; gap:20px; border-top:1px solid #ffffff12; margin-top:37px; padding-top:19px; color:#75849f; font-size:10px; line-height:1.6; }
+  body.radar-view .layout { height:calc(100vh - 135px); }
+  body.radar-view .layout.has-banner { height:calc(100vh - 164px); }
+  @media(min-width:1500px) { .overview { padding-top:95px; } }
+  @media(max-width:1000px) { .nav-status { display:none; } .hero { gap:28px; } .hero h1 { letter-spacing:-1.5px; } .overview { padding-top:45px; } .nav-links { gap:20px; } }
+  @media(max-width:820px) { .site-nav { flex-wrap:wrap; gap:0; padding-top:18px; } .nav-links { width:100%; justify-content:space-between; gap:12px; } .nav-link { padding:19px 0 14px; font-size:12px; } .hero { grid-template-columns:1fr; } .network-card { display:none; } .overview-metrics { margin-top:34px; } .overview-metric { padding:20px 14px; } .overview-metric strong { font-size:28px; } .workflow-heading { display:block; } .workflow-steps { grid-template-columns:repeat(3,1fr); } body.radar-view .layout,body.radar-view .layout.has-banner { height:auto; } }
+  @media(max-width:480px) { .overview { padding:35px 6% 25px; } .hero h1 { font-size:39px; } .overview-metrics { grid-template-columns:repeat(2,1fr); } .overview-metric:nth-child(2) { border-right:0; } .overview-metric:nth-child(-n+2) { border-bottom:1px solid #ffffff12; } .coverage-note,.overview-footer { flex-direction:column; gap:8px; } .workflow-steps { grid-template-columns:repeat(2,1fr); } }
+
+  /* Overview: restrained infrastructure intelligence presentation. */
+  .overview { padding-top:76px; }
+  .hero { grid-template-columns:1.15fr 1fr; gap:64px; }
+  .hero h1 { font-size:clamp(38px,4.2vw,62px); line-height:1.1; letter-spacing:-2.2px; max-width:640px; }
+  .hero h1 span { color:#95a8bd; }
+  .hero .eyebrow { color:#80b4b1; line-height:1.7; }
+  .hero-copy { color:#aab9c9; font-size:16px; }
+  .hero-footnote { color:#8c9eaf; }
+  .brand-symbol { transform:none; }
+  .nav-link.active { border-bottom-color:#80b4b1; }
+  .overview .primary-action { background:#e7eff5; color:#112234; border-color:#e7eff5; border-radius:5px; }
+  .overview .primary-action:hover { background:#cbdde7; transform:none; }
+  .overview .network-card { background:#101e2b; border:1px solid #263a49; border-radius:8px; }
+  .overview .overview-metrics { background:#101c28; border-color:#263543; }
+  .overview-metric strong { font-family:"IBM Plex Mono",monospace; font-size:32px; }
+  .coverage-note { color:#98aabd; }
+  .workflow-step { border-top-color:#34575e; }
+  .workflow-step .step-number { color:#81a9ae; }
+  .workflow-step p { font-size:12px; color:#9dacbd; }
+  .trust-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:45px; padding:30px 0 0; border-top:1px solid #263543; }
+  .trust-grid h3 { font-size:17px; line-height:1.4; font-weight:500; margin:14px 0 10px; }
+  .trust-grid p { color:#9dacbd; font-size:13px; line-height:1.7; margin:0; }
+  .trust-grid .eyebrow { font-size:9px; color:#81a9ae; letter-spacing:1px; }
+  @media(max-width:1000px) { .hero { gap:28px; } }
+  @media(max-width:820px) { .overview { padding-top:40px; } .hero { grid-template-columns:1fr; } .hero h1 { max-width:600px; } .trust-grid { grid-template-columns:1fr; gap:25px; } }
+  @media(prefers-reduced-motion:reduce) { .primary-action { transition:none; } }
+
+  /* Shared slate, teal, and mint landing palette. */
+  .hero h1 span { color:#b7d6d1; }
+  .hero .eyebrow { color:#8BC4B9; }
+  .hero-copy { color:#d2dfdf; }
+  .hero-footnote { color:#afc9c8; }
+  .overview .primary-action { background:#8BC4B9; color:#183b43; border-color:#8BC4B9; }
+  .overview .primary-action:hover { background:#b3d8cf; border-color:#b3d8cf; }
+  .overview .network-card, .overview .overview-metrics { background:rgba(21,35,43,.82); border-color:rgba(139,196,185,.24); }
+  .coverage-note, .workflow-heading p, .workflow-step p, .trust-grid p { color:#bed0d0; }
+  .workflow-step .step-number, .trust-grid .eyebrow { color:#8BC4B9; }
+  .trust-grid, .overview-footer { border-color:rgba(139,196,185,.22); }
+  .overview-footer { color:#acc5c5; }
+
+  .site-nav { border-bottom-color:rgba(139,196,185,.13); }
+  .ambient-network { position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:.6; }
+  .network-links { fill:none; stroke:#8BC4B9; stroke-width:.65; opacity:.3; }
+  .network-nodes { fill:#b4e3d7; opacity:.65; }
+  .network-flow { fill:none; stroke:#d1f4e9; stroke-width:1.6; stroke-linecap:round; stroke-dasharray:2 180; animation:network-flow 18s linear infinite; opacity:.7; }
+  .network-flow.alt { animation-duration:26s; animation-direction:reverse; }
+  @keyframes network-flow { to { stroke-dashoffset:-728; } }
+  @media(max-width:820px) { .ambient-network { opacity:.35; } }
+  @media(prefers-reduced-motion:reduce) { .network-flow { animation:none; display:none; } }
+
+  .overview .workflow { margin-top:64px; padding-top:36px; }
+  .overview .trust-grid { margin-top:60px; padding:36px 0 18px; }
+  .reveal-ready { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; transition-delay:var(--reveal-delay,0ms); }
+  .reveal-ready.is-visible { opacity:1; transform:translateY(0); }
+  .overview-metric { transition:background .25s ease; }
+  .overview-metric:hover { background:rgba(139,196,185,.07); }
+  @media(prefers-reduced-motion:reduce) { .reveal-ready { opacity:1; transform:none; transition:none; } }
+
+  /* Cinematic hero and quieter supporting metrics. */
+  .overview { max-width:1600px; padding-top:52px; }
+  .hero { grid-template-columns:52fr 48fr; gap:28px; min-height:620px; align-items:center; padding:20px 0 52px; }
+  .hero h1 { margin:25px 0 27px; max-width:none; letter-spacing:-3px; line-height:1.04; }
+  .hero h1 .hero-intro { display:block; color:#c1d5d6; font-size:clamp(30px,3.2vw,46px); letter-spacing:-1.5px; font-weight:400; margin-bottom:13px; }
+  .hero h1 .hero-keyword { display:block; color:#F5F7FA; font-size:clamp(45px,5.1vw,78px); font-weight:500; }
+  .hero .hero-copy { font-size:15px; line-height:1.65; max-width:360px; margin:0 0 30px; }
+  .hero .primary-action { padding:16px 23px; font-size:14px; gap:34px; box-shadow:0 8px 28px #071b242b; }
+  .hero .hero-footnote { font-size:10px; margin-top:22px; letter-spacing:.2px; }
+  .overview .hero-network { display:block; background:transparent; border:0; border-radius:0; overflow:visible; }
+  .hero-network .network-top { padding:0 12px; font-size:9px; color:#acc8c9; }
+  .hero-network svg { width:100%; height:auto; max-height:560px; overflow:visible; }
+  .hero-network .network-caption { border:0; padding:0 12px; font-size:9px; color:#b0c8c8; }
+  .hero-signal { fill:none; stroke:#ddfff4; stroke-width:3; stroke-linecap:round; stroke-dasharray:3 220; animation:hero-transmit 13s linear infinite; }
+  .hero-signal.signal-two { animation-duration:17s; animation-delay:-6s; opacity:.65; }
+  .hero-signal.signal-three { animation-duration:20s; animation-delay:-9s; opacity:.5; }
+  .hero-pulse { transform-origin:248px 253px; animation:hero-pulse 4s ease-out infinite; }
+  @keyframes hero-transmit { to { stroke-dashoffset:-892; } }
+  @keyframes hero-pulse { 0% { transform:scale(.6); opacity:.7; } 100% { transform:scale(1.7); opacity:0; } }
+  .overview .overview-metrics { margin-top:8px; background:transparent; border:0; border-top:1px solid #8BC4B930; border-bottom:1px solid #8BC4B930; border-radius:0; }
+  .overview-metric { padding:22px 24px; border-right:0; }
+  .overview-metric strong { font-size:25px; font-weight:400; }
+  .overview-metric span { font-size:11px; color:#b8ccce; }
+  .coverage-note { font-size:10px; }
+  @media(max-width:1000px) { .hero { min-height:530px; gap:14px; } .hero h1 .hero-keyword { font-size:clamp(39px,5.1vw,60px); letter-spacing:-2px; } .hero .eyebrow { font-size:9px; letter-spacing:1.2px; } }
+  @media(max-width:820px) { .hero { grid-template-columns:1fr; padding-bottom:30px; } .hero h1 .hero-keyword { font-size:clamp(40px,8.5vw,68px); } .hero-network { width:100%; max-width:580px; margin:20px auto 0; } .hero-network svg { max-height:430px; } }
+  @media(max-width:480px) { .overview { padding-top:35px; } .hero h1 .hero-keyword { font-size:clamp(34px,9.8vw,47px); letter-spacing:-1.6px; } .hero-network .network-caption { flex-wrap:wrap; } .hero .primary-action { gap:20px; } }
+  @media(prefers-reduced-motion:reduce) { .hero-signal,.hero-pulse { animation:none; } .hero-pulse { opacity:.3; } }
+
+  /* Stronger typography and more prominent navigation. */
+  body { font-weight:500; }
+  .site-nav { min-height:90px; gap:22px; }
+  .brand { font-size:24px; font-weight:700; gap:14px; letter-spacing:2.2px; }
+  .brand-symbol { width:36px; height:36px; gap:5px; }
+  .brand-symbol i { border-width:1.5px; }
+  .nav-links { gap:30px; }
+  .nav-link { font-size:16px; font-weight:600; padding:32px 0; }
+  .nav-status { font-size:11px; font-weight:600; }
+  .hero h1 .hero-keyword { font-weight:700; letter-spacing:-2.5px; }
+  .hero h1 .hero-intro { font-weight:600; }
+  .hero .hero-copy { font-weight:500; }
+  .hero .primary-action { font-weight:700; }
+  .eyebrow, .hero .eyebrow, .hero-footnote { font-weight:600; }
+  .overview-metric strong { font-weight:500; }
+  .overview-metric span, .coverage-note, .workflow-step p, .trust-grid p { font-weight:500; }
+  .workflow h3, .workflow-step h4, .trust-grid h3 { font-weight:600; }
+  .topbar h1, .match-item .pair, .modal-head h3 { font-weight:700; }
+  .dataset-toggle button, .methodology-btn, .copy-brief-btn,
+  .scenario .starget button, .scenario .soffsets button { font-weight:600; }
+  body.radar-view .layout { height:calc(100vh - 147px); }
+  body.radar-view .layout.has-banner { height:calc(100vh - 176px); }
+  @media(max-width:1180px) { .nav-status { display:none; } .nav-links { gap:24px; } }
+  @media(max-width:820px) {
+    .site-nav { gap:0; min-height:90px; }
+    .brand { font-size:23px; }
+    .nav-links { gap:12px; }
+    .nav-link { font-size:14px; padding:20px 0 16px; }
+    body.radar-view .layout, body.radar-view .layout.has-banner { height:auto; }
+  }
+  @media(max-width:480px) {
+    .nav-link { font-size:12px; }
+    .nav-links { gap:8px; }
+    .hero h1 .hero-keyword { letter-spacing:-1.6px; }
+  }
+
+  /* Flowing headline accent within the infrastructure palette. */
+  .hero h1 .hero-keyword {
+    color:#bce6de;
+    background-image:linear-gradient(110deg, #9edfff 0%, #b6a4ff 18%, #f5a6d5 36%, #ffd49b 54%, #bce99e 72%, #91e4d6 86%, #9edfff 100%);
+    background-size:250% 100%;
+    animation:headline-color-flow 7s linear infinite;
+  }
+  @supports ((background-clip:text) or (-webkit-background-clip:text)) {
+    .hero h1 .hero-keyword { background-clip:text; -webkit-background-clip:text; color:transparent; }
+  }
+  @keyframes headline-color-flow { from { background-position:0% 50%; } to { background-position:166.6667% 50%; } }
+  @media(prefers-reduced-motion:reduce) { .hero h1 .hero-keyword { animation:none; background-position:50% 50%; } }
+  @media(forced-colors:active) { .hero h1 .hero-keyword { background:none; color:CanvasText; animation:none; } }
+
+  /* Primary launch action and clear headline introduction. */
+  .hero h1 .hero-intro { color:#FFFFFF; }
+  .overview .hero .primary-action {
+    font-size:18px; font-weight:700; padding:20px 28px; gap:36px;
+    color:#102f39; border:1px solid #bce5dc; border-radius:7px;
+    background:linear-gradient(110deg, #c5eadf 0%, #8BC4B9 25%, #a4cee7 50%, #8BC4B9 75%, #c5eadf 100%);
+    background-size:250% 100%;
+    animation:launch-gradient-flow 6s linear infinite;
+    box-shadow:0 8px 26px rgba(7,27,36,.22);
+  }
+  .overview .hero .primary-action:hover {
+    color:#102f39; border-color:#F5F7FA;
+    box-shadow:0 10px 30px rgba(7,27,36,.3);
+  }
+  @keyframes launch-gradient-flow { from { background-position:0% 50%; } to { background-position:166.6667% 50%; } }
+  @media(max-width:480px) {
+    .overview .hero .primary-action { font-size:16px; padding:18px 20px; gap:18px; max-width:100%; }
+  }
+  @media(prefers-reduced-motion:reduce) { .overview .hero .primary-action { animation:none; } }
+  @media(forced-colors:active) { .overview .hero .primary-action { background:ButtonFace; color:ButtonText; border-color:ButtonText; animation:none; } }
+
+  /* Larger hero headline, scaled to remain within its column. */
+  .hero h1 { margin:28px 0 32px; line-height:1.02; }
+  .hero h1 .hero-intro {
+    font-size:clamp(42px,4.2vw,62px); font-weight:700;
+    letter-spacing:-1.8px; margin-bottom:16px;
+  }
+  .hero h1 .hero-keyword {
+    font-size:clamp(50px,5.9vw,88px); font-weight:700;
+    letter-spacing:-3.2px; line-height:1.06;
+  }
+  @media(max-width:1000px) and (min-width:821px) {
+    .hero h1 .hero-intro { font-size:42px; }
+    .hero h1 .hero-keyword { font-size:5.65vw; letter-spacing:-2.6px; }
+  }
+  @media(max-width:820px) {
+    .hero h1 .hero-intro { font-size:clamp(40px,7vw,58px); }
+    .hero h1 .hero-keyword { font-size:clamp(46px,10.1vw,82px); letter-spacing:-2.5px; }
+  }
+  @media(max-width:480px) {
+    .hero h1 .hero-intro { font-size:clamp(34px,9vw,43px); }
+    .hero h1 .hero-keyword { font-size:10.1vw; letter-spacing:-1.5px; }
+  }
 </style>
 <link rel="stylesheet" href="radar.css" />
 </head>
 <body>
+<svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g class="network-links">
+    <path d="M-30 200L110 90L270 155L375 40L540 110L700 30M110 90L155 325L270 155L420 285L540 110M155 325L-20 440M420 285L570 390"/>
+    <path d="M960 20L1070 155L1240 85L1385 190L1490 65M1070 155L1000 345L1180 290L1240 85M1180 290L1370 400L1385 190M1370 400L1460 550"/>
+    <path d="M-20 700L170 610L300 745L455 635L590 815L760 735M170 610L130 865L300 745L335 940M455 635L500 470M760 735L950 820L1120 690L1290 800L1470 670M1120 690L1190 490L1370 400M1290 800L1360 940"/>
+  </g>
+  <g class="network-nodes">
+<circle cx="110" cy="90" r="2.6"/><circle cx="270" cy="155" r="2.6"/><circle cx="375" cy="40" r="2.6"/><circle cx="540" cy="110" r="2.6"/><circle cx="155" cy="325" r="2.6"/><circle cx="420" cy="285" r="2.6"/><circle cx="1070" cy="155" r="2.6"/><circle cx="1240" cy="85" r="2.6"/><circle cx="1385" cy="190" r="2.6"/><circle cx="1000" cy="345" r="2.6"/><circle cx="1180" cy="290" r="2.6"/><circle cx="1370" cy="400" r="2.6"/><circle cx="170" cy="610" r="2.6"/><circle cx="300" cy="745" r="2.6"/><circle cx="455" cy="635" r="2.6"/><circle cx="590" cy="815" r="2.6"/><circle cx="760" cy="735" r="2.6"/><circle cx="950" cy="820" r="2.6"/><circle cx="1120" cy="690" r="2.6"/><circle cx="1290" cy="800" r="2.6"/><circle cx="1190" cy="490" r="2.6"/>
+  </g>
+  <path class="network-flow" d="M-30 200L110 90L270 155L420 285L540 110L700 30M960 20L1070 155L1000 345L1180 290L1370 400L1460 550"/>
+  <path class="network-flow alt" d="M-20 700L170 610L300 745L455 635L590 815L760 735L950 820L1120 690L1290 800L1470 670"/>
+<g class="network-links"><path d="M20 380L170 470L310 390L470 520L630 445L810 530L985 440L1135 560L1320 495L1460 590"/><path d="M75 30L190 210L350 240L510 175L675 260L820 150L970 245L1130 180L1280 340L1435 275"/><path d="M25 850L210 790L385 865L560 740L730 860L900 700L1060 875L1240 730L1420 845"/></g><g class="network-nodes"><circle cx="20" cy="380" r="2.2"/><circle cx="170" cy="470" r="2.2"/><circle cx="310" cy="390" r="2.2"/><circle cx="470" cy="520" r="2.2"/><circle cx="630" cy="445" r="2.2"/><circle cx="810" cy="530" r="2.2"/><circle cx="985" cy="440" r="2.2"/><circle cx="1135" cy="560" r="2.2"/><circle cx="1320" cy="495" r="2.2"/><circle cx="1460" cy="590" r="2.2"/><circle cx="75" cy="30" r="2.2"/><circle cx="190" cy="210" r="2.2"/><circle cx="350" cy="240" r="2.2"/><circle cx="510" cy="175" r="2.2"/><circle cx="675" cy="260" r="2.2"/><circle cx="820" cy="150" r="2.2"/><circle cx="970" cy="245" r="2.2"/><circle cx="1130" cy="180" r="2.2"/><circle cx="1280" cy="340" r="2.2"/><circle cx="1435" cy="275" r="2.2"/><circle cx="25" cy="850" r="2.2"/><circle cx="210" cy="790" r="2.2"/><circle cx="385" cy="865" r="2.2"/><circle cx="560" cy="740" r="2.2"/><circle cx="730" cy="860" r="2.2"/><circle cx="900" cy="700" r="2.2"/><circle cx="1060" cy="875" r="2.2"/><circle cx="1240" cy="730" r="2.2"/><circle cx="1420" cy="845" r="2.2"/></g><path class="network-flow " style="animation-delay:-0s" d="M20 380L170 470L310 390L470 520L630 445L810 530L985 440L1135 560L1320 495L1460 590"/><path class="network-flow alt" style="animation-delay:-6s" d="M75 30L190 210L350 240L510 175L675 260L820 150L970 245L1130 180L1280 340L1435 275"/><path class="network-flow " style="animation-delay:-12s" d="M25 850L210 790L385 865L560 740L730 860L900 700L1060 875L1240 730L1420 845"/></svg>
 
-<div class="topbar">
+<div class="ambient-particles" aria-hidden="true">
+  <span style="--x:4%;--size:2px;--duration:24s;--delay:-3s"></span>
+  <span style="--x:11%;--size:3px;--duration:27s;--delay:-10s"></span>
+  <span style="--x:19%;--size:2px;--duration:30s;--delay:-17s"></span>
+  <span style="--x:26%;--size:3px;--duration:33s;--delay:-24s"></span>
+  <span style="--x:34%;--size:2px;--duration:36s;--delay:-31s"></span>
+  <span style="--x:42%;--size:3px;--duration:39s;--delay:-38s"></span>
+  <span style="--x:49%;--size:2px;--duration:42s;--delay:-45s"></span>
+  <span style="--x:57%;--size:3px;--duration:24s;--delay:-52s"></span>
+  <span style="--x:63%;--size:2px;--duration:27s;--delay:-59s"></span>
+  <span style="--x:70%;--size:3px;--duration:30s;--delay:-66s"></span>
+  <span style="--x:77%;--size:2px;--duration:33s;--delay:-73s"></span>
+  <span style="--x:84%;--size:3px;--duration:36s;--delay:-80s"></span>
+  <span style="--x:91%;--size:2px;--duration:39s;--delay:-87s"></span>
+  <span style="--x:96%;--size:3px;--duration:42s;--delay:-94s"></span>
+</div>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <button class="brand" data-view="overview" aria-label="GridLock overview"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span>GRIDLOCK</button>
+  <div class="nav-links">
+    <button class="nav-link active" data-view="overview" aria-current="page">Overview</button>
+    <button class="nav-link" data-view="radar">Coordination Radar</button>
+    <button class="nav-link" disabled title="Project Explorer is coming soon">Projects</button>
+    <button class="nav-link" id="navMethodology">Methodology</button>
+  </div>
+  <div class="nav-status"><span class="status-dot"></span>PUBLIC-SOURCE INTELLIGENCE</div>
+</nav>
+<main id="overviewPage" class="overview">
+  <section class="hero" aria-labelledby="heroTitle">
+    <div>
+      <div class="eyebrow">Cross-utility infrastructure intelligence</div>
+      <h1 id="heroTitle"><span class="hero-intro">Discover</span><span class="hero-keyword">coordination</span><span class="hero-keyword">opportunities.</span></h1>
+      <p class="hero-copy">Public utility plans transformed into actionable transmission intelligence.</p>
+      <button class="primary-action" data-view="radar">Launch Coordination Radar <span aria-hidden="true">↗</span></button>
+      <p class="hero-footnote">Verified GIS • Public Evidence • Human Decisions</p>
+    </div>
+    <div class="network-card hero-network" aria-label="Animated illustration of cross-utility coordination">
+      <div class="network-top"><span>CROSS-UTILITY NETWORK</span><span>SC / GA</span></div>
+      <svg viewBox="0 0 600 520" role="img" aria-label="Illustrative utility networks connected through a coordination opportunity; not actual project geography">
+        <defs>
+          <radialGradient id="networkHalo"><stop stop-color="#8BC4B9" stop-opacity=".14"/><stop offset="1" stop-color="#8BC4B9" stop-opacity="0"/></radialGradient>
+          <pattern id="heroGrid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#8BC4B9" opacity=".22"/></pattern>
+        </defs>
+        <rect width="600" height="520" fill="url(#heroGrid)"/>
+        <circle cx="300" cy="255" r="245" fill="url(#networkHalo)"/>
+        <g class="hero-orbits" fill="none" stroke="#8BC4B9" stroke-opacity=".09"><circle cx="300" cy="255" r="115"/><circle cx="300" cy="255" r="205"/></g>
+        <g class="hero-network-lines" fill="none" stroke="#8BC4B9" stroke-width="1.2" stroke-opacity=".4">
+          <path d="M45 180L125 105L225 140L248 253L150 300L60 365L110 435L230 395L248 253M125 105L150 300L45 180M150 300L230 395L340 440L395 340L248 253L365 205L455 105L545 160L490 275L555 370L465 435L395 340L490 275L365 205L345 80L225 140M365 205L395 340M455 105L490 275M60 365L230 395M340 440L465 435"/>
+        </g>
+        <path class="hero-signal" d="M45 180L125 105L225 140L248 253L395 340L490 275L545 160"/>
+        <path class="hero-signal signal-two" d="M110 435L230 395L248 253L365 205L455 105L545 160"/>
+        <path class="hero-signal signal-three" d="M345 80L365 205L490 275L555 370L465 435L340 440L230 395"/>
+        <g fill="#b4d8d2" stroke="#0F4C5C" stroke-width="4">
+<circle cx="45" cy="180" r="5"/><circle cx="125" cy="105" r="5"/><circle cx="225" cy="140" r="5"/><circle cx="150" cy="300" r="5"/><circle cx="60" cy="365" r="5"/><circle cx="110" cy="435" r="5"/><circle cx="230" cy="395" r="5"/><circle cx="340" cy="440" r="5"/><circle cx="395" cy="340" r="5"/><circle cx="365" cy="205" r="5"/><circle cx="455" cy="105" r="5"/><circle cx="545" cy="160" r="5"/><circle cx="490" cy="275" r="5"/><circle cx="555" cy="370" r="5"/><circle cx="465" cy="435" r="5"/><circle cx="345" cy="80" r="5"/>
+        </g>
+        <circle class="hero-pulse" cx="248" cy="253" r="25" fill="none" stroke="#bce7dc" stroke-width="1"/>
+        <circle cx="248" cy="253" r="10" fill="#e3f5ef"/>
+        <circle cx="248" cy="253" r="4" fill="#0F4C5C"/>
+        <g fill="#bbd2d5" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="2"><text x="93" y="73">DESC</text><text x="407" y="477">GEORGIA POWER</text></g>
+        <g><rect x="276" y="242" width="154" height="26" rx="4" fill="#173e49" stroke="#8BC4B9" stroke-opacity=".3"/><text x="289" y="259" fill="#e1efed" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1">SHARED OPPORTUNITY</text></g>
+      </svg>
+      <div class="network-caption"><span>Independent plans. Connected possibilities.</span><span>Illustrative network</span></div>
+    </div>
+  </section>
+  <section class="overview-metrics" aria-label="Verified dataset metrics" aria-live="polite">
+    <div class="overview-metric"><strong id="ovTotal">—</strong><span>Verified projects</span></div>
+    <div class="overview-metric"><strong id="ovDesc">—</strong><span>Dominion Energy SC</span></div>
+    <div class="overview-metric"><strong id="ovGpc">—</strong><span>Georgia Power</span></div>
+    <div class="overview-metric"><strong id="ovMapped">—</strong><span>Verified mapped</span></div>
+  </section>
+  <div class="coverage-note"><span id="overviewCoverage" role="status">Loading verified coverage…</span><span>VERIFIED DATASET · SC / GA</span></div>
+  <section class="workflow" aria-labelledby="workflowTitle">
+    <div class="workflow-heading"><h3 id="workflowTitle">From plans to opportunities.</h3></div>
+    <div class="workflow-steps">
+      <div class="workflow-step"><span class="step-number">01 / SOURCE</span><h4>Public sources</h4><p>Public utility plans.</p></div>
+      <div class="workflow-step"><span class="step-number">02 / STRUCTURE</span><h4>Normalize</h4><p>One consistent format.</p></div>
+      <div class="workflow-step"><span class="step-number">03 / LOCATE</span><h4>Map</h4><p>Evidence-backed geography.</p></div>
+      <div class="workflow-step"><span class="step-number">04 / COMPARE</span><h4>GIS analysis</h4><p>Compare distance and timing.</p></div>
+      <div class="workflow-step"><span class="step-number">05 / INVESTIGATE</span><h4>Coordination opportunities</h4><p>Ready for human review.</p></div>
+    </div>
+  </section>
+  <section class="trust-grid" aria-label="Analysis principles">
+    <article><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Precise proximity.</h3><p>Closest-point distance. Clear timelines.</p></article>
+    <article><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Traceable evidence.</h3><p>Sources, methods, and confidence in view.</p></article>
+    <article><span class="eyebrow">03 / CLEAR BOUNDARIES</span><h3>Transparent confidence.</h3><p>Verified, estimated, and demo. Always distinct.</p></article>
+  </section>
+  <footer class="overview-footer"><span>GRIDLOCK / SHELLHACKS 2026</span><span>Public-source evidence · Deterministic spatial analysis · Human review</span></footer>
+</main>
+<div class="topbar" id="radarToolbar" hidden>
   <div>
     <h1>Gridlock — Coordination Radar</h1>
     <div class="subtitle">Flagging where DESC and Georgia Power's planned projects overlap</div>
@@ -332,7 +710,7 @@
   </div>
 </div>
 
-<div class="layout" id="layout">
+<div class="layout" id="layout" hidden>
   <aside class="sidebar">
     <div class="stats" id="stats"></div>
     <h2 id="listHeading">Ranked coordination opportunities</h2>
@@ -1202,6 +1580,67 @@ function applyYearFilter() {
     }
   });
 }
+
+// Shared navigation and verified Overview metrics. Source records are read-only.
+let activeView = 'overview';
+function showView(view) {
+  activeView = view;
+  const radar = view === 'radar';
+  document.getElementById('overviewPage').hidden = radar;
+  document.getElementById('radarToolbar').hidden = !radar;
+  document.getElementById('layout').hidden = !radar;
+  document.getElementById('dataBanner').hidden = !radar;
+  document.body.classList.toggle('radar-view', radar);
+  document.querySelectorAll('.nav-link[data-view]').forEach(button => {
+    const selected = button.dataset.view === view;
+    button.classList.toggle('active', selected);
+    if (selected) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+  if (radar) requestAnimationFrame(() => {
+    map.invalidateSize();
+    if (selectedMatchId) selectMatch(selectedMatchId);
+  });
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));
+document.getElementById('navMethodology').addEventListener('click', openMethodology);
+showView('overview');
+fetch(DATASETS.verified.url)
+  .then(response => { if (!response.ok) throw new Error('Verified data unavailable'); return response.json(); })
+  .then(data => {
+    const summary = summaryOf(data);
+    const values = { ovTotal: summary.total_projects, ovDesc: summary.desc_projects, ovGpc: summary.gpc_projects,
+      ovMapped: summary.projects_with_geometry ?? (summary.projects_without_geometry != null ? summary.total_projects - summary.projects_without_geometry : null) };
+    Object.entries(values).forEach(([id, value]) => { document.getElementById(id).textContent = value == null ? '—' : Number(value).toLocaleString(); });
+    const possible = summary.desc_projects * summary.gpc_projects;
+    document.getElementById('overviewCoverage').textContent = `${possible.toLocaleString()} possible cross-utility pairs · ${summary.pairs_checked.toLocaleString()} evaluable · ${summary.pairs_within_40km.toLocaleString()} verified opportunities under 40 km`;
+  })
+  .catch(() => { document.getElementById('overviewCoverage').textContent = 'Verified metrics are unavailable. Open the Radar to check the dataset status.'; });
+
+</script>
+<script>
+(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const elements = document.querySelectorAll('.overview-metrics, .workflow-heading, .workflow-step, .trust-grid article');
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting));
+  }, { threshold: 0.12 });
+  function configureReveals() {
+    observer.disconnect();
+    elements.forEach((element, index) => {
+      element.classList.remove('reveal-ready', 'is-visible');
+      if (!reducedMotion.matches) {
+        element.style.setProperty('--reveal-delay', `${(index % 3) * 70}ms`);
+        element.classList.add('reveal-ready');
+        observer.observe(element);
+      }
+    });
+  }
+  configureReveals();
+  reducedMotion.addEventListener('change', configureReveals);
+})();
 </script>
 <script src="radar.js"></script>
 </body>
