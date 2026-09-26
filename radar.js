@@ -20,6 +20,39 @@
   banner.before(toolbar);
   const list = document.getElementById('matchList');
   list.setAttribute('aria-label', 'Ranked coordination opportunities');
+  const yearSummary = document.createElement('p');
+  yearSummary.className = 'radar-year-summary';
+  yearSummary.setAttribute('role', 'status');
+  yearSummary.hidden = true;
+  document.getElementById('listHeading').after(yearSummary);
+  function updateYearLabels() {
+    list.querySelectorAll('.radar-year-group').forEach(label => label.remove());
+    yearSummary.hidden = true;
+    yearSummary.textContent = '';
+    if (!analysis || document.getElementById('yearControl').classList.contains('hidden')) return;
+    const cards = Array.from(list.querySelectorAll('.match-item'));
+    // Read the existing filter's output; do not define year relevance again.
+    const relevant = cards.filter(card => !card.classList.contains('hidden-by-year'));
+    const other = cards.filter(card => card.classList.contains('hidden-by-year'));
+    const year = document.getElementById('yearSlider').value;
+    yearSummary.textContent = `${relevant.length} relevant to ${year}`;
+    yearSummary.hidden = false;
+    // When every card is relevant, the summary is sufficient.
+    if (!other.length) return;
+    const labelBefore = (card, text) => {
+      const label = document.createElement('h3');
+      label.className = 'radar-year-group';
+      label.textContent = text;
+      card.before(label);
+    };
+    labelBefore(other[0], `Other opportunities (${other.length})`);
+  }
+  const originalYearFilter = applyYearFilter;
+  applyYearFilter = function() {
+    originalYearFilter();
+    updateYearLabels();
+  };
+
   const legend = document.querySelector('.legend');
   legend.innerHTML = '<details open><summary>Map key</summary>' + legend.innerHTML + '<div class="row">Dashed routes: estimated geometry</div></details>';
   const actions = document.createElement('div');
@@ -100,13 +133,13 @@
     banner.classList.add('radar-banner');
     document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
     if (currentDataset === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only.';
-    list.querySelectorAll('.match-item').forEach((el, index) => {
+    list.querySelectorAll('.match-item').forEach(el => {
       const m = analysis.matches.find(m => m.match_id === el.dataset.matchId);
       if (!m) return;
       el.tabIndex = 0;
       el.setAttribute('role', 'button');
       el.setAttribute('aria-pressed', String(m.match_id === selectedMatchId));
-      el.innerHTML = `<div class="radar-card-top"><span class="radar-muted">${String(index + 1).padStart(2, '0')} · OPPORTUNITY</span><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div>${projectTitle(m.project_a)}${projectTitle(m.project_b)}<div class="radar-chips"><span class="radar-chip">${e(m.distance_tier_label || m.tier_label)}</span></div>${statusChips(m)}<div class="radar-chips">${[m.project_a,m.project_b].map(p => `<span class="radar-chip">${e(p.utility)} · ${e(geometryStatus(p))} · ${e(p.geometry_confidence || 'confidence unknown')}</span>`).join('')}</div>`;
+      el.innerHTML = `<div class="radar-card-top"><span class="radar-muted">${String(analysis.matches.indexOf(m) + 1).padStart(2, '0')} · OPPORTUNITY</span><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div>${projectTitle(m.project_a)}${projectTitle(m.project_b)}<div class="radar-chips"><span class="radar-chip">${e(m.distance_tier_label || m.tier_label)}</span></div>${statusChips(m)}<div class="radar-chips">${[m.project_a,m.project_b].map(p => `<span class="radar-chip">${e(p.utility)} · ${e(geometryStatus(p))} · ${e(p.geometry_confidence || 'confidence unknown')}</span>`).join('')}</div>`;
       el.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectMatch(m.match_id); } });
     });
     projectsOf(analysis).forEach(p => {
@@ -139,6 +172,8 @@
   });
   document.getElementById('radarFocus').addEventListener('click', () => { if (selectedMatchId) selectMatch(selectedMatchId); });
   window.radarLoading = function(name) {
+    yearSummary.hidden = true;
+    yearSummary.textContent = '';
     document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.id === {verified: 'btnVerified', estimated: 'btnEstimated', demo: 'btnDemo'}[name])));
     selection.clearLayers();
     clearMap();
@@ -158,6 +193,7 @@
   renderLoadErrorState = function(name, err) {
     workspace.removeAttribute('aria-busy');
     originalError(name, err);
+    updateYearLabels();
     if (name === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only. ' + banner.textContent;
     banner.classList.add('radar-banner');
     const retry = document.createElement('button');

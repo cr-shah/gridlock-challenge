@@ -569,7 +569,7 @@
     background-position:0 0,40px 70px;
     animation:methodology-particles 24s linear infinite;
   }
-  #methodologyOverlay .modal-head { background:rgba(224,240,236,.93); border-color:#91bcb6; color:#15363d; }
+  #methodologyOverlay .modal-head { z-index:1; background:rgb(224,240,236); border-color:#91bcb6; color:#15363d; }
   #methodologyOverlay .modal-body { color:#20434a; font-size:14px; }
   #methodologyOverlay .modal-body b { color:#10323a; }
   #methodologyOverlay .modal-close { color:#174852; }
@@ -1295,7 +1295,7 @@ function render() {
   const listEl = document.getElementById('matchList');
   listEl.innerHTML = '';
   document.getElementById('listHeading').textContent =
-    `Ranked coordination opportunities (${analysis.match_count ?? matches.length})`;
+    `Ranked coordination opportunities (${analysis.match_count ?? matches.length} total)`;
 
   if (!matches.length) {
     listEl.innerHTML = `<div class="empty-list">${noMatchesMessage(summary, isDemo, isEmpty)}</div>`;
@@ -1626,6 +1626,8 @@ function applyYearFilter() {
   const slider = document.getElementById('yearSlider');
   if (document.getElementById('yearControl').classList.contains('hidden')) return;
   const year = parseInt(slider.value, 10);
+  const relevant = [], other = [];
+  const focusedCard = document.activeElement;
 
   (analysis.matches || []).forEach(m => {
     try {
@@ -1645,11 +1647,19 @@ function applyYearFilter() {
       if (line) line.setStyle({ opacity: visible ? 0.85 : 0.08 });
 
       const item = document.querySelector(`.match-item[data-match-id="${m.match_id}"]`);
-      if (item) item.classList.toggle('hidden-by-year', !visible);
+      if (item) {
+        item.classList.toggle('hidden-by-year', !visible);
+        (visible ? relevant : other).push(item);
+      }
     } catch (err) {
       console.warn('Skipped year-filter update for a malformed match:', err, m);
     }
   });
+  // Move existing cards only; analysis order, IDs, and event handlers stay intact.
+  const list = document.getElementById('matchList');
+  const ordered = relevant.concat(other);
+  ordered.forEach(item => list.appendChild(item));
+  if (ordered.includes(focusedCard)) focusedCard.focus({ preventScroll: true });
 }
 
 // Shared navigation and verified Overview metrics. Source records are read-only.

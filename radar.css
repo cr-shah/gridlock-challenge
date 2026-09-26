@@ -219,3 +219,7 @@ body:not(.radar-view) .radar-toolbar { display:none; }
 @media(max-width:480px) {
   .radar-title h1 { font-size:32px; letter-spacing:-1px; }
 }
+
+/* Clarify dataset totals versus the existing viewing-year filter. */
+.radar-year-summary { margin:0; padding:0 14px 10px; color:var(--radar-muted); font:12px/1.5 var(--radar-font-mono); }
+.radar-year-group { margin:0; padding:12px 14px 8px; color:var(--radar-muted); font:500 11px/1.5 var(--radar-font-mono); text-transform:uppercase; letter-spacing:.04em; }
