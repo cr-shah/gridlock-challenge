@@ -758,11 +758,16 @@ function render() {
       }
       if (p.geometry_notes) geomBits.push(escapeHtml(p.geometry_notes));
       const geom = geomBits.length ? `<br>${geomBits.join('<br>')}` : '';
-      marker.bindPopup(`<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}${geom}`);
+      const popupHtml = `<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}${geom}`;
+      marker.bindPopup(popupHtml);
       projectMarkers.set(p.id, marker);
       pts.forEach(pt => bounds.push(pt));
       if (pts.length > 1) {
-        L.polyline(pts, { color, weight: 2, opacity: 0.6 }).addTo(drawnLayers);
+        const hit = L.polyline(pts, { color, weight: 14, opacity: 0 }).addTo(drawnLayers);
+        hit.bindPopup(popupHtml);
+        const route = L.polyline(pts, { color, weight: 3, opacity: 0.75 }).addTo(drawnLayers);
+        route.bindPopup(popupHtml);
+        marker.bringToFront();
       }
     } catch (err) {
       console.warn('Skipped a project with malformed geometry:', err, p);
