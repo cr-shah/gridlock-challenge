@@ -1,0 +1,66 @@
+/* Shared typography scale across GridLock pages. */
+:root {
+  --type-page:clamp(38px,4.6vw,64px);
+  --type-section:28px;
+  --type-card:21px;
+  --type-body:17px;
+  --type-label:14px;
+  --type-small:13px;
+}
+body, body.project-explorer { font-size:var(--type-body); font-weight:500; }
+.hero h1 .hero-keyword, .radar-title h1, .project-explorer .pe-heading h1 {
+  font-family:"IBM Plex Sans",sans-serif; font-size:var(--type-page); font-weight:700;
+  line-height:1.1; letter-spacing:-1.8px;
+}
+.hero h1 .hero-intro { font-size:clamp(30px,3vw,42px); font-weight:700; }
+.hero .hero-copy, .radar-title small, .project-explorer .pe-subtitle {
+  font-size:var(--type-body); font-weight:500; line-height:1.6;
+}
+.overview .workflow h3, .overview .trust-grid h3,
+.project-explorer .pe-detail-intro h3 { font-size:var(--type-section); font-weight:700; line-height:1.3; letter-spacing:-.5px; }
+.overview .workflow-step h4, .project-explorer .pe-section-head h2,
+.project-explorer .pe-card-name, .radar-inspector h3 { font-size:var(--type-card); font-weight:700; line-height:1.4; }
+.overview .workflow-step p, .overview .trust-grid p,
+.project-explorer .pe-fact, .project-explorer .pe-note, .project-explorer .pe-state p,
+.radar-inspector p, .radar-inspector dd, #methodologyOverlay .modal-body {
+  font-size:var(--type-body); font-weight:500; line-height:1.6;
+}
+.overview .coverage-note, .overview .overview-footer,
+.overview .workflow-step .step-number, .overview .trust-grid .eyebrow,
+.hero .eyebrow, .project-explorer .pe-eyebrow,
+.project-explorer .pe-section-head .pe-eyebrow,
+.project-explorer label, .project-explorer .pe-card-meta, .project-explorer .pe-card-timing,
+.radar-title .radar-muted, .radar-toolbar .year-control label,
+.radar-toolbar .dataset-toggle, .radar-inspector dt, .radar-inspector h4 {
+  font-size:var(--type-label); font-weight:600; line-height:1.5;
+}
+.hero .hero-footnote, .project-explorer .pe-filter-notes,
+.project-explorer .pe-chip, .radar-chip, .radar-muted,
+#methodologyOverlay .trust-note { font-size:var(--type-small); font-weight:500; line-height:1.5; }
+.radar-project-name { font-size:var(--type-body); font-weight:600; line-height:1.5; }
+.project-explorer .pe-metric strong { font-size:clamp(36px,3.5vw,48px); font-weight:700; }
+.project-explorer .pe-metric span, .overview .overview-metric span { font-size:var(--type-label); font-weight:600; }
+.overview .workflow-steps { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.overview .trust-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media(max-width:1000px) { .overview .trust-grid { grid-template-columns:1fr; } }
+@media(max-width:820px) { .overview .workflow-steps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:560px) {
+  :root { --type-page:clamp(32px,8.8vw,44px); --type-section:25px; --type-card:20px; --type-body:16px; }
+  .hero h1 .hero-keyword, .radar-title h1, .project-explorer .pe-heading h1 { letter-spacing:-1px; }
+  .overview .workflow-steps { grid-template-columns:1fr; }
+}
+
+/* Identical title sizing across all three views, including narrow screens. */
+.overview .hero h1 .hero-keyword,
+body .radar-title h1,
+body.project-explorer .pe-heading h1 {
+  font-size:var(--type-page);
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:-1.8px;
+}
+@media(max-width:560px) {
+  .overview .hero h1 .hero-keyword,
+  body .radar-title h1,
+  body.project-explorer .pe-heading h1 { letter-spacing:-1px; }
+}

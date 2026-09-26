@@ -8,8 +8,12 @@
   workspace.append(inspector);
   const toolbar = document.createElement('div');
   toolbar.className = 'radar-scope radar-toolbar';
-  toolbar.innerHTML = '<div class="radar-title"><strong>Coordination Radar</strong><small>Cross-utility opportunities · geography first</small></div>';
-  toolbar.append(document.querySelector('.dataset-toggle'), document.getElementById('yearControl'));
+  toolbar.innerHTML = '<div class="radar-title"><h1>Coordination Radar</h1><small>Cross-utility opportunities · geography first</small></div>';
+  const toolbarTools = document.createElement('div');
+  toolbarTools.className = 'radar-toolbar-tools';
+  toolbarTools.append(document.getElementById('yearControl'));
+  toolbar.append(document.querySelector('.dataset-toggle'), toolbarTools);
+  document.getElementById('radarToolbar').classList.add('radar-legacy-toolbar');
   const banner = document.getElementById('dataBanner');
   banner.classList.add('radar-banner');
   banner.setAttribute('role', 'status');

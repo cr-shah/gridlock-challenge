@@ -124,3 +124,98 @@
 .radar-banner.estimated { border-left: 3px dashed var(--radar-estimated); }
 .radar-banner.demo { color: var(--radar-demo); border-left: 3px solid var(--radar-demo); }
 .radar-banner.load-error { color: var(--text); border-left: 3px solid var(--tier-touching); }
+
+/* One shared Radar heading; preserve all existing controls. */
+.radar-legacy-toolbar { display:none !important; }
+body:not(.radar-view) .radar-toolbar { display:none; }
+.radar-toolbar { padding:28px 5%; background:transparent; }
+.radar-title h1 {
+  margin:0 0 8px; font-size:clamp(34px,4.3vw,62px); font-weight:700;
+  letter-spacing:-1.8px; line-height:1.15; color:#bce6de;
+}
+.radar-title small { display:block; font-size:12px; }
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+  .radar-title h1 {
+    background-image:linear-gradient(110deg,#9edfff 0%,#b6a4ff 18%,#f5a6d5 36%,#ffd49b 54%,#bce99e 72%,#91e4d6 86%,#9edfff 100%);
+    background-size:250% 100%; background-clip:text; -webkit-background-clip:text;
+    color:transparent; animation:radar-title-flow 7s linear infinite;
+  }
+}
+@keyframes radar-title-flow { from { background-position:0% 50%; } to { background-position:166.6667% 50%; } }
+@media(max-width:480px) { .radar-title h1 { font-size:32px; letter-spacing:-1px; } }
+@media(prefers-reduced-motion:reduce) { .radar-title h1 { animation:none; } }
+@media(forced-colors:active) { .radar-title h1 { background:none; color:CanvasText; animation:none; } }
+
+/* Compact header: methodology directly above the year control. */
+.radar-toolbar { display:grid; grid-template-columns:minmax(220px,1fr) auto minmax(230px,280px); gap:14px 22px; padding:14px 4%; align-items:center; }
+.radar-title { min-width:0; margin-right:0; }
+.radar-title h1 { font-size:clamp(28px,3vw,42px); margin-bottom:5px; letter-spacing:-1.2px; }
+.radar-title small { font-size:11px; }
+.radar-toolbar-tools { display:flex; flex-direction:column; align-items:flex-end; gap:9px; min-width:0; }
+.radar-toolbar-tools .year-control { width:100%; min-width:0; gap:8px; }
+.radar-toolbar .dataset-toggle { flex-wrap:wrap; gap:6px; max-width:310px; }
+@media(max-width:1050px) {
+  .radar-toolbar { grid-template-columns:minmax(0,1fr) minmax(230px,280px); }
+  .radar-toolbar > .dataset-toggle { grid-column:1; grid-row:2; max-width:none; }
+  .radar-toolbar-tools { grid-column:2; grid-row:1 / span 2; }
+}
+@media(max-width:560px) {
+  .radar-toolbar { grid-template-columns:1fr; gap:12px; }
+  .radar-toolbar > .dataset-toggle, .radar-toolbar-tools { grid-column:auto; grid-row:auto; }
+  .radar-toolbar-tools { align-items:flex-start; }
+  .radar-toolbar-tools .year-control { max-width:360px; }
+}
+
+/* Match Project Explorer headline scale. */
+.radar-title h1 { font-size:clamp(40px,5.2vw,72px); font-weight:700; letter-spacing:-2px; line-height:1.12; padding-bottom:4px; }
+.radar-toolbar { grid-template-columns:minmax(0,1fr) auto; }
+.radar-toolbar > .dataset-toggle { grid-column:2; grid-row:1; }
+.radar-toolbar-tools { grid-column:2; grid-row:2; }
+.radar-title { grid-row:1 / span 2; }
+@media(max-width:820px) {
+  .radar-toolbar { grid-template-columns:1fr; }
+  .radar-title, .radar-toolbar > .dataset-toggle, .radar-toolbar-tools { grid-column:1; grid-row:auto; }
+  .radar-toolbar-tools { align-items:flex-start; }
+}
+@media(max-width:480px) { .radar-title h1 { font-size:clamp(34px,9vw,43px); letter-spacing:-1.3px; } }
+
+/* Larger dataset and timeline controls. */
+.radar-toolbar .dataset-toggle { font-size:15px; font-weight:600; gap:9px; max-width:none; }
+.radar-toolbar .dataset-toggle button { font-size:15px; font-weight:700; padding:10px 14px; min-height:42px; }
+.radar-toolbar .year-control { gap:12px; }
+.radar-toolbar .year-control label { font-size:15px; font-weight:600; }
+.radar-toolbar .year-readout { font-size:22px; font-weight:700; min-width:56px; }
+.radar-toolbar .year-control input[type="range"] { min-width:80px; height:24px; }
+@media(max-width:1100px) {
+  .radar-toolbar { grid-template-columns:1fr; }
+  .radar-title, .radar-toolbar > .dataset-toggle, .radar-toolbar-tools { grid-column:1; grid-row:auto; }
+  .radar-toolbar-tools { align-items:flex-start; }
+  .radar-toolbar-tools .year-control { width:100%; max-width:390px; }
+}
+@media(max-width:480px) {
+  .radar-toolbar .dataset-toggle { gap:7px; }
+  .radar-toolbar .dataset-toggle button { font-size:14px; padding:9px 11px; }
+}
+
+/* Match the Project Explorer subtitle and align with the Radar title. */
+.radar-title small {
+  display:block;
+  font-size:17px;
+  font-weight:500;
+  line-height:1.5;
+  margin:0;
+  padding:0;
+  text-align:left;
+}
+
+/* Compact Radar heading to prioritize the map. */
+.radar-title h1 {
+  font-size:clamp(34px,4vw,54px);
+  letter-spacing:-1.5px;
+  margin-bottom:4px;
+  padding-bottom:0;
+}
+.radar-toolbar { padding-top:10px; padding-bottom:10px; row-gap:10px; }
+@media(max-width:480px) {
+  .radar-title h1 { font-size:32px; letter-spacing:-1px; }
+}

@@ -6,15 +6,54 @@
   <title>Project Explorer — GridLock</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="project-explorer.css">
   <script type="module" src="project-explorer.js"></script>
+  <link rel="stylesheet" href="shared-background.css">
+<link rel="stylesheet" href="shared-typography.css">
 </head>
 <body class="project-explorer">
+<svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g class="network-links">
+    <path d="M-30 200L110 90L270 155L375 40L540 110L700 30M110 90L155 325L270 155L420 285L540 110M155 325L-20 440M420 285L570 390"/>
+    <path d="M960 20L1070 155L1240 85L1385 190L1490 65M1070 155L1000 345L1180 290L1240 85M1180 290L1370 400L1385 190M1370 400L1460 550"/>
+    <path d="M-20 700L170 610L300 745L455 635L590 815L760 735M170 610L130 865L300 745L335 940M455 635L500 470M760 735L950 820L1120 690L1290 800L1470 670M1120 690L1190 490L1370 400M1290 800L1360 940"/>
+  </g>
+  <g class="network-nodes">
+<circle cx="110" cy="90" r="2.6"/><circle cx="270" cy="155" r="2.6"/><circle cx="375" cy="40" r="2.6"/><circle cx="540" cy="110" r="2.6"/><circle cx="155" cy="325" r="2.6"/><circle cx="420" cy="285" r="2.6"/><circle cx="1070" cy="155" r="2.6"/><circle cx="1240" cy="85" r="2.6"/><circle cx="1385" cy="190" r="2.6"/><circle cx="1000" cy="345" r="2.6"/><circle cx="1180" cy="290" r="2.6"/><circle cx="1370" cy="400" r="2.6"/><circle cx="170" cy="610" r="2.6"/><circle cx="300" cy="745" r="2.6"/><circle cx="455" cy="635" r="2.6"/><circle cx="590" cy="815" r="2.6"/><circle cx="760" cy="735" r="2.6"/><circle cx="950" cy="820" r="2.6"/><circle cx="1120" cy="690" r="2.6"/><circle cx="1290" cy="800" r="2.6"/><circle cx="1190" cy="490" r="2.6"/>
+  </g>
+  <path class="network-flow" d="M-30 200L110 90L270 155L420 285L540 110L700 30M960 20L1070 155L1000 345L1180 290L1370 400L1460 550"/>
+  <path class="network-flow alt" d="M-20 700L170 610L300 745L455 635L590 815L760 735L950 820L1120 690L1290 800L1470 670"/>
+<g class="network-links"><path d="M20 380L170 470L310 390L470 520L630 445L810 530L985 440L1135 560L1320 495L1460 590"/><path d="M75 30L190 210L350 240L510 175L675 260L820 150L970 245L1130 180L1280 340L1435 275"/><path d="M25 850L210 790L385 865L560 740L730 860L900 700L1060 875L1240 730L1420 845"/></g><g class="network-nodes"><circle cx="20" cy="380" r="2.2"/><circle cx="170" cy="470" r="2.2"/><circle cx="310" cy="390" r="2.2"/><circle cx="470" cy="520" r="2.2"/><circle cx="630" cy="445" r="2.2"/><circle cx="810" cy="530" r="2.2"/><circle cx="985" cy="440" r="2.2"/><circle cx="1135" cy="560" r="2.2"/><circle cx="1320" cy="495" r="2.2"/><circle cx="1460" cy="590" r="2.2"/><circle cx="75" cy="30" r="2.2"/><circle cx="190" cy="210" r="2.2"/><circle cx="350" cy="240" r="2.2"/><circle cx="510" cy="175" r="2.2"/><circle cx="675" cy="260" r="2.2"/><circle cx="820" cy="150" r="2.2"/><circle cx="970" cy="245" r="2.2"/><circle cx="1130" cy="180" r="2.2"/><circle cx="1280" cy="340" r="2.2"/><circle cx="1435" cy="275" r="2.2"/><circle cx="25" cy="850" r="2.2"/><circle cx="210" cy="790" r="2.2"/><circle cx="385" cy="865" r="2.2"/><circle cx="560" cy="740" r="2.2"/><circle cx="730" cy="860" r="2.2"/><circle cx="900" cy="700" r="2.2"/><circle cx="1060" cy="875" r="2.2"/><circle cx="1240" cy="730" r="2.2"/><circle cx="1420" cy="845" r="2.2"/></g><path class="network-flow " style="animation-delay:-0s" d="M20 380L170 470L310 390L470 520L630 445L810 530L985 440L1135 560L1320 495L1460 590"/><path class="network-flow alt" style="animation-delay:-6s" d="M75 30L190 210L350 240L510 175L675 260L820 150L970 245L1130 180L1280 340L1435 275"/><path class="network-flow " style="animation-delay:-12s" d="M25 850L210 790L385 865L560 740L730 860L900 700L1060 875L1240 730L1420 845"/></svg>
+
+<div class="ambient-particles" aria-hidden="true">
+  <span style="--x:4%;--size:2px;--duration:24s;--delay:-3s"></span>
+  <span style="--x:11%;--size:3px;--duration:27s;--delay:-10s"></span>
+  <span style="--x:19%;--size:2px;--duration:30s;--delay:-17s"></span>
+  <span style="--x:26%;--size:3px;--duration:33s;--delay:-24s"></span>
+  <span style="--x:34%;--size:2px;--duration:36s;--delay:-31s"></span>
+  <span style="--x:42%;--size:3px;--duration:39s;--delay:-38s"></span>
+  <span style="--x:49%;--size:2px;--duration:42s;--delay:-45s"></span>
+  <span style="--x:57%;--size:3px;--duration:24s;--delay:-52s"></span>
+  <span style="--x:63%;--size:2px;--duration:27s;--delay:-59s"></span>
+  <span style="--x:70%;--size:3px;--duration:30s;--delay:-66s"></span>
+  <span style="--x:77%;--size:2px;--duration:33s;--delay:-73s"></span>
+  <span style="--x:84%;--size:3px;--duration:36s;--delay:-80s"></span>
+  <span style="--x:91%;--size:2px;--duration:39s;--delay:-87s"></span>
+  <span style="--x:96%;--size:3px;--duration:42s;--delay:-94s"></span>
+</div>
+
+
   <a class="pe-skip" href="#pe-results">Skip to projects</a>
   <header class="pe-header">
-    <a class="pe-brand" href="index.html" aria-label="GridLock Coordination Radar"><span class="pe-brand-mark" aria-hidden="true">▦</span> GridLock <span class="pe-brand-sub">INFRASTRUCTURE INTELLIGENCE</span></a>
-    <a class="pe-back" href="index.html">← Coordination Radar</a>
+    <a class="pe-brand" href="./index.html" aria-label="GridLock overview"><span class="pe-grid-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>GRIDLOCK</a>
+    <nav class="pe-nav" aria-label="Main navigation">
+      <a href="./index.html">Overview</a>
+      <a href="./index.html#radar">Coordination Radar</a>
+      <a href="./project-explorer.html" aria-current="page">Projects</a>
+      <a href="./index.html#methodology">Methodology</a>
+    </nav>
+    <span class="pe-nav-status"><i aria-hidden="true"></i>PUBLIC-SOURCE INTELLIGENCE</span>
   </header>
   <main class="pe-main">
     <div class="pe-heading"><div><p class="pe-eyebrow">PROJECT CATALOG</p><h1>Project Explorer</h1><p class="pe-subtitle">Explore planned transmission projects across DESC and Georgia Power.</p></div><span class="pe-catalog-label">Canonical project records</span></div>

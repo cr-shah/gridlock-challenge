@@ -1,0 +1,31 @@
+  body { background:#2F3E46; isolation:isolate; }
+  body::before {
+    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(ellipse at 90% 12%, rgba(139,196,185,.46), transparent 48%),
+      radial-gradient(ellipse at 5% 85%, rgba(27,107,122,.8), transparent 55%),
+      radial-gradient(ellipse at 45% 48%, rgba(15,76,92,.2), #2F3E4666 85%),
+      linear-gradient(120deg, #2F3E46 0%, #0F4C5C 38%, #1B6B7A 72%, #8BC4B9 130%);
+  }
+  .ambient-particles { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:-1; }
+  .ambient-particles span {
+    position:absolute; left:var(--x); top:110%; width:var(--size); height:var(--size);
+    border-radius:50%; background:#8BC4B9; opacity:0;
+    animation:particle-drift var(--duration) linear infinite;
+    animation-delay:var(--delay);
+  }
+  @keyframes particle-drift {
+    0% { transform:translate3d(0,0,0); opacity:0; }
+    12% { opacity:.35; }
+    80% { opacity:.22; }
+    100% { transform:translate3d(65px,-125vh,0); opacity:0; }
+  }
+  @media(prefers-reduced-motion:reduce) { .ambient-particles { display:none; } }
+  .ambient-network { position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:.6; }
+  .network-links { fill:none; stroke:#8BC4B9; stroke-width:.65; opacity:.3; }
+  .network-nodes { fill:#b4e3d7; opacity:.65; }
+  .network-flow { fill:none; stroke:#d1f4e9; stroke-width:1.6; stroke-linecap:round; stroke-dasharray:2 180; animation:network-flow 18s linear infinite; opacity:.7; }
+  .network-flow.alt { animation-duration:26s; animation-direction:reverse; }
+  @keyframes network-flow { to { stroke-dashoffset:-728; } }
+  @media(max-width:820px) { .ambient-network { opacity:.35; } }
+  @media(prefers-reduced-motion:reduce) { .network-flow { animation:none; display:none; } }

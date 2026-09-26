@@ -328,7 +328,7 @@
   .brand-symbol i { border:1px solid #F5F7FA; border-radius:2px; }
   .brand-symbol i:last-child { background:#F5F7FA; }
   .nav-links { display:flex; align-items:center; gap:28px; }
-  .nav-link { padding:28px 0; border:0; border-bottom:2px solid transparent; background:none; color:#9ba6bb; font:500 13px "IBM Plex Sans",sans-serif; cursor:pointer; }
+  .nav-link { text-decoration:none; padding:28px 0; border:0; border-bottom:2px solid transparent; background:none; color:#9ba6bb; font:500 13px "IBM Plex Sans",sans-serif; cursor:pointer; }
   .nav-link:hover,.nav-link.active { color:#F5F7FA; }
   .nav-link.active { border-bottom-color:#F5F7FA; }
   .nav-link:disabled { opacity:.45; cursor:default; }
@@ -553,8 +553,88 @@
     .hero h1 .hero-intro { font-size:clamp(34px,9vw,43px); }
     .hero h1 .hero-keyword { font-size:10.1vw; letter-spacing:-1.5px; }
   }
+  .site-nav .brand { padding:0; }
+
+  /* A lighter, readable Methodology surface with ambient motion. */
+  #methodologyOverlay .modal {
+    position:relative; isolation:isolate;
+    background:linear-gradient(135deg,#e0f0ec 0%,#c2e0da 48%,#99c8c5 100%);
+    color:#183940; border-color:#b3d9d2;
+    box-shadow:0 24px 80px rgba(4,24,30,.35);
+  }
+  #methodologyOverlay .modal::before {
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background-image:radial-gradient(circle,#1B6B7A55 1.5px,transparent 2px),radial-gradient(circle,#ffffffaa 2px,transparent 2.5px);
+    background-size:87px 103px,139px 157px;
+    background-position:0 0,40px 70px;
+    animation:methodology-particles 24s linear infinite;
+  }
+  #methodologyOverlay .modal-head { background:rgba(224,240,236,.93); border-color:#91bcb6; color:#15363d; }
+  #methodologyOverlay .modal-body { color:#20434a; font-size:14px; }
+  #methodologyOverlay .modal-body b { color:#10323a; }
+  #methodologyOverlay .modal-close { color:#174852; }
+  #methodologyOverlay .modal-close:hover { color:#071f26; }
+  #methodologyOverlay .trust-note { color:#385d63; border-color:#91bcb6; font-size:12px; }
+  @keyframes methodology-particles {
+    from { background-position:0 0,40px 70px; }
+    to { background-position:87px -103px,179px -87px; }
+  }
+  @media(prefers-reduced-motion:reduce) { #methodologyOverlay .modal::before { animation:none; } }
+
+  .overview .overview-metric { padding:28px 24px; }
+  /* Prominent landing-page metrics. */
+  .overview .overview-metric strong {
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:clamp(80px,8vw,110px);
+    font-weight:700;
+    line-height:1.1;
+    letter-spacing:-1.5px;
+  }
+  .overview .overview-metric span { font-size:13px; font-weight:600; margin-top:9px; }
+  @media(max-width:480px) { .overview .overview-metric strong { font-size:72px; } }
+
+  /* Cool-spectrum metric animation, distinct from the rainbow headline. */
+  @supports ((background-clip:text) or (-webkit-background-clip:text)) {
+    .overview .overview-metric strong {
+      background-image:linear-gradient(110deg,#F5F7FA 0%,#a6ddff 25%,#66d7ce 50%,#c5f3ec 75%,#F5F7FA 100%);
+      background-size:250% 100%;
+      background-clip:text; -webkit-background-clip:text; color:transparent;
+      animation:metric-color-flow 8s linear infinite;
+    }
+  }
+  @keyframes metric-color-flow { from { background-position:0% 50%; } to { background-position:166.6667% 50%; } }
+  @media(prefers-reduced-motion:reduce) { .overview .overview-metric strong { animation:none; } }
+  @media(forced-colors:active) { .overview .overview-metric strong { background:none; color:CanvasText; animation:none; } }
+
+  /* Larger supporting content with layouts sized for readable typography. */
+  .overview .coverage-note { font-size:20px; font-weight:600; line-height:1.6; flex-wrap:wrap; gap:12px 28px; margin:24px 0 56px; }
+  .overview .coverage-note > span { min-width:0; }
+  .overview .workflow h3 { font-size:40px; font-weight:700; line-height:1.2; letter-spacing:-1px; }
+  .overview .workflow-steps { grid-template-columns:repeat(3,minmax(0,1fr)); gap:36px; margin-top:36px; }
+  .overview .workflow-step { padding-top:24px; }
+  .overview .workflow-step .step-number { font-size:20px; font-weight:500; line-height:1.5; }
+  .overview .workflow-step h4 { font-size:26px; font-weight:700; line-height:1.3; margin:16px 0 12px; }
+  .overview .workflow-step p { font-size:23px; font-weight:600; line-height:1.5; }
+  .overview .trust-grid { gap:36px; padding-top:40px; }
+  .overview .trust-grid .eyebrow { font-size:18px; font-weight:500; line-height:1.6; letter-spacing:1px; }
+  .overview .trust-grid h3 { font-size:32px; font-weight:700; line-height:1.25; margin:18px 0 16px; }
+  .overview .trust-grid p { font-size:24px; font-weight:600; line-height:1.5; }
+  .overview .overview-footer { font-size:20px; font-weight:600; line-height:1.6; flex-wrap:wrap; gap:18px 30px; padding-top:28px; margin-top:48px; }
+  @media(max-width:1000px) {
+    .overview .workflow-steps { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .overview .trust-grid { grid-template-columns:1fr; }
+  }
+  @media(max-width:560px) {
+    .overview .workflow-steps { grid-template-columns:1fr; gap:30px; }
+    .overview .workflow h3 { font-size:34px; }
+    .overview .coverage-note, .overview .overview-footer { font-size:18px; }
+    .overview .trust-grid h3 { font-size:29px; }
+    .overview .workflow-step p, .overview .trust-grid p { font-size:21px; }
+  }
 </style>
 <link rel="stylesheet" href="radar.css" />
+<link rel="stylesheet" href="shared-background.css">
+<link rel="stylesheet" href="shared-typography.css">
 </head>
 <body>
 <svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -592,7 +672,7 @@
   <div class="nav-links">
     <button class="nav-link active" data-view="overview" aria-current="page">Overview</button>
     <button class="nav-link" data-view="radar">Coordination Radar</button>
-    <button class="nav-link" disabled title="Project Explorer is coming soon">Projects</button>
+    <a class="nav-link" href="./project-explorer.html">Projects</a>
     <button class="nav-link" id="navMethodology">Methodology</button>
   </div>
   <div class="nav-status"><span class="status-dot"></span>PUBLIC-SOURCE INTELLIGENCE</div>
@@ -659,15 +739,7 @@
   <footer class="overview-footer"><span>GRIDLOCK / SHELLHACKS 2026</span><span>Public-source evidence · Deterministic spatial analysis · Human review</span></footer>
 </main>
 <div class="topbar" id="radarToolbar" hidden>
-  <div>
-    <h1>Gridlock — Coordination Radar</h1>
-    <div class="subtitle">Flagging where DESC and Georgia Power's planned projects overlap</div>
-  </div>
   <div class="topbar-right">
-    <button id="btnMethodology" class="methodology-btn" type="button"
-      title="AI may assist with extraction and explanation; geographic overlap is verified with deterministic GIS calculations.">
-      How Gridlock works ⓘ
-    </button>
     <div class="dataset-toggle">
       <span>Dataset</span>
       <button id="btnVerified" class="active" type="button">Verified</button>
@@ -867,7 +939,6 @@ document.getElementById('btnDemo').addEventListener('click', () => loadDataset('
 const methodologyOverlay = document.getElementById('methodologyOverlay');
 function openMethodology() { methodologyOverlay.classList.add('visible'); }
 function closeMethodology() { methodologyOverlay.classList.remove('visible'); }
-document.getElementById('btnMethodology').addEventListener('click', openMethodology);
 document.getElementById('btnCloseMethodology').addEventListener('click', closeMethodology);
 methodologyOverlay.addEventListener('click', (e) => { if (e.target === methodologyOverlay) closeMethodology(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMethodology(); });
@@ -1605,7 +1676,13 @@ function showView(view) {
 }
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));
 document.getElementById('navMethodology').addEventListener('click', openMethodology);
-showView('overview');
+function openLinkedView() {
+  if (window.location.hash === '#radar') { closeMethodology(); showView('radar'); }
+  else if (window.location.hash === '#methodology') { showView('overview'); openMethodology(); }
+  else { showView('overview'); }
+}
+openLinkedView();
+window.addEventListener('hashchange', openLinkedView);
 fetch(DATASETS.verified.url)
   .then(response => { if (!response.ok) throw new Error('Verified data unavailable'); return response.json(); })
   .then(data => {
