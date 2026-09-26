@@ -1,0 +1,95 @@
+{
+  "_note": "SEED / PLACEHOLDER DATA. Coordinates below are approximate town/plant locations for demo purposes only — replace with verified coordinates pulled from SCRTP/SERTP source PDFs before final submission. Point projects repeat lat1/lng1 as lat2/lng2 (a zero-length line), so the scoring engine can treat every project as a line segment uniformly.",
+  "projects": [
+    {
+      "id": "desc-001",
+      "utility": "DESC",
+      "name": "Jasper County 115kV Substation Upgrade",
+      "lat1": 32.47, "lng1": -81.15,
+      "lat2": 32.47, "lng2": -81.15,
+      "start_year": 2027, "end_year": 2028,
+      "source_url": "https://www.scrtp.com/document-library.html"
+    },
+    {
+      "id": "desc-002",
+      "utility": "DESC",
+      "name": "Okatie - McIntosh 115kV Tie Reactor",
+      "lat1": 32.26, "lng1": -80.87,
+      "lat2": 32.15, "lng2": -81.24,
+      "start_year": 2027, "end_year": 2027,
+      "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf"
+    },
+    {
+      "id": "desc-003",
+      "utility": "DESC",
+      "name": "Bluffton Substation Upgrade",
+      "lat1": 32.24, "lng1": -80.86,
+      "lat2": 32.24, "lng2": -80.86,
+      "start_year": 2028, "end_year": 2029,
+      "source_url": "https://www.scrtp.com/document-library.html"
+    },
+    {
+      "id": "desc-004",
+      "utility": "DESC",
+      "name": "Urquhart Station Upgrade (near Augusta)",
+      "lat1": 33.50, "lng1": -81.93,
+      "lat2": 33.50, "lng2": -81.93,
+      "start_year": 2028, "end_year": 2030,
+      "source_url": "https://www.scrtp.com/document-library.html"
+    },
+    {
+      "id": "desc-005",
+      "utility": "DESC",
+      "name": "Martinez GA Hydro Tie Maintenance",
+      "lat1": 33.52, "lng1": -82.07,
+      "lat2": 33.52, "lng2": -82.07,
+      "start_year": 2026, "end_year": 2027,
+      "source_url": "https://www.scrtp.com/document-library.html"
+    },
+    {
+      "id": "gpc-001",
+      "utility": "GPC",
+      "name": "Plant McIntosh Expansion",
+      "lat1": 32.15, "lng1": -81.24,
+      "lat2": 32.15, "lng2": -81.24,
+      "start_year": 2027, "end_year": 2028,
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+    },
+    {
+      "id": "gpc-002",
+      "utility": "GPC",
+      "name": "Thomson - Vogtle Transmission Line",
+      "lat1": 33.47, "lng1": -82.51,
+      "lat2": 33.14, "lng2": -81.76,
+      "start_year": 2028, "end_year": 2030,
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+    },
+    {
+      "id": "gpc-003",
+      "utility": "GPC",
+      "name": "Augusta Area Substation Upgrade",
+      "lat1": 33.47, "lng1": -81.97,
+      "lat2": 33.47, "lng2": -81.97,
+      "start_year": 2029, "end_year": 2030,
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+    },
+    {
+      "id": "gpc-004",
+      "utility": "GPC",
+      "name": "Savannah Corridor Reinforcement",
+      "lat1": 32.08, "lng1": -81.09,
+      "lat2": 32.08, "lng2": -81.09,
+      "start_year": 2029, "end_year": 2029,
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+    },
+    {
+      "id": "gpc-005",
+      "utility": "GPC",
+      "name": "Coastal Georgia 230kV Line",
+      "lat1": 32.08, "lng1": -81.09,
+      "lat2": 31.93, "lng2": -81.31,
+      "start_year": 2026, "end_year": 2027,
+      "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+    }
+  ]
+}

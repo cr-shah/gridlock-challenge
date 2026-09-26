@@ -1,0 +1,637 @@
+{
+  "generated_at": "2026-09-26T03:37:18.980969+00:00",
+  "utilities": [
+    "DESC",
+    "GPC"
+  ],
+  "input_project_count": 10,
+  "match_count": 11,
+  "matches": [
+    {
+      "match_id": "m002",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf"
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 0.0,
+      "tier": "touching_crossing",
+      "tier_label": "Touching / crossing \u2014 must actively coordinate (outage timing, crossing structures)",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2027,
+        2027
+      ],
+      "closest_point_a": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 115,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Touching / crossing \u2014 must actively coordinate (outage timing, crossing structures) (0.00 km apart, closest point to closest point).\nBuild windows overlap in 2027-2027.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 250000,
+        "high_usd": 600000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m009",
+      "project_a": {
+        "id": "desc-004",
+        "utility": "DESC",
+        "name": "Urquhart Station Upgrade (near Augusta)",
+        "lat1": 33.5,
+        "lng1": -81.93,
+        "lat2": 33.5,
+        "lng2": -81.93,
+        "start_year": 2028,
+        "end_year": 2030,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-003",
+        "utility": "GPC",
+        "name": "Augusta Area Substation Upgrade",
+        "lat1": 33.47,
+        "lng1": -81.97,
+        "lat2": 33.47,
+        "lng2": -81.97,
+        "start_year": 2029,
+        "end_year": 2030,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 4.99,
+      "tier": "shared_logistics",
+      "tier_label": "Under 8 km \u2014 could share site logistics (laydown yards, deliveries)",
+      "years_a": [
+        2028,
+        2030
+      ],
+      "years_b": [
+        2029,
+        2030
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2029,
+        2030
+      ],
+      "closest_point_a": {
+        "lat": 33.49999999999999,
+        "lng": -81.92999999999999
+      },
+      "closest_point_b": {
+        "lat": 33.46999999999999,
+        "lng": -81.97
+      },
+      "score": 70,
+      "coordination_brief": "DESC \u2013 Urquhart Station Upgrade (near Augusta)  <->  GPC \u2013 Augusta Area Substation Upgrade\nWhy coordinate: Under 8 km \u2014 could share site logistics (laydown yards, deliveries) (4.99 km apart, closest point to closest point).\nBuild windows overlap in 2029-2030.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 75000,
+        "high_usd": 200000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m004",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf"
+      },
+      "project_b": {
+        "id": "gpc-005",
+        "utility": "GPC",
+        "name": "Coastal Georgia 230kV Line",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 31.93,
+        "lng2": -81.31,
+        "start_year": 2026,
+        "end_year": 2027,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 12.02,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2026,
+        2027
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2027,
+        2027
+      ],
+      "closest_point_a": {
+        "lat": 32.18202698483474,
+        "lng": -81.13227286919224
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.09
+      },
+      "score": 45,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Coastal Georgia 230kV Line\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (12.02 km apart, closest point to closest point).\nBuild windows overlap in 2027-2027.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m006",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-004",
+        "utility": "GPC",
+        "name": "Savannah Corridor Reinforcement",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 32.08,
+        "lng2": -81.09,
+        "start_year": 2029,
+        "end_year": 2029,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 28.02,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2029,
+        2029
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2029,
+        2029
+      ],
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.86000000000001
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.08999999999999
+      },
+      "score": 45,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Savannah Corridor Reinforcement\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (28.02 km apart, closest point to closest point).\nBuild windows overlap in 2029-2029.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m008",
+      "project_a": {
+        "id": "desc-004",
+        "utility": "DESC",
+        "name": "Urquhart Station Upgrade (near Augusta)",
+        "lat1": 33.5,
+        "lng1": -81.93,
+        "lat2": 33.5,
+        "lng2": -81.93,
+        "start_year": 2028,
+        "end_year": 2030,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-002",
+        "utility": "GPC",
+        "name": "Thomson - Vogtle Transmission Line",
+        "lat1": 33.47,
+        "lng1": -82.51,
+        "lat2": 33.14,
+        "lng2": -81.76,
+        "start_year": 2028,
+        "end_year": 2030,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 28.05,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2028,
+        2030
+      ],
+      "years_b": [
+        2028,
+        2030
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2028,
+        2030
+      ],
+      "closest_point_a": {
+        "lat": 33.49999999999999,
+        "lng": -81.93
+      },
+      "closest_point_b": {
+        "lat": 33.27680202951931,
+        "lng": -82.07091370345299
+      },
+      "score": 45,
+      "coordination_brief": "DESC \u2013 Urquhart Station Upgrade (near Augusta)  <->  GPC \u2013 Thomson - Vogtle Transmission Line\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (28.05 km apart, closest point to closest point).\nBuild windows overlap in 2028-2030.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m001",
+      "project_a": {
+        "id": "desc-001",
+        "utility": "DESC",
+        "name": "Jasper County 115kV Substation Upgrade",
+        "lat1": 32.47,
+        "lng1": -81.15,
+        "lat2": 32.47,
+        "lng2": -81.15,
+        "start_year": 2027,
+        "end_year": 2028,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 36.57,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2027,
+        2028
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2027,
+        2028
+      ],
+      "closest_point_a": {
+        "lat": 32.47,
+        "lng": -81.15
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 45,
+      "coordination_brief": "DESC \u2013 Jasper County 115kV Substation Upgrade  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (36.57 km apart, closest point to closest point).\nBuild windows overlap in 2027-2028.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m005",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-001",
+        "utility": "GPC",
+        "name": "Plant McIntosh Expansion",
+        "lat1": 32.15,
+        "lng1": -81.24,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2028,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 37.13,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2027,
+        2028
+      ],
+      "timeline_overlap": true,
+      "overlap_years": [
+        2028,
+        2028
+      ],
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.86
+      },
+      "closest_point_b": {
+        "lat": 32.15,
+        "lng": -81.24
+      },
+      "score": 45,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Plant McIntosh Expansion\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (37.13 km apart, closest point to closest point).\nBuild windows overlap in 2028-2028.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m011",
+      "project_a": {
+        "id": "desc-005",
+        "utility": "DESC",
+        "name": "Martinez GA Hydro Tie Maintenance",
+        "lat1": 33.52,
+        "lng1": -82.07,
+        "lat2": 33.52,
+        "lng2": -82.07,
+        "start_year": 2026,
+        "end_year": 2027,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-003",
+        "utility": "GPC",
+        "name": "Augusta Area Substation Upgrade",
+        "lat1": 33.47,
+        "lng1": -81.97,
+        "lat2": 33.47,
+        "lng2": -81.97,
+        "start_year": 2029,
+        "end_year": 2030,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 10.81,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2026,
+        2027
+      ],
+      "years_b": [
+        2029,
+        2030
+      ],
+      "timeline_overlap": false,
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 33.52,
+        "lng": -82.07
+      },
+      "closest_point_b": {
+        "lat": 33.46999999999999,
+        "lng": -81.96999999999998
+      },
+      "score": 30,
+      "coordination_brief": "DESC \u2013 Martinez GA Hydro Tie Maintenance  <->  GPC \u2013 Augusta Area Substation Upgrade\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (10.81 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap. Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m003",
+      "project_a": {
+        "id": "desc-002",
+        "utility": "DESC",
+        "name": "Okatie - McIntosh 115kV Tie Reactor",
+        "lat1": 32.26,
+        "lng1": -80.87,
+        "lat2": 32.15,
+        "lng2": -81.24,
+        "start_year": 2027,
+        "end_year": 2027,
+        "source_url": "https://www.scrtp.com/assets/pdfs/meeting-archives/scrtp-meeting-2024-10-30-presentation.pdf"
+      },
+      "project_b": {
+        "id": "gpc-004",
+        "utility": "GPC",
+        "name": "Savannah Corridor Reinforcement",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 32.08,
+        "lng2": -81.09,
+        "start_year": 2029,
+        "end_year": 2029,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 12.02,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2027,
+        2027
+      ],
+      "years_b": [
+        2029,
+        2029
+      ],
+      "timeline_overlap": false,
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 32.182017785511526,
+        "lng": -81.1323038123703
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.08999999999999
+      },
+      "score": 30,
+      "coordination_brief": "DESC \u2013 Okatie - McIntosh 115kV Tie Reactor  <->  GPC \u2013 Savannah Corridor Reinforcement\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (12.02 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap. Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m010",
+      "project_a": {
+        "id": "desc-005",
+        "utility": "DESC",
+        "name": "Martinez GA Hydro Tie Maintenance",
+        "lat1": 33.52,
+        "lng1": -82.07,
+        "lat2": 33.52,
+        "lng2": -82.07,
+        "start_year": 2026,
+        "end_year": 2027,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-002",
+        "utility": "GPC",
+        "name": "Thomson - Vogtle Transmission Line",
+        "lat1": 33.47,
+        "lng1": -82.51,
+        "lat2": 33.14,
+        "lng2": -81.76,
+        "start_year": 2028,
+        "end_year": 2030,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 23.96,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2026,
+        2027
+      ],
+      "years_b": [
+        2028,
+        2030
+      ],
+      "timeline_overlap": false,
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 33.52,
+        "lng": -82.07000000000001
+      },
+      "closest_point_b": {
+        "lat": 33.32936779786652,
+        "lng": -82.19038135878755
+      },
+      "score": 30,
+      "coordination_brief": "DESC \u2013 Martinez GA Hydro Tie Maintenance  <->  GPC \u2013 Thomson - Vogtle Transmission Line\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (23.96 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap. Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    },
+    {
+      "match_id": "m007",
+      "project_a": {
+        "id": "desc-003",
+        "utility": "DESC",
+        "name": "Bluffton Substation Upgrade",
+        "lat1": 32.24,
+        "lng1": -80.86,
+        "lat2": 32.24,
+        "lng2": -80.86,
+        "start_year": 2028,
+        "end_year": 2029,
+        "source_url": "https://www.scrtp.com/document-library.html"
+      },
+      "project_b": {
+        "id": "gpc-005",
+        "utility": "GPC",
+        "name": "Coastal Georgia 230kV Line",
+        "lat1": 32.08,
+        "lng1": -81.09,
+        "lat2": 31.93,
+        "lng2": -81.31,
+        "start_year": 2026,
+        "end_year": 2027,
+        "source_url": "https://www.southeasternrtp.com/docs/general/2025/2025%20Regional%20Transmission%20Plan%20and%20Input%20Assumptions.pdf"
+      },
+      "distance_km": 28.03,
+      "tier": "shared_crews",
+      "tier_label": "Under 40 km \u2014 could share crews and equipment",
+      "years_a": [
+        2028,
+        2029
+      ],
+      "years_b": [
+        2026,
+        2027
+      ],
+      "timeline_overlap": false,
+      "overlap_years": null,
+      "closest_point_a": {
+        "lat": 32.24,
+        "lng": -80.85999999999999
+      },
+      "closest_point_b": {
+        "lat": 32.08,
+        "lng": -81.08999999999999
+      },
+      "score": 30,
+      "coordination_brief": "DESC \u2013 Bluffton Substation Upgrade  <->  GPC \u2013 Coastal Georgia 230kV Line\nWhy coordinate: Under 40 km \u2014 could share crews and equipment (28.03 km apart, closest point to closest point).\nSame area, different timing \u2014 build windows don't overlap. Worth asking whether either utility's schedule could be adjusted.\nNext action: share this brief with both utilities' regional planning contacts.",
+      "est_savings_usd": {
+        "low_usd": 25000,
+        "high_usd": 90000,
+        "assumption": "Illustrative estimate of avoided duplicate mobilization/staging cost \u2014 not a verified utility cost figure."
+      }
+    }
+  ]
+}
