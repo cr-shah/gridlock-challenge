@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gridlock — Coordination Radar</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<style>
+  :root {
+    --bg: #0b0e14;
+    --panel: #131822;
+    --panel-border: #232b3a;
+    --text: #e7ecf3;
+    --text-dim: #8996a8;
+    --utility-a: #4fa8e0;
+    --utility-b: #e8a33d;
+    --tier-touching: #e5484d;
+    --tier-land: #f2994a;
+    --tier-logistics: #f2c94c;
+    --tier-crews: #59b37d;
+    --muted-line: #5a6472;
+    font-family: "IBM Plex Sans", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; padding: 12px 20px; border-bottom: 1px solid var(--panel-border);
+    background: var(--panel); flex-wrap: wrap;
+  }
+  .topbar h1 { font-size: 16px; margin: 0; font-weight: 600; letter-spacing: 0.2px; }
+  .topbar .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .year-control { display: flex; align-items: center; gap: 12px; min-width: 260px; }
+  .year-control label { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+  .year-control input[type="range"] { flex: 1; accent-color: var(--utility-a); }
+  .year-readout {
+    font-family: "IBM Plex Mono", monospace; font-size: 14px; font-weight: 500;
+    min-width: 42px; text-align: right;
+  }
+
+  .layout { display: flex; height: calc(100vh - 57px); }
+  .sidebar {
+    width: 360px; min-width: 300px; border-right: 1px solid var(--panel-border);
+    background: var(--panel); display: flex; flex-direction: column; overflow: hidden;
+  }
+  .sidebar-scroll { overflow-y: auto; flex: 1; }
+  .sidebar h2 {
+    font-size: 11px; text-transform: none; color: var(--text-dim);
+    padding: 12px 14px 6px; margin: 0; letter-spacing: 0.3px;
+  }
+
+  .match-item {
+    padding: 10px 14px; border-bottom: 1px solid var(--panel-border);
+    cursor: pointer; transition: background 0.12s ease;
+  }
+  .match-item:hover { background: #171d29; }
+  .match-item.selected { background: #1a2233; border-left: 3px solid var(--utility-a); }
+  .match-item .pair { font-size: 13px; font-weight: 500; line-height: 1.35; }
+  .match-item .meta {
+    display: flex; align-items: center; gap: 8px; margin-top: 5px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--text-dim);
+  }
+  .tier-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .match-item.hidden-by-year { opacity: 0.28; }
+
+  .detail-panel {
+    border-top: 1px solid var(--panel-border); padding: 14px;
+    font-size: 13px; line-height: 1.5; max-height: 46%; overflow-y: auto;
+  }
+  .detail-panel .empty { color: var(--text-dim); font-size: 12px; }
+  .detail-panel .brief { white-space: pre-line; margin: 8px 0 12px; }
+  .detail-panel .savings {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px;
+    background: #0e1420; border: 1px solid var(--panel-border);
+    border-radius: 4px; padding: 8px 10px; color: var(--text-dim);
+  }
+  .detail-panel .savings b { color: var(--text); }
+
+  .map-wrap { flex: 1; position: relative; }
+  #map { position: absolute; inset: 0; background: var(--bg); }
+
+  .legend {
+    position: absolute; bottom: 16px; left: 16px; z-index: 500;
+    background: rgba(19, 24, 34, 0.92); border: 1px solid var(--panel-border);
+    border-radius: 6px; padding: 10px 12px; font-size: 11px; color: var(--text-dim);
+    line-height: 1.8;
+  }
+  .legend .row { display: flex; align-items: center; gap: 7px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .line-swatch { width: 16px; height: 0; border-top: 2px dashed var(--muted-line); }
+
+  #load-error {
+    position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 10px; color: var(--text-dim); font-size: 13px; text-align: center; padding: 20px;
+  }
+  #load-error code {
+    background: #0e1420; padding: 2px 6px; border-radius: 4px; font-family: "IBM Plex Mono", monospace;
+  }
+
+  @media (max-width: 820px) {
+    .layout { flex-direction: column; height: auto; }
+    .sidebar { width: 100%; max-height: 40vh; }
+    .map-wrap { height: 60vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>Gridlock — Coordination Radar</h1>
+    <div class="subtitle">Flagging where DESC and Georgia Power's planned projects overlap</div>
+  </div>
+  <div class="year-control">
+    <label for="yearSlider">Viewing year</label>
+    <input type="range" id="yearSlider" min="2026" max="2030" step="1" value="2028" />
+    <span class="year-readout" id="yearReadout">2028</span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h2 id="listHeading">Ranked coordination opportunities</h2>
+    <div class="sidebar-scroll" id="matchList"></div>
+    <div class="detail-panel" id="detailPanel">
+      <div class="empty">Select a match to see the coordination brief.</div>
+    </div>
+  </aside>
+
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div id="load-error">
+      <div>Couldn't load <code>data/analysis.json</code>.</div>
+      <div>Browsers block local file reads over <code>file://</code>. Serve this folder instead:<br/>
+        <code>python -m http.server 8000</code> → open <code>http://localhost:8000</code></div>
+    </div>
+    <div class="legend">
+      <div class="row"><span class="swatch" style="background:var(--utility-a)"></span> DESC project</div>
+      <div class="row"><span class="swatch" style="background:var(--utility-b)"></span> Georgia Power project</div>
+      <div class="row"><span class="tier-dot" style="background:var(--tier-touching)"></span> Touching / crossing</div>
+      <div class="row"><span class="tier-dot" style="background:var(--tier-land)"></span> &lt;1.6 km — shared land</div>
+      <div class="row"><span class="tier-dot" style="background:var(--tier-logistics)"></span> &lt;8 km — shared logistics</div>
+      <div class="row"><span class="tier-dot" style="background:var(--tier-crews)"></span> &lt;40 km — shared crews</div>
+      <div class="row"><span class="line-swatch"></span> flagged, but timing doesn't align</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TIER_COLORS = {
+  touching_crossing: getVar('--tier-touching'),
+  shared_land: getVar('--tier-land'),
+  shared_logistics: getVar('--tier-logistics'),
+  shared_crews: getVar('--tier-crews'),
+};
+function getVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+const map = L.map('map', { zoomControl: true }).setView([32.6, -81.3], 8);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors',
+  maxZoom: 18,
+}).addTo(map);
+
+let analysis = null;
+let selectedMatchId = null;
+const projectMarkers = new Map();   // project id -> L.circleMarker
+const matchLayers = new Map();      // match_id -> L.polyline (the closest-point connector)
+
+fetch('./data/analysis.json')
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(data => { analysis = data; render(); })
+  .catch(err => {
+    console.error(err);
+    document.getElementById('load-error').style.display = 'flex';
+  });
+
+function render() {
+  const bounds = [];
+
+  analysis.matches.forEach(m => {
+    [m.project_a, m.project_b].forEach(p => {
+      if (!projectMarkers.has(p.id)) {
+        const color = p.utility === analysis.utilities[0] ? getVar('--utility-a') : getVar('--utility-b');
+        const marker = L.circleMarker([p.lat1, p.lng1], {
+          radius: 6, color, weight: 2, fillColor: color, fillOpacity: 0.55,
+        }).addTo(map);
+        marker.bindPopup(`<b>${p.name}</b><br>${p.utility} · ${p.start_year}–${p.end_year}`);
+        projectMarkers.set(p.id, marker);
+        bounds.push([p.lat1, p.lng1]);
+        if (p.lat1 !== p.lat2 || p.lng1 !== p.lng2) {
+          L.polyline([[p.lat1, p.lng1], [p.lat2, p.lng2]], { color, weight: 2, opacity: 0.6 }).addTo(map);
+          bounds.push([p.lat2, p.lng2]);
+        }
+      }
+    });
+
+    const line = L.polyline(
+      [[m.closest_point_a.lat, m.closest_point_a.lng], [m.closest_point_b.lat, m.closest_point_b.lng]],
+      { color: TIER_COLORS[m.tier], weight: 3, dashArray: m.timeline_overlap ? null : '4 5', opacity: 0.85 }
+    ).addTo(map);
+    line.on('click', () => selectMatch(m.match_id));
+    matchLayers.set(m.match_id, line);
+  });
+
+  if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
+
+  const listEl = document.getElementById('matchList');
+  document.getElementById('listHeading').textContent =
+    `Ranked coordination opportunities (${analysis.match_count})`;
+
+  analysis.matches.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'match-item';
+    item.dataset.matchId = m.match_id;
+    item.innerHTML = `
+      <div class="pair">${m.project_a.name} <span style="color:var(--text-dim)">&harr;</span> ${m.project_b.name}</div>
+      <div class="meta">
+        <span class="tier-dot" style="background:${TIER_COLORS[m.tier]}"></span>
+        ${m.distance_km} km · ${m.timeline_overlap ? 'timing aligns' : 'timing off'} · score ${m.score}
+      </div>`;
+    item.addEventListener('click', () => selectMatch(m.match_id));
+    listEl.appendChild(item);
+  });
+
+  applyYearFilter();
+}
+
+function selectMatch(matchId) {
+  selectedMatchId = matchId;
+  const m = analysis.matches.find(x => x.match_id === matchId);
+  if (!m) return;
+
+  document.querySelectorAll('.match-item').forEach(el =>
+    el.classList.toggle('selected', el.dataset.matchId === matchId));
+
+  matchLayers.forEach((line, id) => line.setStyle({ weight: id === matchId ? 6 : 3 }));
+
+  map.fitBounds([
+    [m.project_a.lat1, m.project_a.lng1], [m.project_a.lat2, m.project_a.lng2],
+    [m.project_b.lat1, m.project_b.lng1], [m.project_b.lat2, m.project_b.lng2],
+  ], { padding: [60, 60], maxZoom: 12 });
+
+  document.getElementById('detailPanel').innerHTML = `
+    <div class="brief">${m.coordination_brief}</div>
+    <div class="savings">
+      <b>Illustrative savings:</b> $${m.est_savings_usd.low_usd.toLocaleString()}–$${m.est_savings_usd.high_usd.toLocaleString()}<br>
+      ${m.est_savings_usd.assumption}
+    </div>`;
+}
+
+document.getElementById('yearSlider').addEventListener('input', e => {
+  document.getElementById('yearReadout').textContent = e.target.value;
+  applyYearFilter();
+});
+
+function applyYearFilter() {
+  if (!analysis) return;
+  const year = parseInt(document.getElementById('yearSlider').value, 10);
+
+  analysis.matches.forEach(m => {
+    const inOverlapWindow = m.timeline_overlap && year >= m.overlap_years[0] && year <= m.overlap_years[1];
+    const unionLo = Math.min(m.years_a[0], m.years_b[0]);
+    const unionHi = Math.max(m.years_a[1], m.years_b[1]);
+    const inUnionWindow = year >= unionLo && year <= unionHi;
+    const visible = inOverlapWindow || (!m.timeline_overlap && inUnionWindow);
+
+    const line = matchLayers.get(m.match_id);
+    if (line) line.setStyle({ opacity: visible ? 0.85 : 0.08 });
+
+    const item = document.querySelector(`.match-item[data-match-id="${m.match_id}"]`);
+    if (item) item.classList.toggle('hidden-by-year', !visible);
+  });
+}
+</script>
+</body>
+</html>
