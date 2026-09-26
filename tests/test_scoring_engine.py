@@ -226,6 +226,10 @@ class EmptyAndMissingFieldTests(unittest.TestCase):
         self.assertIsNone(project["source_url"])
         self.assertIsNone(project["source_page"])
         self.assertIsNone(project["data_confidence"])
+        self.assertIsNone(project["geometry_source"])
+        self.assertIsNone(project["geometry_method"])
+        self.assertIsNone(project["geometry_confidence"])
+        self.assertIsNone(project["geometry_notes"])
 
     def test_missing_geometry_is_counted_but_not_paired(self):
         projects = [
@@ -320,10 +324,28 @@ class DemoDatasetTests(unittest.TestCase):
         self.assertTrue(all(m["project_a"]["data_confidence"] == "LOW" for m in matches))
         self.assertIn("est_savings_usd", matches[0])
 
-    def test_repo_verified_file_is_empty_and_valid(self):
+    def test_repo_verified_file_is_real_desc_gpc_data(self):
         payload = json.loads((ROOT / "data" / "verified_projects.json").read_text())
-        self.assertEqual(payload["dataset"], "verified")
-        self.assertEqual(payload["projects"], [])
+        projects = payload["projects"] if isinstance(payload, dict) else payload
+        self.assertIsInstance(projects, list)
+        self.assertEqual(len(projects), 64)
+        self.assertEqual(sum(1 for p in projects if p.get("utility") == "DESC"), 54)
+        self.assertEqual(sum(1 for p in projects if p.get("utility") == "GPC"), 10)
+        self.assertTrue(all(p.get("utility") in ("DESC", "GPC") for p in projects))
+        self.assertFalse(any(str(p.get("id", "")).startswith(("desc-", "gpc-")) for p in projects))
+        usable = [p for p in projects if se.extract_latlng_points(p)]
+        self.assertEqual(len(usable), 5)
+        self.assertEqual(sum(1 for p in usable if p["utility"] == "DESC"), 4)
+        self.assertEqual(sum(1 for p in usable if p["utility"] == "GPC"), 1)
+        normalized, matches, summary = se.analyze_projects(projects, dataset="verified")
+        self.assertEqual(summary["total_projects"], 64)
+        self.assertEqual(summary["pairs_checked"], 4)
+        self.assertEqual(summary["pairs_within_40km"], 0)
+        self.assertEqual(summary["pairs_with_timeline_overlap"], 0)
+        self.assertEqual(matches, [])
+        traced = next(p for p in normalized if p["geometry_method"])
+        self.assertIn(traced["geometry_confidence"], se.CONFIDENCE_VALUES)
+        self.assertTrue(traced["geometry_source"])
 
 
 if __name__ == "__main__":

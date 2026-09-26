@@ -563,6 +563,10 @@ function noMatchesMessage(summary, isDemo, isEmpty) {
   if (!isDemo && desc > 0 && gpc > 0 && (pairsChecked === 0 || pairsChecked == null) && withoutGeom) {
     return `${summary.total_projects} verified project(s) loaded (${desc} DESC, ${gpc} GPC), but ${withoutGeom} have no usable geometry yet — nothing to map or compare. Add geometry to data/verified_projects.json and rerun scoring_engine.py.`;
   }
+  if (!isDemo && withoutGeom > 0 && pairsChecked > 0) {
+    const mapped = (summary.total_projects || 0) - withoutGeom;
+    return `No cross-utility pairs fall inside 40 km. ${pairsChecked} DESC×GPC pair(s) with usable geometry were compared. ${mapped} project(s) are on the map; ${withoutGeom} have no geometry and were not spatially compared.`;
+  }
   return 'No cross-utility pairs fall inside 40 km in this dataset.';
 }
 
@@ -744,9 +748,17 @@ function render() {
       const marker = L.circleMarker(pts[0], {
         radius: 6, color, weight: 2, fillColor: color, fillOpacity: 0.55,
       }).addTo(drawnLayers);
-      const conf = p.data_confidence ? `<br>Confidence: ${escapeHtml(p.data_confidence)}` : '';
+      const conf = p.data_confidence ? `<br>Record confidence: ${escapeHtml(p.data_confidence)}` : '';
       const src = p.source_url ? `<br><a href="${escapeHtml(p.source_url)}" target="_blank" rel="noopener">View source</a>` : '';
-      marker.bindPopup(`<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}`);
+      const geomBits = [];
+      if (p.geometry_method) geomBits.push(`Geometry method: ${escapeHtml(p.geometry_method)}`);
+      if (p.geometry_confidence) geomBits.push(`Geometry confidence: ${escapeHtml(p.geometry_confidence)}`);
+      if (p.geometry_source) {
+        geomBits.push(`<a href="${escapeHtml(p.geometry_source)}" target="_blank" rel="noopener">Geometry source</a>`);
+      }
+      if (p.geometry_notes) geomBits.push(escapeHtml(p.geometry_notes));
+      const geom = geomBits.length ? `<br>${geomBits.join('<br>')}` : '';
+      marker.bindPopup(`<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}${geom}`);
       projectMarkers.set(p.id, marker);
       pts.forEach(pt => bounds.push(pt));
       if (pts.length > 1) {
@@ -848,8 +860,9 @@ function render() {
     yearControl.classList.add('hidden');
   }
 
-  document.getElementById('detailPanel').innerHTML =
-    '<div class="empty">Select a match to see the coordination brief and source evidence.</div>';
+  document.getElementById('detailPanel').innerHTML = matches.length
+    ? '<div class="empty">Select a match to see the coordination brief and source evidence.</div>'
+    : '<div class="empty">No pair is inside 40 km, so there is no coordination brief, timeline, or closest-point connector to show. Projects with geometry are on the map.</div>';
 
   applyYearFilter();
   if (matches[0]) selectMatch(matches[0].match_id);

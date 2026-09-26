@@ -316,6 +316,10 @@ def normalize_project(raw, dataset="verified"):
     if confidence not in CONFIDENCE_VALUES:
         confidence = "LOW" if dataset == "demo" else None
 
+    geometry_confidence = raw.get("geometry_confidence")
+    if geometry_confidence not in CONFIDENCE_VALUES:
+        geometry_confidence = None
+
     return {
         "id": raw.get("id"),
         "utility": raw.get("utility"),
@@ -330,6 +334,10 @@ def normalize_project(raw, dataset="verified"):
         "source_url": raw.get("source_url") or None,
         "source_page": raw.get("source_page") if raw.get("source_page") not in ("", None) else None,
         "data_confidence": confidence,
+        "geometry_source": raw.get("geometry_source") or None,
+        "geometry_method": raw.get("geometry_method") or None,
+        "geometry_confidence": geometry_confidence,
+        "geometry_notes": raw.get("geometry_notes") or None,
         "lat1": lat1,
         "lng1": lng1,
         "lat2": lat2,
