@@ -30,7 +30,7 @@
     font-family: "IBM Plex Sans", -apple-system, sans-serif;
   }
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
@@ -475,6 +475,7 @@ function render() {
 
   applyYearFilter();
   if (matches[0]) selectMatch(matches[0].match_id);
+  requestAnimationFrame(() => map.invalidateSize());
 }
 
 function selectMatch(matchId) {
