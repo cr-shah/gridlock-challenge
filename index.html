@@ -58,6 +58,7 @@
   }
   .dataset-toggle button.active { border-color: var(--utility-a); color: var(--text); }
   .dataset-toggle button.demo.active { border-color: var(--demo); }
+  .dataset-toggle button.estimated.active { border-color: #7aa2f7; }
 
   .methodology-btn {
     background: #0e1420; color: var(--text-dim); border: 1px solid var(--panel-border);
@@ -95,6 +96,7 @@
   }
   .banner.visible { display: block; }
   .banner.demo { background: #2a1d0d; color: #f0c48a; }
+  .banner.estimated { background: #152033; color: #c5d4f0; }
   .banner.verified-empty { background: #121826; color: var(--text-dim); }
   .banner.load-error { background: #2a1414; color: #f0a0a0; }
   .banner code {
@@ -175,6 +177,7 @@
   }
   .confidence.HIGH { color: #8ee0a8; border-color: #2f5d40; }
   .confidence.MEDIUM { color: #f2c94c; border-color: #5a4a1c; }
+  .confidence.ESTIMATED { color: #9ec1ff; border-color: #2c4068; }
   .confidence.LOW { color: #f0a070; border-color: #5a3220; }
 
   /* Coordination-tier badges. Wording and styling deliberately avoid
@@ -289,6 +292,7 @@
     <div class="dataset-toggle">
       <span>Dataset</span>
       <button id="btnVerified" class="active" type="button">Verified</button>
+      <button id="btnEstimated" class="estimated" type="button">Estimated Coverage</button>
       <button id="btnDemo" class="demo" type="button">Demo</button>
     </div>
     <div class="year-control hidden" id="yearControl">
@@ -319,7 +323,8 @@
       </ul>
       <p>These tiers describe <b>coordination potential based on distance</b> — they are not a safety or risk severity rating.</p>
       <p><b>Timeline overlap is secondary.</b> It adds a small bonus to the ranking, but it can never outrank a closer geographic tier — two projects 1 km apart always rank above two projects 20 km apart, regardless of timing.</p>
-      <p><b>Unresolved geography is excluded, not guessed.</b> A project without usable coordinates is counted in the totals but is never mapped, compared, or assigned a made-up location.</p>
+      <p><b>Unresolved geography is excluded, not guessed.</b> In Verified mode a project without usable coordinates is counted in the totals but is never mapped, compared, or assigned a made-up location.</p>
+      <p><b>Estimated Coverage</b> is a separate screening mode. It never replaces official geometry. Straight lines between uniquely matched public substations, a matching HIFLD corridor on a rebuild, a single resolved facility point, or a county anchor are stored apart from the verified geometry. County anchors and single estimated points cannot create a touching, under-1.6 km, or under-8 km tier. Estimated geometry — planning-screening use only.</p>
       <p><b>Evidence is public-source only.</b> Every verified project traces back to a cited public planning document; nothing is scraped live or inferred without a source.</p>
       <p class="trust-note">AI may assist with extraction and explanation; geographic overlap is verified with deterministic GIS calculations, not by a model's judgment.</p>
     </div>
@@ -458,6 +463,7 @@ function computeScenarioOverlap(winA, winB) {
 
 const DATASETS = {
   verified: { url: './data/analysis.json', label: 'Verified' },
+  estimated: { url: './data/estimated_analysis.json', label: 'Estimated Coverage' },
   demo: { url: './data/demo_analysis.json', label: 'Demo' },
 };
 
@@ -475,6 +481,7 @@ const projectMarkers = new Map();
 const matchLayers = new Map();
 
 document.getElementById('btnVerified').addEventListener('click', () => loadDataset('verified'));
+document.getElementById('btnEstimated').addEventListener('click', () => loadDataset('estimated'));
 document.getElementById('btnDemo').addEventListener('click', () => loadDataset('demo'));
 
 // --- "How Gridlock works" methodology modal ---
@@ -491,6 +498,7 @@ loadDataset('verified');
 function loadDataset(name) {
   currentDataset = name;
   document.getElementById('btnVerified').classList.toggle('active', name === 'verified');
+  document.getElementById('btnEstimated').classList.toggle('active', name === 'estimated');
   document.getElementById('btnDemo').classList.toggle('active', name === 'demo');
   document.getElementById('load-error').style.display = 'none';
   fetch(DATASETS[name].url)
@@ -635,6 +643,9 @@ function evidenceRow(project) {
   if (geomBits.length) {
     rows.push(`<div class="row" style="padding-left:10px">Geometry — ${geomBits.join(' · ')}</div>`);
   }
+  if (project.geometry_notes && (project.estimated_geometry || currentDataset === 'estimated')) {
+    rows.push(`<div class="row" style="padding-left:10px">${escapeHtml(project.geometry_notes)}</div>`);
+  }
   return rows.join('');
 }
 
@@ -675,23 +686,36 @@ function buildCoordinationBriefText(m) {
 }
 
 function projectLatLngs(project) {
-  const points = [];
-  if (Array.isArray(project.geometry)) {
-    if (typeof project.geometry[0] === 'number') {
-      points.push([project.geometry[1], project.geometry[0]]);
-    } else {
-      project.geometry.forEach(pair => {
-        if (Array.isArray(pair) && pair.length >= 2) points.push([pair[1], pair[0]]);
-      });
+  const parts = projectParts(project);
+  return parts.length ? parts[0] : [];
+}
+
+function projectParts(project) {
+  if (!project) return [];
+  const geometry = project.geometry;
+  const geometryType = project.geometry_type;
+  if (Array.isArray(geometry)) {
+    const multi = geometryType === 'MultiLineString' ||
+      (geometry.length && Array.isArray(geometry[0]) && Array.isArray(geometry[0][0]));
+    if (multi) {
+      return geometry.map(line => (line || []).filter(pair => Array.isArray(pair) && pair.length >= 2)
+        .map(pair => [pair[1], pair[0]])).filter(line => line.length);
     }
+    if (typeof geometry[0] === 'number' && geometry.length >= 2) {
+      return [[[geometry[1], geometry[0]]]];
+    }
+    const line = geometry.filter(pair => Array.isArray(pair) && pair.length >= 2 && typeof pair[0] === 'number')
+      .map(pair => [pair[1], pair[0]]);
+    if (line.length) return [line];
   }
-  if (!points.length && project.lat1 != null && project.lng1 != null) {
-    points.push([project.lat1, project.lng1]);
+  if (project.lat1 != null && project.lng1 != null) {
+    const points = [[project.lat1, project.lng1]];
     if (project.lat2 != null && project.lng2 != null && (project.lat1 !== project.lat2 || project.lng1 !== project.lng2)) {
       points.push([project.lat2, project.lng2]);
     }
+    return [points];
   }
-  return points;
+  return [];
 }
 
 function clearMap() {
@@ -707,6 +731,7 @@ function render() {
   const matches = analysis.matches || [];
   const dataset = analysis.dataset || analysis.data_source || currentDataset;
   const isDemo = dataset === 'demo';
+  const isEstimated = dataset === 'estimated';
   const isEmpty = summary.total_projects === 0;
 
   const banner = document.getElementById('dataBanner');
@@ -715,6 +740,10 @@ function render() {
     banner.className = 'banner visible demo';
     banner.textContent = analysis.data_disclaimer ||
       'Showing labeled demo/legacy data. Coordinates are approximate and are not verified DESC or Georgia Power records.';
+    layout.classList.add('has-banner');
+  } else if (isEstimated) {
+    banner.className = 'banner visible estimated';
+    banner.textContent = 'Estimated geometry — planning-screening use only';
     layout.classList.add('has-banner');
   } else if (isEmpty) {
     banner.className = 'banner visible verified-empty';
@@ -726,14 +755,24 @@ function render() {
     layout.classList.remove('has-banner');
   }
 
-  document.getElementById('stats').innerHTML = `
-    <div class="stat"><div class="n">${summary.total_projects}</div><div class="k">Verified projects</div></div>
-    <div class="stat"><div class="n">${summary.desc_projects}</div><div class="k">DESC projects</div></div>
-    <div class="stat"><div class="n">${summary.gpc_projects}</div><div class="k">GPC projects</div></div>
-    <div class="stat"><div class="n">${summary.pairs_checked ?? '—'}</div><div class="k">Cross-utility pairs checked</div></div>
-    <div class="stat"><div class="n">${summary.pairs_within_40km}</div><div class="k">Within 40 km</div></div>
-    <div class="stat"><div class="n">${summary.pairs_with_timeline_overlap}</div><div class="k">With timeline overlap</div></div>
-  `;
+  const statItems = isEstimated ? [
+    [summary.projects_with_geometry ?? '—', 'Mapped projects'],
+    [summary.unresolved_count ?? '—', 'Unresolved'],
+    [summary.estimated_geometry_count ?? '—', 'Estimated geometries'],
+    [summary.pairs_checked ?? '—', 'Evaluable pairs'],
+    [summary.pairs_within_40km, 'Within 40 km'],
+    [summary.pairs_under_8km ?? '—', 'Within 8 km'],
+  ] : [
+    [summary.total_projects, 'Verified projects'],
+    [summary.desc_projects, 'DESC projects'],
+    [summary.gpc_projects, 'GPC projects'],
+    [summary.pairs_checked ?? '—', 'Cross-utility pairs checked'],
+    [summary.pairs_within_40km, 'Within 40 km'],
+    [summary.pairs_with_timeline_overlap, 'With timeline overlap'],
+  ];
+  document.getElementById('stats').innerHTML = statItems.map(([n, k]) =>
+    `<div class="stat"><div class="n">${n}</div><div class="k">${k}</div></div>`
+  ).join('');
   if (isDemo) {
     document.querySelector('#stats .stat .k').textContent = 'Demo projects (not verified)';
   }
@@ -742,7 +781,8 @@ function render() {
   projects.forEach(p => {
     try {
       if (!p || !p.utility || !p.id) return;
-      const pts = projectLatLngs(p);
+      const parts = projectParts(p);
+      const pts = parts[0] || [];
       if (!pts.length) return;
       const color = p.utility === 'DESC' ? getVar('--utility-a') : getVar('--utility-b');
       const marker = L.circleMarker(pts[0], {
@@ -761,14 +801,17 @@ function render() {
       const popupHtml = `<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}${geom}`;
       marker.bindPopup(popupHtml);
       projectMarkers.set(p.id, marker);
-      pts.forEach(pt => bounds.push(pt));
-      if (pts.length > 1) {
-        const hit = L.polyline(pts, { color, weight: 14, opacity: 0 }).addTo(drawnLayers);
-        hit.bindPopup(popupHtml);
-        const route = L.polyline(pts, { color, weight: 3, opacity: 0.75 }).addTo(drawnLayers);
-        route.bindPopup(popupHtml);
-        marker.bringToFront();
-      }
+      const dash = p.estimated_geometry ? '6 4' : null;
+      parts.forEach(part => {
+        part.forEach(pt => bounds.push(pt));
+        if (part.length > 1) {
+          const hit = L.polyline(part, { color, weight: 14, opacity: 0 }).addTo(drawnLayers);
+          hit.bindPopup(popupHtml);
+          const route = L.polyline(part, { color, weight: 3, opacity: 0.75, dashArray: dash }).addTo(drawnLayers);
+          route.bindPopup(popupHtml);
+        }
+      });
+      marker.bringToFront();
     } catch (err) {
       console.warn('Skipped a project with malformed geometry:', err, p);
     }
@@ -821,6 +864,9 @@ function render() {
       const confA = m.project_a?.data_confidence;
       const confB = m.project_b?.data_confidence;
       const distanceLabel = (typeof m.distance_km === 'number') ? `${m.distance_km} km apart` : 'distance unknown';
+      const scoreLine = (typeof m.coordination_score === 'number')
+        ? `<div class="meta">Coordination score ${m.coordination_score}${m.close_tier_blocked ? ' · close tier blocked (under-40 km screen only)' : ''}</div>`
+        : '';
       item.innerHTML = `
         <div class="pair">${escapeHtml(m.project_a.name || 'Unnamed project')} <span style="color:var(--text-dim)">&harr;</span> ${escapeHtml(m.project_b.name || 'Unnamed project')}</div>
         <div class="utilities">${escapeHtml(m.project_a.utility)} · ${escapeHtml(m.project_b.utility)}</div>
@@ -829,6 +875,7 @@ function render() {
           ${distanceLabel} · ${escapeHtml(timing)} · ${escapeHtml(String(tierLabel)).toLowerCase()}
         </div>
         <div class="meta">${coordinationBadge(tierKey)} ${confidenceBadge(confA)} ${confidenceBadge(confB)}</div>
+        ${scoreLine}
       `;
       item.addEventListener('click', () => selectMatch(m.match_id));
       listEl.appendChild(item);
@@ -886,8 +933,8 @@ function selectMatch(matchId) {
 
   try {
     const focus = [];
-    projectLatLngs(m.project_a).forEach(pt => focus.push(pt));
-    projectLatLngs(m.project_b).forEach(pt => focus.push(pt));
+    projectParts(m.project_a).forEach(part => part.forEach(pt => focus.push(pt)));
+    projectParts(m.project_b).forEach(part => part.forEach(pt => focus.push(pt)));
     const ca = m.closest_points?.a || m.closest_point_a;
     const cb = m.closest_points?.b || m.closest_point_b;
     if (ca) focus.push([ca.lat, ca.lng]);
@@ -1047,6 +1094,9 @@ function renderDetailPanel(m) {
       ${typeRowB ? `<div class="type-row">${typeRowB}</div>` : ''}
       ${escapeHtml(formatYears(m.project_b))}<br><br>
       ${escapeHtml(timing)}
+      ${typeof m.coordination_score === 'number' ? `<br>Coordination score ${m.coordination_score} — ${escapeHtml(m.coordination_explanation || '')}` : ''}
+      ${m.close_tier_blocked ? '<br>Close tier blocked: low-confidence or single-point geometry stays in the under-40 km screen.' : ''}
+      ${m.screening_note ? `<br>${escapeHtml(m.screening_note)}` : ''}
     </div>
     ${renderTimelineViz(m)}
     ${renderScenario(m)}

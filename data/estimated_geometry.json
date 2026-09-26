@@ -1,0 +1,1829 @@
+{
+  "schema_version": "1.0",
+  "dataset": "estimated_coverage",
+  "disclaimer": "Estimated geometry \u2014 planning-screening use only. Official verified geometry is unchanged. Straight lines connect uniquely matched public substations. HIFLD corridors are used only for rebuilds with a unique owner and voltage match. County anchors are low-confidence screening points and cannot create a close tier.",
+  "estimates": [
+    {
+      "project_id": "scrtp-desc-2026-eb202ce3590c13fc88e7",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.353933,
+        32.715277
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Adams Run Substation (way/697675375) resolved. The other endpoint was left unresolved (Red House Road: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Adams Run"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-a475537e9a3c614817c8",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.564435,
+        33.913487
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Batesburg Substation (way/178951280) resolved. The other endpoint was left unresolved. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Batesburg"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-580489b3325c66a1a3c7",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.721016,
+        32.436488
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Burton Substation (way/185362029) resolved. The other endpoint was left unresolved (St Helena: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Burton"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-4c872ccba8939e35fac2",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.117842,
+        33.98202
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Springdale Substation (way/185230439) resolved. The other endpoint was left unresolved (CAE Industrial Park: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Springdale Sub"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-9b5c3fa9b64a36b4c27d",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -79.842276,
+          32.941402
+        ],
+        [
+          -79.788441,
+          32.859937
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Cainhoy Substation (way/229116275) to Hamlin Substation (way/229116306). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Cainhoy",
+        "Hamlin"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-e24119ec3a7bdb72a697",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.780425,
+        33.674637
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Calhoun County, SC. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-2bdbe589065850b2bf7b",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.708996,
+        33.563666
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Cameron Substation (way/318318141) resolved. The other endpoint was left unresolved (Cameron Jct: no unique public facility; St Matthews: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Cameron"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-01721fe441d77ed53511",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.579724,
+        33.532384
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Elloree Substation (way/1075509549) resolved. The other endpoint was left unresolved (Cameron Jct: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Elloree"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-1abfb289467fdf34ea99",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.6206,
+        33.064096
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Canadys Substation (way/185032900) resolved. The other endpoint was left unresolved (Ritter: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Canadys"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-46820ad9c5762567112e",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.070279,
+        32.83032
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Church Creek Substation (way/185330726) resolved. The other endpoint was left unresolved (Dawson: ambiguous (0 facilities)). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Church Creek"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-62cca916e3889b16667d",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -80.070279,
+          32.83032
+        ],
+        [
+          -80.014624,
+          32.85008
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Church Creek Substation (way/185330726) to Faber Place Substation (way/217507829). Not used: Charleston Transmission: no unique public facility. Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Church Creek",
+        "Faber Place"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-682690d31529ada3413c",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.070279,
+        32.83032
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Church Creek Substation (way/185330726) resolved. The other endpoint was left unresolved (Ritter: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Church Creek"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-5f045dde1ccaf5f7d88e",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.049937,
+        33.997684
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Columbia Canal Substation (way/1078308089) resolved. The other endpoint was left unresolved. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Columbia Canal"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-0ebf87ad38523a768f7f",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.323976,
+        33.897661
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Sumter Substation (way/185032893) resolved. The other endpoint was left unresolved (Eastover: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Sumter"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-539bcce2151a4cce3dfe",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.579724,
+        33.532384
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Elloree Substation (way/1075509549) resolved. The other endpoint was left unresolved (Santee City: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Elloree"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-167cae57a08d41084d8f",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.014624,
+        32.85008
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Faber Place Substation (way/217507829) resolved. The other endpoint was left unresolved (Bayfront: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Faber Place"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-4d45267b2be012b25f45",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.863793,
+        32.697426
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Yemassee Substation (way/185317032) resolved. The other endpoint was left unresolved (Fairfax: ambiguous (2 facilities)). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Yemassee"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-644509a9674dde09dab2",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.451166,
+        33.209907
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Harleyville Substation (way/1075801506) resolved. The other endpoint was left unresolved. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Harleyville"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-bbcc2e30ae237ba84769",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -82.201504,
+        33.736288
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Modoc Substation (way/1074904620) resolved. The other endpoint was left unresolved (Hooks: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Modoc"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-d996339bf6f88a71bec4",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -82.201504,
+          33.736288
+        ],
+        [
+          -82.292804,
+          33.906536
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Modoc Substation (way/1074904620) to McCormick Substation (way/1044493458). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Modoc",
+        "McCormick"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-3fcc16fb58dedf958023",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.032376,
+          32.334445
+        ],
+        [
+          -81.175112,
+          32.352116
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Okatie 230-115kV Substation, Jasper - Yemassee 230kV #1 Fold-in (scrtp-desc-2026-99cdb225cd296159f73c) to McIntosh Substation (way/121624352). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Okatie",
+        "McIntosh"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-5fc8cc411f3fac441bb2",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.888914,
+        33.459544
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Orangeburg Primary Substation (way/722704907) resolved. The other endpoint was left unresolved (Cameron Jct: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Orangeburg #1"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-df647554a741cc921e3b",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -80.592009,
+          33.199388
+        ],
+        [
+          -80.323976,
+          33.897661
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Saint George Switching Station (way/1069480257) to Sumter Substation (way/185032893). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "St George",
+        "Sumter"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-6246e72a6d88f440bff0",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -80.592009,
+          33.199388
+        ],
+        [
+          -80.421417,
+          33.325845
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Saint George Switching Station (way/1069480257) to Holly Hill Substation (way/1074661994). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "St. George",
+        "Holly Hill"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-338bea3571ea03ed111f",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.0614560468799,
+          34.0575627631264
+        ],
+        [
+          -81.0606829998655,
+          34.0566509995081
+        ],
+        [
+          -81.0597840000652,
+          34.0569080001029
+        ],
+        [
+          -81.0586099999052,
+          34.0572609995542
+        ],
+        [
+          -81.057293999455,
+          34.0576869999282
+        ],
+        [
+          -81.0560480002233,
+          34.058070999919
+        ],
+        [
+          -81.0537629996525,
+          34.05874299981
+        ],
+        [
+          -81.0531809452473,
+          34.0594765328118
+        ],
+        [
+          -81.0525744027675,
+          34.0601413377055
+        ],
+        [
+          -81.0517782259312,
+          34.0610231468751
+        ],
+        [
+          -81.050936684173,
+          34.0619442395566
+        ],
+        [
+          -81.0501074493343,
+          34.0628755927308
+        ],
+        [
+          -81.0494102668423,
+          34.0636428451723
+        ],
+        [
+          -81.0485995372983,
+          34.0645177715353
+        ],
+        [
+          -81.0479415204544,
+          34.0652012898433
+        ],
+        [
+          -81.0473722589572,
+          34.0658232606664
+        ],
+        [
+          -81.0466378862124,
+          34.0666126606813
+        ],
+        [
+          -81.045773527246,
+          34.0675747708643
+        ],
+        [
+          -81.0451011382559,
+          34.0683077496852
+        ],
+        [
+          -81.0442512421656,
+          34.0692236286919
+        ],
+        [
+          -81.0433766415066,
+          34.0701788625669
+        ],
+        [
+          -81.0425515398165,
+          34.0710775338171
+        ],
+        [
+          -81.0418048601523,
+          34.0718909946682
+        ],
+        [
+          -81.0409962865651,
+          34.072774244175
+        ],
+        [
+          -81.0402536493197,
+          34.0735704258129
+        ],
+        [
+          -81.0394532495032,
+          34.0744538810343
+        ],
+        [
+          -81.0385704759719,
+          34.0754209611395
+        ],
+        [
+          -81.0377081831306,
+          34.0763520917724
+        ],
+        [
+          -81.0368480462461,
+          34.07728663484
+        ],
+        [
+          -81.0361714351741,
+          34.0780350795833
+        ],
+        [
+          -81.0357382675441,
+          34.0785048736289
+        ],
+        [
+          -81.0354596999745,
+          34.0795180379276
+        ],
+        [
+          -81.0351730475673,
+          34.0804303739343
+        ],
+        [
+          -81.0348512710326,
+          34.0815425445119
+        ],
+        [
+          -81.0344613114694,
+          34.0827589357124
+        ],
+        [
+          -81.0342406861339,
+          34.0835602315207
+        ],
+        [
+          -81.0340447635704,
+          34.0842897247796
+        ],
+        [
+          -81.0348409395085,
+          34.0850653376897
+        ],
+        [
+          -81.0356928127907,
+          34.0858956277668
+        ],
+        [
+          -81.0365633701326,
+          34.0867190636354
+        ],
+        [
+          -81.0374358139365,
+          34.0875544708795
+        ],
+        [
+          -81.0383084365052,
+          34.0883846606634
+        ],
+        [
+          -81.0391686641196,
+          34.0892046516235
+        ],
+        [
+          -81.0400411079235,
+          34.0900417446753
+        ],
+        [
+          -81.0409116652653,
+          34.0908685630852
+        ],
+        [
+          -81.0417759335019,
+          34.0916936616316
+        ],
+        [
+          -81.0426423585934,
+          34.0925648769617
+        ],
+        [
+          -81.0434900097938,
+          34.0933796936581
+        ],
+        [
+          -81.0433952375313,
+          34.0944695256952
+        ],
+        [
+          -81.0432838455378,
+          34.0955388857509
+        ],
+        [
+          -81.0431590695448,
+          34.0967877340257
+        ],
+        [
+          -81.0446720130446,
+          34.097829392523
+        ],
+        [
+          -81.0467549366939,
+          34.0993088799532
+        ],
+        [
+          -81.0483651668407,
+          34.1004248937485
+        ],
+        [
+          -81.0473091064944,
+          34.1014249264567
+        ],
+        [
+          -81.0453721599771,
+          34.1032873501459
+        ],
+        [
+          -81.0442286046204,
+          34.1043525828959
+        ],
+        [
+          -81.0435693310334,
+          34.1062873879417
+        ],
+        [
+          -81.0428575060023,
+          34.1082196935014
+        ],
+        [
+          -81.0420699529927,
+          34.1104103417205
+        ],
+        [
+          -81.0415360842193,
+          34.1119706776619
+        ],
+        [
+          -81.0407367632795,
+          34.1142506248706
+        ],
+        [
+          -81.0401008458899,
+          34.1159871507432
+        ],
+        [
+          -81.039339433855,
+          34.1182090555396
+        ],
+        [
+          -81.0397769125001,
+          34.1192426430586
+        ],
+        [
+          -81.0402670342174,
+          34.120377729594
+        ],
+        [
+          -81.0415623150256,
+          34.1222590705496
+        ],
+        [
+          -81.0424462572652,
+          34.1235003846206
+        ],
+        [
+          -81.0434614424695,
+          34.1249879734985
+        ],
+        [
+          -81.0447478308546,
+          34.1268183487906
+        ],
+        [
+          -81.0457338217105,
+          34.1282237846655
+        ],
+        [
+          -81.0470962066704,
+          34.1307520245196
+        ],
+        [
+          -81.0479859879593,
+          34.1323433647534
+        ],
+        [
+          -81.0487356320639,
+          34.1337462557569
+        ],
+        [
+          -81.049467848852,
+          34.1351056257795
+        ],
+        [
+          -81.0482397620271,
+          34.1367258804779
+        ],
+        [
+          -81.0471516327234,
+          34.1380611867354
+        ],
+        [
+          -81.0477963536028,
+          34.1394880726185
+        ],
+        [
+          -81.0487356320639,
+          34.141897686972
+        ],
+        [
+          -81.0493832275522,
+          34.1435443535502
+        ],
+        [
+          -81.0498169997484,
+          34.1447409998947
+        ],
+        [
+          -81.0507730003485,
+          34.1451939997988
+        ],
+        [
+          -81.0523440001685,
+          34.1460260000487
+        ],
+        [
+          -81.0542039996935,
+          34.1470159997479
+        ],
+        [
+          -81.056307999616,
+          34.1481009997863
+        ],
+        [
+          -81.0590729996875,
+          34.1495859997679
+        ],
+        [
+          -81.0607849999728,
+          34.1504510000999
+        ],
+        [
+          -81.0631700001027,
+          34.1517129994459
+        ],
+        [
+          -81.0646880002192,
+          34.1525179999785
+        ],
+        [
+          -81.0673909994681,
+          34.1539309998491
+        ],
+        [
+          -81.0690469996769,
+          34.1548730000101
+        ],
+        [
+          -81.0715509996325,
+          34.1562720000998
+        ],
+        [
+          -81.0731046799338,
+          34.1571467925821
+        ],
+        [
+          -81.0740889190749,
+          34.1576933251432
+        ],
+        [
+          -81.0754309347357,
+          34.1584547517776
+        ],
+        [
+          -81.0775534148002,
+          34.1596539996703
+        ],
+        [
+          -81.0789124337728,
+          34.1604489386477
+        ],
+        [
+          -81.081317721455,
+          34.161814551036
+        ],
+        [
+          -81.0838165030971,
+          34.1632471850508
+        ],
+        [
+          -81.0861575459652,
+          34.1645604490159
+        ],
+        [
+          -81.0881372567816,
+          34.1656835546926
+        ],
+        [
+          -81.0906975568509,
+          34.1671159900067
+        ],
+        [
+          -81.0924535988397,
+          34.1681296405232
+        ],
+        [
+          -81.0937860968501,
+          34.1688863091247
+        ],
+        [
+          -81.0959863871879,
+          34.1702277396891
+        ],
+        [
+          -81.0981167167313,
+          34.1713799841588
+        ],
+        [
+          -81.1001962519354,
+          34.1717944787479
+        ],
+        [
+          -81.1020142740855,
+          34.1731740978192
+        ],
+        [
+          -81.1032182806709,
+          34.1740925696189
+        ],
+        [
+          -81.1053074476114,
+          34.1757629510151
+        ],
+        [
+          -81.1068398207725,
+          34.1769146108329
+        ],
+        [
+          -81.1081432879279,
+          34.1786167350252
+        ],
+        [
+          -81.1101472712233,
+          34.180940659177
+        ],
+        [
+          -81.1119842145882,
+          34.180940659177
+        ],
+        [
+          -81.1136137585136,
+          34.1823342735467
+        ],
+        [
+          -81.1155581655393,
+          34.1837912524771
+        ],
+        [
+          -81.1176616085063,
+          34.1854283215787
+        ],
+        [
+          -81.1191416341409,
+          34.1865752214576
+        ],
+        [
+          -81.1212688716831,
+          34.1882075320723
+        ],
+        [
+          -81.1216894907469,
+          34.1895904948507
+        ],
+        [
+          -81.122412846553,
+          34.1919223667938
+        ],
+        [
+          -81.1239799108538,
+          34.1930165421287
+        ],
+        [
+          -81.1257859216302,
+          34.1943407119201
+        ],
+        [
+          -81.1269137861139,
+          34.195118795658
+        ],
+        [
+          -81.1282129718986,
+          34.1956684511779
+        ],
+        [
+          -81.1298726462169,
+          34.1963537354701
+        ],
+        [
+          -81.1324103410805,
+          34.1974137859331
+        ],
+        [
+          -81.1343484122885,
+          34.1982061469397
+        ],
+        [
+          -81.1366398331186,
+          34.1991948125467
+        ],
+        [
+          -81.1386707029904,
+          34.2000264336607
+        ],
+        [
+          -81.1402697006029,
+          34.2006831657446
+        ],
+        [
+          -81.1424540458444,
+          34.2015790327484
+        ],
+        [
+          -81.1443849790392,
+          34.2023785308428
+        ],
+        [
+          -81.1466942458007,
+          34.2033564899107
+        ],
+        [
+          -81.1484752717342,
+          34.2041024510395
+        ],
+        [
+          -81.1509201688323,
+          34.2051018245039
+        ],
+        [
+          -81.1530188525249,
+          34.2059727067406
+        ],
+        [
+          -81.1548641250691,
+          34.2067436528834
+        ],
+        [
+          -81.1565416453189,
+          34.2074253680891
+        ],
+        [
+          -81.1585903611222,
+          34.2082891129935
+        ],
+        [
+          -81.1621167220245,
+          34.2097417737918
+        ],
+        [
+          -81.1640655011507,
+          34.2104734580731
+        ],
+        [
+          -81.1660464022349,
+          34.2111694495076
+        ],
+        [
+          -81.1676846607168,
+          34.2118119051236
+        ],
+        [
+          -81.1701152799918,
+          34.2126934948026
+        ],
+        [
+          -81.1724887924658,
+          34.2136107770772
+        ],
+        [
+          -81.1748408900018,
+          34.2144816597905
+        ],
+        [
+          -81.1771394488451,
+          34.2153275576052
+        ],
+        [
+          -81.1790311211704,
+          34.2160271198838
+        ],
+        [
+          -81.1808085780972,
+          34.2147564876456
+        ],
+        [
+          -81.1827609262301,
+          34.2154631874426
+        ],
+        [
+          -81.185020224204,
+          34.2162412708499
+        ],
+        [
+          -81.186704882467,
+          34.2168373255177
+        ],
+        [
+          -81.1892425782288,
+          34.2176975005151
+        ],
+        [
+          -81.1907987450669,
+          34.2182971260058
+        ],
+        [
+          -81.1925048191663,
+          34.218968133713
+        ],
+        [
+          -81.1943465218056,
+          34.2196926790014
+        ],
+        [
+          -81.1959526583296,
+          34.2203422718199
+        ],
+        [
+          -81.1975837779,
+          34.2209918648291
+        ],
+        [
+          -81.1997252932654,
+          34.2218127790162
+        ],
+        [
+          -81.2017989930134,
+          34.2226479695968
+        ],
+        [
+          -81.2037941719206,
+          34.2234260534998
+        ],
+        [
+          -81.2057715039982,
+          34.2241934299314
+        ],
+        [
+          -81.2082699379922,
+          34.2251892338745
+        ],
+        [
+          -81.2098475197683,
+          34.225820980556
+        ],
+        [
+          -81.2123031238863,
+          34.2268203549326
+        ],
+        [
+          -81.2141555335455,
+          34.227548469863
+        ],
+        [
+          -81.2157581010629,
+          34.2281837854951
+        ],
+        [
+          -81.2177068801891,
+          34.2289547304467
+        ],
+        [
+          -81.2192594780205,
+          34.2295793395842
+        ],
+        [
+          -81.2207192780864,
+          34.2302432098224
+        ],
+        [
+          -81.2228108237658,
+          34.2311854757228
+        ],
+        [
+          -81.2243134537079,
+          34.2318743295506
+        ],
+        [
+          -81.2268440096599,
+          34.2330129018198
+        ],
+        [
+          -81.228899865273,
+          34.2338445241608
+        ],
+        [
+          -81.2315696196699,
+          34.2349188495456
+        ],
+        [
+          -81.2329580351117,
+          34.2354470906429
+        ],
+        [
+          -81.2340858995954,
+          34.236549970793
+        ],
+        [
+          -81.2352280410038,
+          34.2375921748279
+        ],
+        [
+          -81.2370947275878,
+          34.239298247984
+        ],
+        [
+          -81.2390613526454,
+          34.2410828435863
+        ],
+        [
+          -81.2405675515941,
+          34.2424355680327
+        ],
+        [
+          -81.2414848339071,
+          34.2432493425321
+        ],
+        [
+          -81.2427411889174,
+          34.2444200375438
+        ],
+        [
+          -81.2447470748446,
+          34.2462546028384
+        ],
+        [
+          -81.2457500178081,
+          34.2471825919875
+        ],
+        [
+          -81.2480128847886,
+          34.2492170320292
+        ],
+        [
+          -81.2496511441689,
+          34.2507767677437
+        ],
+        [
+          -81.2520068098132,
+          34.252911144815
+        ],
+        [
+          -81.2531632281464,
+          34.2539390721213
+        ],
+        [
+          -81.2548978560954,
+          34.2553917326738
+        ],
+        [
+          -81.2565825134601,
+          34.2568229788415
+        ],
+        [
+          -81.2579138221011,
+          34.2577117069418
+        ],
+        [
+          -81.2600767515062,
+          34.2591393839977
+        ],
+        [
+          -81.2624538338852,
+          34.2607133978394
+        ],
+        [
+          -81.2632283487467,
+          34.2612380685144
+        ],
+        [
+          -81.2642527057501,
+          34.2619019377962
+        ],
+        [
+          -81.2656732449465,
+          34.2628334969416
+        ],
+        [
+          -81.2680824492834,
+          34.2644360638255
+        ],
+        [
+          -81.2699634127922,
+          34.2656460199081
+        ],
+        [
+          -81.2711091232072,
+          34.2663919809803
+        ],
+        [
+          -81.2730543333268,
+          34.2676554747985
+        ],
+        [
+          -81.2743285342686,
+          34.2685192188974
+        ],
+        [
+          -81.2761666679012,
+          34.2697256055945
+        ],
+        [
+          -81.2778620340825,
+          34.2708356248744
+        ],
+        [
+          -81.2797537046111,
+          34.2720634268712
+        ],
+        [
+          -81.2819166349145,
+          34.2734982405716
+        ],
+        [
+          -81.2837047997595,
+          34.2746760744896
+        ],
+        [
+          -81.2853394901332,
+          34.2757718161348
+        ],
+        [
+          -81.2863816939663,
+          34.276432116743
+        ],
+        [
+          -81.2876915867709,
+          34.2766676839007
+        ],
+        [
+          -81.2893869529521,
+          34.2769460796548
+        ],
+        [
+          -81.2912711468026,
+          34.2772862254838
+        ],
+        [
+          -81.2928526380468,
+          34.2784237261209
+        ],
+        [
+          -81.2943766829269,
+          34.2795194679091
+        ],
+        [
+          -81.2966895186951,
+          34.2811541566724
+        ],
+        [
+          -81.2981872896498,
+          34.282019818147
+        ],
+        [
+          -81.3007095191174,
+          34.2837996546209
+        ],
+        [
+          -81.3011949291711,
+          34.2841803678651
+        ],
+        [
+          -81.3022228560793,
+          34.2848656527027
+        ],
+        [
+          -81.3039075152407,
+          34.2860839371631
+        ],
+        [
+          -81.3057730115569,
+          34.2874164350289
+        ],
+        [
+          -81.3073720100677,
+          34.2885966478678
+        ],
+        [
+          -81.308628365078,
+          34.2894913250344
+        ],
+        [
+          -81.3108460225451,
+          34.2910522517012
+        ],
+        [
+          -81.3121785205555,
+          34.2920040355263
+        ],
+        [
+          -81.3133280003015,
+          34.2928399997795
+        ],
+        [
+          -81.3148659996113,
+          34.2931589995712
+        ],
+        [
+          -81.3148720713243,
+          34.2954494961564
+        ],
+        [
+          -81.3155491351472,
+          34.2961362037801
+        ]
+      ],
+      "geometry_method": "existing_corridor_hifld",
+      "geometry_confidence": "MEDIUM",
+      "geometry_source": "https://services1.arcgis.com/Hp6G80Pky0om7QvQ/arcgis/rest/services/Electric_Power_Transmission_Lines/FeatureServer/0",
+      "geometry_notes": "HIFLD corridor VCS1\u2013Denny Terrace (1 segment(s), owner and voltage matched). Not used: VCS1\u2013Pineland: public name match is 188 km apart and was not used without a confirming corridor; not used as a substitute location: Pineland. Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "VCS1",
+        "Denny Terrace"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-e392d32c82bbf3b76a94",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.328615,
+          34.290378
+        ],
+        [
+          -81.697723,
+          33.87218
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Virgil C. Summer Nuclear #2/3 Switching Station (way/552845047) to Ward Substation (way/185197506). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "VCS2",
+        "Ward"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "scrtp-desc-2026-56b175a278b0372be50e",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.360566,
+        33.650112
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Wagener Substation (way/993540535) resolved. The other endpoint was left unresolved. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Wagener"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-2f5f6153226830f2478a",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.624076,
+        33.826272
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Wateree Substation (way/1082130490) resolved. The other endpoint was left unresolved (Hopkins: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Wateree"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-293622a55138dc3ee32b",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.624076,
+        33.826272
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Wateree Substation (way/1082130490) resolved. The other endpoint was left unresolved (Killian: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Wateree"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-21cc4cdc9245c53a9d6d",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -79.932168,
+        33.017699
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Williams Substation (way/184867924) resolved. The other endpoint was left unresolved (Summerville: ambiguous (0 facilities)). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Williams"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "scrtp-desc-2026-24a209cdb86fc26f12eb",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -80.863793,
+        32.697426
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Yemassee Substation (way/185317032) resolved. The other endpoint was left unresolved (Ritter: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Yemassee"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-big-ogeechee-new-substation",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.089825,
+        31.975517
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Chatham County, GA. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only. Unresolved names: Big Ogeechee: no unique public facility; Big Ogeechee: subject facility was not uniquely resolved; not used as a substitute location: Little Ogeechee.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-boulevard-deptford-reconductor",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.144464,
+          32.041231
+        ],
+        [
+          -81.048384,
+          32.066828
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Boulevard Substation (way/381797798) to Deptford Substation (way/122007500). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Boulevard",
+        "Deptford"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "gpc-sertp-2025-coleman-dean-forest-rebuild",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.188722,
+        32.08351
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Dean Forest Substation (way/121674829) resolved. The other endpoint was left unresolved (Coleman: ambiguous (2 facilities)). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Dean Forest"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-coleman-meldrim-rebuild",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.368377,
+        32.155282
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Meldrim Substation (way/121624363) resolved. The other endpoint was left unresolved (Coleman: ambiguous (2 facilities); Structure 76A: no unique public facility; not used as a substitute location: Four Lakes, Quacco Road). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Meldrim"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "georgia-power-2026-83a79bb18ac6d7434a20",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.343373,
+        32.361678
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Effingham County, GA. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-goldens-creek-warrenton-primary-rebuild",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -82.687296,
+        33.380501
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Warrenton Primary Substation (way/170296005) resolved. The other endpoint was left unresolved (Goldens Creek: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Warrenton Primary"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-goshen-kraft-first-segment",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.209472,
+          32.248701
+        ],
+        [
+          -81.145983,
+          32.148135
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Goshen Substation (way/1008141064) to Kraft Substation (way/121986375). Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Goshen (Savannah)",
+        "Kraft"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "gpc-sertp-2025-goshen-kraft-rice-hope-segment",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.209472,
+        32.248701
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Goshen Substation (way/1008141064) resolved. The other endpoint was left unresolved (Rice Hope: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Goshen (Savannah)"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-goshen-mcintosh-rebuild",
+      "estimated_geometry": true,
+      "geometry_type": "LineString",
+      "geometry": [
+        [
+          -81.209472,
+          32.248701
+        ],
+        [
+          -81.175112,
+          32.352116
+        ]
+      ],
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "straight line Goshen Substation (way/1008141064) to McIntosh Substation (way/121624352). Not used: Georgia Pacific (Rincon): no unique public facility. Not a surveyed route. Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Goshen (Savannah)",
+        "McIntosh"
+      ],
+      "tier_eligibility": "estimated_close"
+    },
+    {
+      "project_id": "gpc-sertp-2025-goshen-area-gpc-switching-station",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -82.019907,
+        33.089434
+      ],
+      "geometry_method": "estimated_facility_point",
+      "geometry_confidence": "ESTIMATED",
+      "geometry_source": "https://www.openstreetmap.org",
+      "geometry_notes": "Only Waynesboro Substation (way/749962144) resolved. The other endpoint was left unresolved (Wilson: no unique public facility). Estimated geometry \u2014 planning-screening use only.",
+      "endpoint_names": [
+        "Waynesboro"
+      ],
+      "tier_eligibility": "broad_screen"
+    },
+    {
+      "project_id": "georgia-power-2026-c78a361d12a5667dd3a1",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -84.283603,
+        33.502726
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Clayton County, GA, Henry County, GA. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only. Unresolved names: Hills Bridge: no unique public facility; Speedway: no unique public facility.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    },
+    {
+      "project_id": "gpc-sertp-2025-rice-hope-autotransformer",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -81.216599,
+        32.168598
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Chatham County, GA, Effingham County, GA. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only. Unresolved names: Rice Hope Autotransformer: no unique public facility; Rice Hope: no unique public facility; Crossgate: no unique public facility; Rice Hope: subject facility was not uniquely resolved; not used as a substitute location: McIntosh.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    },
+    {
+      "project_id": "georgia-power-2026-a84d843ee3a3cc43ff5f",
+      "estimated_geometry": true,
+      "geometry_type": "Point",
+      "geometry": [
+        -84.121563,
+        33.276352
+      ],
+      "geometry_method": "regional_screening_anchor",
+      "geometry_confidence": "LOW",
+      "geometry_source": "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1",
+      "geometry_notes": "Census county internal point for Butts County, GA, Spalding County, GA. No facility or corridor was uniquely resolved. Eligible only for under-40 km screening. Estimated geometry \u2014 planning-screening use only. Unresolved names: Tomochichi: no unique public facility; Towaliga River: no unique public facility.",
+      "endpoint_names": [],
+      "tier_eligibility": "regional_screen"
+    }
+  ],
+  "unresolved": [
+    {
+      "project_id": "scrtp-desc-2026-309795ee1adf28cf2ca0",
+      "name": "Atomic Road 115/12kV Sub: Construct",
+      "reason": "Atomic Road: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-8b260462f73fb187efb7",
+      "name": "Clements Ferry Rd Sub: 115kV Tap from Cainhoy",
+      "reason": "no defensible public match"
+    },
+    {
+      "project_id": "scrtp-desc-2026-55ca5129e792a0ffac5a",
+      "name": "Coast Guard 115kV Substation and Tap: Construct",
+      "reason": "Coast Guard: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-1b30b2d7f1243af224a6",
+      "name": "Coit - Gills Creek 115kV: Construct",
+      "reason": "Coit: no unique public facility; Gills Creek: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-4a7942c7cf9090d1615f",
+      "name": "Dawson 230kV Sub and Fold-in: Construct and Rebuild",
+      "reason": "Dawson: ambiguous (0 facilities)"
+    },
+    {
+      "project_id": "scrtp-desc-2026-ff156d76c0883982f0fe",
+      "name": "Flat Rock 115kV Sub and Tap: Construct",
+      "reason": "Flat Rock: ambiguous (0 facilities)"
+    },
+    {
+      "project_id": "scrtp-desc-2026-227b596e791634c1e100",
+      "name": "Jackson 115kV: Construct 115 - 12kV Distribution Substation",
+      "reason": "Jackson: ambiguous (0 facilities)"
+    },
+    {
+      "project_id": "scrtp-desc-2026-7fa4730f03b913c12731",
+      "name": "Long Savannah 115 kV Tap: Construct",
+      "reason": "Long Savannah: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-eb85d7f45be01076a63b",
+      "name": "Lyles - Kilbourne Park 115kV: Replace Structure 67 - Kilbourne Park",
+      "reason": "Lyles: no unique public facility; Kilbourne Park: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-84d5c4bca259c7c3525e",
+      "name": "Millrace 115 kV Tap: Construct",
+      "reason": "Millrace: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-7611950eee55380eb17f",
+      "name": "Riverport 115kV Tap: Construct Tap",
+      "reason": "Riverport: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-0e85d451a55e8819d96c",
+      "name": "Saluda Hydro - Bush River 115kV #1 and #2 Tie Lines Rebuild",
+      "reason": "Saluda Hydro: no unique public facility; Bush River: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-962089b5689400bb0b79",
+      "name": "Scout 230 kV Sub and Fold-in: Construct",
+      "reason": "Scout: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-934683e291b7d4eca945",
+      "name": "Stevens Creek - Graniteville 115 kV: Rebuild",
+      "reason": "Stevens Creek: no unique public facility; Graniteville: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-b67f9b219765f715cb64",
+      "name": "Summerville 115kV Loop: Rebuild",
+      "reason": "Summerville: ambiguous (0 facilities)"
+    },
+    {
+      "project_id": "scrtp-desc-2026-4adc3d7895d500e1fdc4",
+      "name": "Summerville-Boone Hill 115kV: Move Line for US78 SCDOT Road Widening",
+      "reason": "Summerville: ambiguous (0 facilities); Boone Hill: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-1369cc25b0f210697d9f",
+      "name": "Union Pier 115-13.8 kV Sub: Tap",
+      "reason": "Union Pier 115: no unique public facility; 13.8 kV Sub: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-e9c1d443c0a9e36ceea8",
+      "name": "Williams St Sub: Replace Sw House & Relays, AM Williams Sub: Replace Sw House, and McMeekin Sub: Add Sw House",
+      "reason": "Williams St Sub: no unique public facility"
+    },
+    {
+      "project_id": "scrtp-desc-2026-280ebdf1b72250caeba3",
+      "name": "Winnsboro West 230-115 kV Sub and Fold-in: Construct",
+      "reason": "Winnsboro West 230: no unique public facility"
+    }
+  ]
+}
