@@ -276,6 +276,7 @@
     .stats { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
+<link rel="stylesheet" href="radar.css" />
 </head>
 <body>
 
@@ -493,9 +494,12 @@ document.getElementById('btnCloseMethodology').addEventListener('click', closeMe
 methodologyOverlay.addEventListener('click', (e) => { if (e.target === methodologyOverlay) closeMethodology(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMethodology(); });
 
-loadDataset('verified');
+let radarLoadRequest = 0;
+// radar.js initializes the presentation before loading the default dataset.
 
 function loadDataset(name) {
+  const request = ++radarLoadRequest;
+  if (window.radarLoading) window.radarLoading(name);
   currentDataset = name;
   document.getElementById('btnVerified').classList.toggle('active', name === 'verified');
   document.getElementById('btnEstimated').classList.toggle('active', name === 'estimated');
@@ -503,8 +507,9 @@ function loadDataset(name) {
   document.getElementById('load-error').style.display = 'none';
   fetch(DATASETS[name].url)
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(data => { analysis = data; selectedMatchId = null; render(); })
+    .then(data => { if (request !== radarLoadRequest) return; analysis = data; selectedMatchId = null; render(); })
     .catch(err => {
+      if (request !== radarLoadRequest) return;
       console.error(err);
       // Never silently fall back to the other dataset — show an explicit,
       // unambiguous error state across the whole UI instead.
@@ -1198,5 +1203,6 @@ function applyYearFilter() {
   });
 }
 </script>
+<script src="radar.js"></script>
 </body>
 </html>

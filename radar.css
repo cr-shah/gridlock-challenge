@@ -1,0 +1,82 @@
+/* Radar-only tokens: the application theme can override these at integration. */
+.radar-scope {
+  --radar-bg: var(--bg, #0b0e14);
+  --radar-surface: var(--panel, #131822);
+  --radar-raised: #1a2230;
+  --radar-border: var(--panel-border, #232b3a);
+  --radar-text: var(--text, #e7ecf3);
+  --radar-muted: var(--text-dim, #8996a8);
+  --radar-accent: var(--utility-a, #4fa8e0);
+  --radar-estimated: #abc4ef;
+  --radar-demo: var(--demo, #c9842a);
+  --radar-radius: 10px;
+  --radar-gap: 16px;
+  color: var(--radar-text);
+}
+.radar-toolbar { padding: 14px 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--radar-surface); border-bottom: 1px solid var(--radar-border); }
+.radar-title { margin-right: auto; }
+.radar-title strong { display: block; font-size: 16px; }
+.radar-title small, .radar-muted { color: var(--radar-muted); font-size: 11px; }
+.radar-toolbar button, .radar-action { border: 1px solid var(--radar-border); background: var(--radar-bg); color: var(--radar-text); border-radius: 6px; padding: 7px 10px; cursor: pointer; font: inherit; font-size: 11px; }
+.radar-toolbar .dataset-toggle button.active { background: var(--radar-raised); box-shadow: inset 0 -2px var(--radar-accent); }
+.radar-toolbar .dataset-toggle button.estimated.active { box-shadow: inset 0 -2px var(--radar-estimated); }
+.radar-toolbar .dataset-toggle button.demo.active { box-shadow: inset 0 -2px var(--radar-demo); }
+.radar-workspace.layout { height: max(670px, calc(100dvh - 150px)); min-height: 670px; }
+.radar-workspace .sidebar { width: 320px; min-width: 280px; }
+.radar-workspace .stats { gap: 5px; padding: 12px; }
+.radar-workspace .stat { background: var(--radar-bg); border-radius: 6px; }
+.radar-workspace .sidebar h2 { padding: 16px 14px 10px; font-size: 12px; color: var(--radar-text); }
+.radar-workspace .match-item { margin: 0 9px 8px; padding: 13px; border: 1px solid var(--radar-border); border-radius: var(--radar-radius); background: var(--radar-bg); }
+.radar-workspace .match-item:hover { background: var(--radar-raised); border-color: var(--radar-muted); }
+.radar-workspace .match-item.selected { border-color: var(--radar-accent); background: var(--radar-raised); box-shadow: inset 3px 0 var(--radar-accent); }
+.radar-scope :focus-visible { outline: 2px solid var(--radar-accent); outline-offset: 3px; }
+.radar-card-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+.radar-distance { font: 500 21px 'IBM Plex Mono', monospace; letter-spacing: -1px; }
+.radar-distance small { font-size: 11px; letter-spacing: 0; color: var(--radar-muted); }
+.radar-project-name { font-size: 12px; line-height: 1.5; margin: 6px 0; overflow-wrap: anywhere; }
+.radar-utility { font-size: 9px; letter-spacing: .08em; color: var(--utility-a); display: block; }
+.radar-utility.gpc { color: var(--utility-b); }
+.radar-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.radar-chip { font-size: 10px; padding: 3px 6px; border: 1px solid var(--radar-border); border-radius: 4px; color: var(--radar-muted); }
+.radar-chip.estimated { color: var(--radar-estimated); }
+.radar-chip.demo { color: var(--radar-demo); }
+.radar-inspector.detail-panel { width: 340px; min-width: 300px; max-height: none; border-top: 0; border-left: 1px solid var(--radar-border); padding: 18px; background: var(--radar-surface); }
+.radar-inspector[hidden] { display: none; }
+.radar-inspector h3 { font-size: 13px; margin: 0 0 10px; }
+.radar-inspector h4 { font-size: 12px; margin: 0 0 8px; }
+.radar-inspector section { padding: 17px 0; border-bottom: 1px solid var(--radar-border); }
+.radar-inspector p { font-size: 12px; color: var(--radar-muted); margin: 7px 0; }
+.radar-inspector .radar-project-name { font-size: 14px; }
+.radar-inspector .evidence { border: 0; padding: 0; }
+.radar-inspector a { color: var(--radar-accent); overflow-wrap: anywhere; }
+.radar-inspector dl { display: grid; grid-template-columns: 85px 1fr; gap: 6px 10px; font-size: 11px; }
+.radar-inspector dt { color: var(--radar-muted); }
+.radar-inspector dd { margin: 0; overflow-wrap: anywhere; }
+.radar-inspector .scenario { background: var(--radar-bg); }
+.radar-inspector-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.radar-map-actions { position: absolute; z-index: 500; right: 12px; top: 12px; display: flex; gap: 6px; }
+.radar-workspace .map-wrap { min-width: 260px; }
+.radar-workspace .legend { bottom: 12px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); background: var(--radar-surface); font-size: 10px; padding: 9px 12px; }
+.radar-workspace .legend summary { cursor: pointer; color: var(--radar-text); font-weight: 600; }
+.radar-workspace .leaflet-popup-content-wrapper, .radar-workspace .leaflet-popup-tip { background: var(--radar-surface); color: var(--radar-text); }
+.radar-workspace .leaflet-popup-content { font: 12px/1.6 'IBM Plex Sans', sans-serif; max-height: 260px; overflow: auto; }
+.radar-workspace .leaflet-popup-content a { color: var(--radar-accent); }
+.radar-workspace .leaflet-bar a { background: var(--radar-surface); color: var(--radar-text); border-color: var(--radar-border); }
+.radar-banner.banner.visible { padding: 10px 20px; font-size: 12px; }
+.radar-state { padding: 25px 16px; color: var(--radar-muted); font-size: 12px; line-height: 1.7; }
+@media (min-width: 1600px) { .radar-workspace .sidebar { width: 360px; } .radar-inspector.detail-panel { width: 380px; } }
+@media (max-width: 1150px) {
+  .radar-workspace.layout { flex-wrap: wrap; height: auto; }
+  .radar-workspace .sidebar { height: 640px; width: 310px; }
+  .radar-workspace .map-wrap { height: 640px; }
+  .radar-inspector.detail-panel { width: 100%; max-height: 580px; border-top: 1px solid var(--radar-border); }
+}
+@media (max-width: 820px) {
+  .radar-workspace.layout { flex-direction: row; }
+  .radar-workspace .sidebar { width: 100%; max-height: 380px; }
+  .radar-workspace .map-wrap { flex-basis: 100%; height: 480px; }
+  .radar-toolbar { gap: 12px; }
+  .radar-toolbar .year-control { width: 100%; }
+}
+
+.radar-action:disabled { opacity: .45; cursor: default; }
