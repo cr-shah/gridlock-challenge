@@ -82,6 +82,16 @@ Geography is the primary rank (`400 / 300 / 200 / 100`). Timeline overlap adds `
 
 Illustrative savings ranges are attached only in demo mode and are labeled as assumptions — not verified utility costs.
 
+## Product polish (this pass)
+
+All additions are frontend-only in `index.html`; `scoring_engine.py` and the data contract are unchanged.
+
+- Ranked list and detail panel now show a plain-language **priority label** (Critical/High/Medium/Low), derived directly from the existing distance tier — never a re-derived score.
+- Project type and voltage (`project_type`, `voltage_kv`) are surfaced wherever present.
+- A **timeline visualization** draws each project's planned window as a bar (or a single point when only `in_service_year` is known) and highlights the overlapping period. Unknown timing is shown as unknown, never invented.
+- A **"what if the schedule moves?" scenario simulator** lets you shift either project's schedule by -1/current/+1/+2 years and see how the timeline relationship and priority score would change. It's entirely client-side and never modifies `data/verified_projects.json` or any other file.
+- **Potential coordination areas** — a short, rule-based list (e.g. "Shared staging / laydown", "Contractor coordination") derived only from the distance tier, clearly labeled as illustrative rather than utility-confirmed.
+
 ## What this repo is not
 
 Do not add PDF scrapers, SERTP parsers, historical ML, storm/outage features, a backend, or a database here. Keep the static GitHub Pages architecture.
