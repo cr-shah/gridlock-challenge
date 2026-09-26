@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Explorer — GridLock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project-explorer.css">
+  <script type="module" src="project-explorer.js"></script>
+</head>
+<body class="project-explorer">
+  <a class="pe-skip" href="#pe-results">Skip to projects</a>
+  <header class="pe-header">
+    <a class="pe-brand" href="index.html" aria-label="GridLock Coordination Radar"><span class="pe-brand-mark" aria-hidden="true">▦</span> GridLock <span class="pe-brand-sub">INFRASTRUCTURE INTELLIGENCE</span></a>
+    <a class="pe-back" href="index.html">← Coordination Radar</a>
+  </header>
+  <main class="pe-main">
+    <div class="pe-heading"><div><p class="pe-eyebrow">PROJECT CATALOG</p><h1>Project Explorer</h1><p class="pe-subtitle">Explore planned transmission projects across DESC and Georgia Power.</p></div><span class="pe-catalog-label">Canonical project records</span></div>
+    <section class="pe-summary" aria-label="Catalog overview" id="pe-summary" hidden></section>
+    <section class="pe-filters" aria-label="Search and filter projects">
+      <form id="pe-filter-form">
+        <fieldset id="pe-controls" disabled><legend class="pe-sr-only">Project filters</legend>
+          <div class="pe-search-row"><div class="pe-search"><label for="pe-search">Search projects</label><input id="pe-search" type="search" placeholder="Project name, ID, or utility" autocomplete="off"></div><button class="pe-clear" type="button" id="pe-clear">Clear filters</button></div>
+          <div class="pe-filter-grid">
+            <div><label for="pe-utility">Utility</label><select id="pe-utility"><option value="">All Utilities</option><option value="DESC">DESC</option><option value="GPC">Georgia Power</option></select></div>
+            <div><label for="pe-year">Project year</label><select id="pe-year" aria-describedby="pe-timing-help"><option value="">All years</option></select></div>
+            <div><label for="pe-region">Region</label><select id="pe-region"><option value="">All regions</option></select></div>
+            <div><label for="pe-mapping">Mapping</label><select id="pe-mapping" aria-describedby="pe-mapping-help"><option value="">All mapping states</option><option value="mapped">Mapped</option><option value="unmapped">Unmapped</option></select></div>
+            <div><label for="pe-confidence">Geometry confidence</label><select id="pe-confidence"><option value="">All confidence levels</option></select></div>
+          </div>
+        </fieldset>
+      </form>
+      <div class="pe-filter-notes"><p id="pe-timing-help">Years match planned windows or recorded start, end, and in-service milestones.</p><p id="pe-mapping-help">Mapped means canonical geometry is available, not necessarily surveyed or high confidence.</p></div>
+    </section>
+    <div class="pe-workspace">
+      <section class="pe-results" id="pe-results" tabindex="-1" aria-labelledby="pe-results-title" aria-busy="true">
+        <div class="pe-section-head"><h2 id="pe-results-title">Projects</h2><span id="pe-count" role="status" aria-live="polite" aria-atomic="true">Loading catalog…</span></div>
+        <div id="pe-list"><div class="pe-state"><span class="pe-state-icon" aria-hidden="true">▦</span><h3>Loading project catalog</h3><p>Reading canonical project records.</p></div></div>
+      </section>
+      <aside class="pe-detail" id="pe-detail" aria-labelledby="pe-detail-title"><div class="pe-section-head"><h2 id="pe-detail-title" tabindex="-1">Project evidence</h2><span class="pe-eyebrow">SOURCE RECORD</span></div><div id="pe-detail-body"><div class="pe-state"><span class="pe-state-icon" aria-hidden="true">↗</span><h3>No project selected</h3><p>Select a project to inspect its timing, geography, and source evidence.</p></div></div></aside>
+    </div>
+  </main>
+</body>
+</html>
