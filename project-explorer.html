@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="canonical-data.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project Explorer — GridLock</title>
@@ -11,6 +12,7 @@
   <script type="module" src="project-explorer.js"></script>
   <link rel="stylesheet" href="shared-background.css">
 <link rel="stylesheet" href="shared-typography.css">
+<link rel="stylesheet" href="ai-analyst.css">
 </head>
 <body class="project-explorer">
 <svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -63,6 +65,9 @@
         <fieldset id="pe-controls" disabled><legend class="pe-sr-only">Project filters</legend>
           <div class="pe-search-row"><div class="pe-search"><label for="pe-search">Search projects</label><input id="pe-search" type="search" placeholder="Project name, ID, or utility" autocomplete="off"></div><button class="pe-clear" type="button" id="pe-clear">Clear filters</button></div>
           <div class="pe-filter-grid">
+<div><label for="pe-geometryStatus">Geometry status</label><select id="pe-geometryStatus"><option value="">All geometry states</option><option>VERIFIED</option><option>ESTIMATED</option><option>UNRESOLVED</option></select></div>
+<div><label for="pe-projectType">Project type</label><select id="pe-projectType"><option value="">All types</option></select></div>
+<div><label for="pe-voltage">Voltage</label><select id="pe-voltage"><option value="">All voltages</option></select></div>
             <div><label for="pe-utility">Utility</label><select id="pe-utility"><option value="">All Utilities</option><option value="DESC">DESC</option><option value="GPC">Georgia Power</option></select></div>
             <div><label for="pe-year">Project year</label><select id="pe-year" aria-describedby="pe-timing-help"><option value="">All years</option></select></div>
             <div><label for="pe-region">Region</label><select id="pe-region"><option value="">All regions</option></select></div>
@@ -81,5 +86,6 @@
       <aside class="pe-detail" id="pe-detail" aria-labelledby="pe-detail-title"><div class="pe-section-head"><h2 id="pe-detail-title" tabindex="-1">Project evidence</h2><span class="pe-eyebrow">SOURCE RECORD</span></div><div id="pe-detail-body"><div class="pe-state"><span class="pe-state-icon" aria-hidden="true">↗</span><h3>No project selected</h3><p>Select a project to inspect its timing, geography, and source evidence.</p></div></div></aside>
     </div>
   </main>
+<script src="ai-analyst.js"></script>
 </body>
 </html>

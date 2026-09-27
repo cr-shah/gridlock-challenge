@@ -1,0 +1,1278 @@
+{
+  "dataset_version": "1.0.0",
+  "generated_at": "2026-09-27T01:39:03.615547+00:00",
+  "pipeline_commit": "7c72a0c670bba9b94513e49f16684fb71f3e9124",
+  "projects": [
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-eb202ce3590c13fc88e7",
+      "project_name": "Adams Run - Red House Road 46 kV: Replace Dawhoo River Crossing and other Structures",
+      "project_type": "equipment_replacement",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-309795ee1adf28cf2ca0",
+      "project_name": "Atomic Road 115/12kV Sub: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        12.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-a475537e9a3c614817c8",
+      "project_name": "Batesburg - Saluda County 115kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-580489b3325c66a1a3c7",
+      "project_name": "Burton-St Helena 115kV: Rebuild Frogmore Distribution - St. Helena Section",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-4c872ccba8939e35fac2",
+      "project_name": "CAE Industrial Park - Springdale Sub 115kV: Replace Laminated Wood Polls.",
+      "project_type": "equipment_replacement",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-9b5c3fa9b64a36b4c27d",
+      "project_name": "Cainhoy - Hamlin 115kV: Rebuild Line and Cainhoy - Hamlin 115 kV #2: Construct New 115 kV Line",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-e24119ec3a7bdb72a697",
+      "project_name": "Calhoun County - North 46 kV Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-2bdbe589065850b2bf7b",
+      "project_name": "Cameron Jct - Cameron - St Matthews 46 kV Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-01721fe441d77ed53511",
+      "project_name": "Cameron Jct - Elloree 46 kV Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-1abfb289467fdf34ea99",
+      "project_name": "Canadys-Ritter 115KV: Rebuild SPDC 230/115KV 1272 (Approx 18 Miles)",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-46820ad9c5762567112e",
+      "project_name": "Church Creek - Dawson 230 kV: Rebuild from Long Savannah to Dawson",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-62cca916e3889b16667d",
+      "project_name": "Church Creek - Faber Place - Charleston Transmission: Add 230kV Line",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-682690d31529ada3413c",
+      "project_name": "Church Creek - Ritter 230kV - Replace 38 Large Angles and Dead Ends",
+      "project_type": "equipment_replacement",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2031,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-8b260462f73fb187efb7",
+      "project_name": "Clements Ferry Rd Sub: 115kV Tap from Cainhoy",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-55ca5129e792a0ffac5a",
+      "project_name": "Coast Guard 115kV Substation and Tap: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        23.9
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-1b30b2d7f1243af224a6",
+      "project_name": "Coit - Gills Creek 115kV: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        33.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-5f045dde1ccaf5f7d88e",
+      "project_name": "Columbia Canal 115 kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": null,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-4a7942c7cf9090d1615f",
+      "project_name": "Dawson 230kV Sub and Fold-in: Construct and Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-0ebf87ad38523a768f7f",
+      "project_name": "Eastover - Sumter 115kV DEP Tie: Rebuild with 1272 ACSR",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-539bcce2151a4cce3dfe",
+      "project_name": "Elloree - Santee City 46 kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2030,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-167cae57a08d41084d8f",
+      "project_name": "Faber Place-Bayfront 115kV: Rebuild North Bridge Terrace to Bayfront Section",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-4d45267b2be012b25f45",
+      "project_name": "Fairfax-Yemassee 115kV: Upgrade for DESCSQ #1151 Interconnection",
+      "project_type": "equipment_upgrade",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-ff156d76c0883982f0fe",
+      "project_name": "Flat Rock 115kV Sub and Tap: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-644509a9674dde09dab2",
+      "project_name": "Harleyville 115KV Transmission Tap - Construct (1.4 miles)",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-bbcc2e30ae237ba84769",
+      "project_name": "Hooks - Modoc 115/46 kV Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-227b596e791634c1e100",
+      "project_name": "Jackson 115kV: Construct 115 - 12kV Distribution Substation",
+      "project_type": "equipment_replacement",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        12.0,
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_georeferenced_route_map_trace",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-6c4897da52154c18c1d1",
+      "project_name": "Jasper - Okatie 230 kV #2: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-7fa4730f03b913c12731",
+      "project_name": "Long Savannah 115 kV Tap: Construct",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-eb85d7f45be01076a63b",
+      "project_name": "Lyles - Kilbourne Park 115kV: Replace Structure 67 - Kilbourne Park",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-84d5c4bca259c7c3525e",
+      "project_name": "Millrace 115 kV Tap: Construct",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-d996339bf6f88a71bec4",
+      "project_name": "Modoc - McCormick 115/46 kV Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-3fcc16fb58dedf958023",
+      "project_name": "Okatie - McIntosh 115kV Tie: Add Series Reactor",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_map_facility_point",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-99cdb225cd296159f73c",
+      "project_name": "Okatie 230-115kV Substation, Jasper - Yemassee 230kV #1 Fold-in",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-5fc8cc411f3fac441bb2",
+      "project_name": "Orangeburg #1 - Cameron Jct 46kV Line Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-7611950eee55380eb17f",
+      "project_name": "Riverport 115kV Tap: Construct Tap",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-0e85d451a55e8819d96c",
+      "project_name": "Saluda Hydro - Bush River 115kV #1 and #2 Tie Lines Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-962089b5689400bb0b79",
+      "project_name": "Scout 230 kV Sub and Fold-in: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-df647554a741cc921e3b",
+      "project_name": "St George - Sumter 230kV Tie: Rebuild Line from Santee Substation - Duke/Progress Energy Tie",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-6246e72a6d88f440bff0",
+      "project_name": "St. George- Holly Hill 115kV: Rebuild Structures 83-108",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-934683e291b7d4eca945",
+      "project_name": "Stevens Creek - Graniteville 115 kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-b67f9b219765f715cb64",
+      "project_name": "Summerville 115kV Loop: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-4adc3d7895d500e1fdc4",
+      "project_name": "Summerville-Boone Hill 115kV: Move Line for US78 SCDOT Road Widening",
+      "project_type": "unknown",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2030,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-1369cc25b0f210697d9f",
+      "project_name": "Union Pier 115-13.8 kV Sub: Tap",
+      "project_type": "equipment_installation",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        13.8,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "public_facility_endpoint_point",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-709d9acc84bd6eb25bd2",
+      "project_name": "Urquhart - Aiken PSA 46 kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        46.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "public_facility_endpoint_point",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2026,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-51b7f3df6753d9825f1a",
+      "project_name": "Urquhart - Toolebeck 115kV line: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "existing_corridor_hifld",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-338bea3571ea03ed111f",
+      "project_name": "VCS1-Denny Terrace 230kV & VCS1-Pineland 230kV: Rebuild Single Circuit Sections",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2032,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-e392d32c82bbf3b76a94",
+      "project_name": "VCS2-Ward 230kV: Rebuild Line",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-56b175a278b0372be50e",
+      "project_name": "Wagener 115kV Tap: Construct Tap",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-2f5f6153226830f2478a",
+      "project_name": "Wateree-Hopkins 230kV Line #1: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-293622a55138dc3ee32b",
+      "project_name": "Wateree-Killian 230kV: Rebuild",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-e9c1d443c0a9e36ceea8",
+      "project_name": "Williams St Sub: Replace Sw House & Relays, AM Williams Sub: Replace Sw House, and McMeekin Sub: Add Sw House",
+      "project_type": "equipment_replacement",
+      "status": null,
+      "utility": "DESC",
+      "voltage": []
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-21cc4cdc9245c53a9d6d",
+      "project_name": "Williams-Summerville 230kV: Upgrade to SPDC B1272 ACSR",
+      "project_type": "line_rebuild",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": null,
+      "geometry_method": null,
+      "geometry_status": "UNRESOLVED",
+      "in_service_year": 2028,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-280ebdf1b72250caeba3",
+      "project_name": "Winnsboro West 230-115 kV Sub and Fold-in: Construct",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        115.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": null,
+      "planned_start_year": null,
+      "project_id": "scrtp-desc-2026-24a209cdb86fc26f12eb",
+      "project_name": "Yemassee- Ritter 230kV #1 & #2: Construct SPDC with B-1272",
+      "project_type": "new_construction",
+      "status": null,
+      "utility": "DESC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2028,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-f86ec735e2182af8b86e",
+      "project_name": "Ashley Park - Wansley 500 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": 2026,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-big-ogeechee-new-substation",
+      "project_name": "Big Ogeechee New Substation",
+      "project_type": "area_project",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        500.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2028,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-31e73b6a22013b33f193",
+      "project_name": "Big Tazewell - Farley 500 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2026,
+      "planned_end_year": 2026,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-boulevard-deptford-reconductor",
+      "project_name": "Boulevard–Deptford Reconductor",
+      "project_type": "transmission_line_upgrade",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "existing_corridor_hifld",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2029,
+      "planned_end_year": 2029,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-boulevard-magnolia-truman-parkway-rebuilds",
+      "project_name": "Boulevard–Magnolia–Truman Parkway Rebuilds",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": null,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-4a60199d0029a784348e",
+      "project_name": "Callaway Road - Thomson Primary 500 kV",
+      "project_type": "area_project",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": 2028,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-coleman-dean-forest-rebuild",
+      "project_name": "Coleman–Dean Forest Rebuild",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2029,
+      "planned_end_year": 2029,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-coleman-meldrim-rebuild",
+      "project_name": "Coleman–Meldrim Rebuild",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2028,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-85c6d93852f8eda4b276",
+      "project_name": "Conyers - Klondike 230 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "existing_corridor_hifld",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2029,
+      "planned_end_year": 2029,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-dean-forest-little-ogeechee-rebuild",
+      "project_name": "Dean Forest–Little Ogeechee Rebuild",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2027,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-f4697ce681309cdee657",
+      "project_name": "Decatur - Scottdale 115 kV",
+      "project_type": "transmission_line_upgrade",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": null,
+      "planned_end_year": null,
+      "planned_start_year": 2027,
+      "project_id": "georgia-power-2026-83a79bb18ac6d7434a20",
+      "project_name": "Effingham County 500 kV",
+      "project_type": "area_project",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2030,
+      "planned_end_year": 2030,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-goldens-creek-warrenton-primary-rebuild",
+      "project_name": "Goldens Creek–Warrenton Primary Rebuild",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2027,
+      "planned_end_year": 2027,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-goshen-kraft-first-segment",
+      "project_name": "Goshen (Savannah)–Kraft Rebuild, First Segment",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2031,
+      "planned_end_year": 2031,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-goshen-kraft-rice-hope-segment",
+      "project_name": "Goshen (Savannah)–Kraft Rebuild, Rice Hope Segment",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "approximate_verified_endpoints",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": 2028,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-goshen-mcintosh-rebuild",
+      "project_name": "Goshen (Savannah)–McIntosh Rebuild",
+      "project_type": "transmission_line_rebuild",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "ESTIMATED",
+      "geometry_method": "estimated_facility_point",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2030,
+      "planned_end_year": 2030,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-goshen-area-gpc-switching-station",
+      "project_name": "Goshen Area Strategic Solution — GPC Switching-Station Component",
+      "project_type": "switching_station",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2027,
+      "planned_start_year": 2026,
+      "project_id": "georgia-power-2026-aecc11f48e0f464e8c99",
+      "project_name": "Grassy Hollow - Great Valley 230 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "HIGH",
+      "geometry_method": "official_project_route_coordinates",
+      "geometry_status": "VERIFIED",
+      "in_service_year": null,
+      "planned_end_year": 2031,
+      "planned_start_year": 2028,
+      "project_id": "georgia-power-2026-57d55e09e3bd5e9f6cb2",
+      "project_name": "Hatch - Wadley Primary 500 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": null,
+      "planned_end_year": 2028,
+      "planned_start_year": 2026,
+      "project_id": "georgia-power-2026-c78a361d12a5667dd3a1",
+      "project_name": "Hills Bridge - Speedway 500/230 kV",
+      "project_type": "new_transmission_line",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        500.0,
+        230.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "public_facility_endpoint_point",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2029,
+      "planned_end_year": 2029,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-little-ogeechee-autotransformer-replacement",
+      "project_name": "Little Ogeechee Autotransformer Replacement",
+      "project_type": "transformer_replacement",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "MEDIUM",
+      "geometry_method": "public_facility_endpoint_point",
+      "geometry_status": "VERIFIED",
+      "in_service_year": 2033,
+      "planned_end_year": 2033,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-meldrim-bank-d-replacement",
+      "project_name": "Meldrim Bank D Replacement",
+      "project_type": "transformer_replacement",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": 2028,
+      "planned_end_year": 2028,
+      "planned_start_year": null,
+      "project_id": "gpc-sertp-2025-rice-hope-autotransformer",
+      "project_name": "Rice Hope Autotransformer",
+      "project_type": "substation_upgrade",
+      "status": "planned",
+      "utility": "GPC",
+      "voltage": [
+        230.0,
+        115.0
+      ]
+    },
+    {
+      "geometry_confidence": "LOW",
+      "geometry_method": "regional_screening_anchor",
+      "geometry_status": "ESTIMATED",
+      "in_service_year": null,
+      "planned_end_year": 2027,
+      "planned_start_year": 2026,
+      "project_id": "georgia-power-2026-a84d843ee3a3cc43ff5f",
+      "project_name": "Tomochichi - Towaliga River 230 kV",
+      "project_type": "area_project",
+      "status": "current",
+      "utility": "GPC",
+      "voltage": [
+        230.0
+      ]
+    }
+  ],
+  "total_projects": 78
+}

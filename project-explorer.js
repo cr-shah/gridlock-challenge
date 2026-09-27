@@ -1,7 +1,7 @@
 const root = document.querySelector('.project-explorer');
 const el = id => root.querySelector(`#pe-${id}`);
 const state = { projects: [], selectedId: null, filters: {} };
-const filterKeys = ['search', 'utility', 'year', 'region', 'mapping', 'confidence'];
+const filterKeys = ['search', 'utility', 'year', 'region', 'mapping', 'confidence', 'geometryStatus', 'projectType', 'voltage'];
 const missing = '__not_provided__';
 const present = value => value !== null && value !== undefined && value !== '' && (!Array.isArray(value) || value.length > 0);
 const utilityName = value => value === 'GPC' ? 'Georgia Power' : value;
@@ -30,6 +30,9 @@ function matches(p) {
   const f = state.filters;
   const searchable = [p.name, p.id, p.utility, utilityName(p.utility)].join(' ').toLocaleLowerCase();
   return (!f.search || searchable.includes(f.search.toLocaleLowerCase())) &&
+    (!f.geometryStatus || p.geometry_status===f.geometryStatus) &&
+    (!f.projectType || p.project_type===f.projectType) &&
+    (!f.voltage || (p.voltage_kv||[]).map(String).includes(f.voltage)) &&
     (!f.utility || p.utility === f.utility) && matchesYear(p, f.year) &&
     (!f.region || (f.region === missing ? !present(p.county_region) : p.county_region === f.region)) &&
     (!f.mapping || hasGeometry(p) === (f.mapping === 'mapped')) &&
@@ -54,7 +57,7 @@ function voltage(p) { return Array.isArray(p.voltage_kv) && p.voltage_kv.length 
 function chips(p) {
   const result = node('span', 'pe-chips');
   const mapped = hasGeometry(p);
-  result.append(node('span', `pe-chip${mapped ? ' pe-chip-mapped' : ''}`, mapped ? 'Mapped' : 'Unmapped'));
+  result.append(node('span', `pe-chip${mapped ? ' pe-chip-mapped' : ''}`, p.geometry_status));
   if (present(p.geometry_confidence)) {
     const style = p.geometry_confidence === 'HIGH' ? ' pe-chip-high' : p.geometry_confidence === 'MEDIUM' ? ' pe-chip-medium' : '';
     result.append(node('span', `pe-chip${style}`, `Geometry: ${p.geometry_confidence}`));
@@ -63,7 +66,9 @@ function chips(p) {
 }
 function option(select, value, label) { const o = node('option', '', label); o.value = value; select.append(o); }
 function populateFilters() {
-  for (const id of ['year', 'region', 'confidence']) while (el(id).options.length > 1) el(id).remove(1);
+  for (const id of ['year', 'region', 'confidence', 'projectType', 'voltage']) while (el(id).options.length > 1) el(id).remove(1);
+  [...new Set(state.projects.map(p=>p.project_type).filter(present))].sort().forEach(v=>option(el('projectType'),v,humanize(v)));
+  [...new Set(state.projects.flatMap(p=>p.voltage_kv||[]))].sort((a,b)=>a-b).forEach(v=>option(el('voltage'),String(v),`${v} kV`));
   const years = new Set();
   for (const p of state.projects) {
     timingYears(p).forEach(y => years.add(y));
@@ -131,14 +136,16 @@ function evidenceLink(value) {
 }
 function renderDetail() {
   const p = state.projects.find(p => p.id === state.selectedId);
+  window.gridlockAnalystContext = {mode:'estimated',selection:p ? {kind:'project',id:p.id} : null};
+  window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
   if (!p) { showState(el('detail-body'), 'No project selected', 'Select a project to inspect its timing, geography, and source evidence.'); return; }
   const intro = node('div', 'pe-detail-intro'); intro.append(node('span', 'pe-utility', utilityName(p.utility)), node('h3', '', p.name), chips(p));
   const info = section('PROJECT INFORMATION');
   [['Project name', p.name], ['Project ID', p.id], ['Utility', utilityName(p.utility)], ['Project type', present(p.project_type) ? humanize(p.project_type) : null], ['Voltage', voltage(p)], ['Planned start', p.planned_start_year], ['Planned end', p.planned_end_year], ['In-service year', p.in_service_year], ['Region', p.county_region], ['Status', present(p.status) ? humanize(p.status) : null], ['Status as of source', p.status_as_of_source]].forEach(([k, v]) => fact(info.facts, k, v));
   if (!timingYears(p).length) info.section.append(node('p', 'pe-note', 'Project timing is not provided in this record.'));
   const geo = section('GEOGRAPHY');
-  [['Mapping', hasGeometry(p) ? 'Mapped — canonical geometry available' : 'Unmapped — no usable canonical geometry'], ['Geometry type', p.geometry_type], ['Geometry method', p.geometry_method], ['Geometry confidence', p.geometry_confidence]].forEach(([k, v]) => fact(geo.facts, k, v));
-  geo.section.append(node('p', 'pe-note', hasGeometry(p) ? 'Mapping availability does not imply surveyed geometry or high confidence.' : 'This project remains in the catalog. No usable canonical geometry is available for geographic comparison; estimated geometry is not included here.'));
+  [['Geometry status',p.geometry_status], ['Mapping', hasGeometry(p) ? 'Mapped — canonical geometry available' : 'Unmapped — no usable canonical geometry'], ['Geometry type', p.geometry_type], ['Geometry method', p.geometry_method], ['Geometry confidence', p.geometry_confidence]].forEach(([k, v]) => fact(geo.facts, k, v));
+  geo.section.append(node('p', 'pe-note', hasGeometry(p) ? 'Mapping availability does not imply surveyed geometry or high confidence.' : 'This project remains in the catalog. No usable canonical geometry is available for geographic comparison; no coordinates have been invented.'));
   if (present(p.geometry_notes)) geo.section.append(node('p', 'pe-note', p.geometry_notes));
   const source = section('SOURCE & EVIDENCE');
   [['Source page', p.source_page], ['Source URL', evidenceLink(p.source_url)], ['Source scope', p.source_scope], ['Source project name', p.source_project_name], ['Geometry source', evidenceLink(p.geometry_source)], ['Source owner label', p.source_owner_label], ['Ownership provenance', p.ownership_provenance_note], ['Utility attribution confidence', p.utility_attribution_confidence], ['Record confidence', p.data_confidence]].forEach(([k, v]) => fact(source.facts, k, v));
@@ -152,14 +159,14 @@ async function loadCatalog() {
   el('count').textContent = 'Loading catalog…'; state.selectedId = null; state.projects = []; renderDetail();
   showState(el('list'), 'Loading project catalog', 'Reading canonical project records.');
   try {
-    const response = await fetch('./data/verified_projects.json');
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const projects = await response.json();
+    const {projects} = await GridLockData.load();
     if (!Array.isArray(projects) || projects.some(p => !p || typeof p.id !== 'string' || typeof p.name !== 'string' || typeof p.utility !== 'string') || new Set(projects.map(p => p.id)).size !== projects.length) throw new Error('Unexpected canonical catalog structure');
     state.projects = projects; populateFilters(); renderSummary(); el('controls').disabled = false; clearFilters();
+    const requestedProject = new URLSearchParams(location.search).get('project');
+    if (projects.some(p => p.id === requestedProject)) { state.selectedId = requestedProject; renderDetail(); }
   } catch {
     el('count').textContent = 'Catalog unavailable';
-    showState(el('list'), 'Could not load project catalog', 'The canonical data could not be read. Serve this folder over HTTP and check data/verified_projects.json, then retry.', { label: 'Retry', run: loadCatalog });
+    showState(el('list'), 'Could not load project catalog', 'The canonical data could not be read. Serve this folder over HTTP and check data/published/, then retry.', { label: 'Retry', run: loadCatalog });
   } finally { el('results').setAttribute('aria-busy', 'false'); }
 }
 el('filter-form').addEventListener('submit', event => event.preventDefault());

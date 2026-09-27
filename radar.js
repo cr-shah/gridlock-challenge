@@ -15,7 +15,7 @@
   const datasetSelect = document.createElement('select');
   datasetSelect.id = 'radarDataset';
   datasetSelect.setAttribute('aria-label', 'Dataset');
-  datasetSelect.innerHTML = '<option value="verified">Verified</option><option value="estimated">Estimated Coverage</option><option value="demo">Demo</option>';
+  datasetSelect.innerHTML = '<option value="verified">Verified</option><option value="estimated">Estimated Coverage</option>';
   datasetSelect.addEventListener('change', () => loadDataset(datasetSelect.value));
   document.querySelector('.dataset-toggle').hidden = true;
   toolbar.append(datasetSelect, toolbarTools);
@@ -139,12 +139,19 @@
     if (a && b) L.polyline([[a.lat,a.lng],[b.lat,b.lng]], { color:'#8BC4B9', weight:4, opacity:.95, dashArray:'8 10', className:'radar-connection-flow', interactive:false }).addTo(selection);
     [a,b].filter(Boolean).forEach(p => L.circleMarker([p.lat,p.lng], { radius: 5, color: getVar('--text'), weight: 2, fillColor: getVar('--panel'), fillOpacity: 1, interactive: false }).addTo(selection));
   }
+  window.gridlockFocusOpportunity = (id, mode) => {
+    if (mode !== currentDataset) { alert('Switch the radar to ' + mode + ' mode to view this opportunity.'); return; }
+    if (!analysis?.matches?.some(m => m.match_id === id)) return;
+    showView('radar'); selectMatch(id);
+  };
   const originalSelect = selectMatch;
   selectMatch = function(id) {
     document.getElementById('radarFocus').disabled = false;
     inspector.hidden = false;
     map.invalidateSize();
     originalSelect(id);
+    window.gridlockAnalystContext = {mode:currentDataset,selection:{kind:'opportunity',id}};
+    window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
     highlight((analysis?.matches || []).find(m => m.match_id === id));
     list.querySelectorAll('.match-item').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.matchId === id)));
   };
@@ -190,6 +197,8 @@
     inspector.hidden = true;
     catalog.open = true;
     selectedMatchId = null;
+    window.gridlockAnalystContext = {mode:currentDataset,selection:null};
+    window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
     document.getElementById('radarFocus').disabled = true;
     selection.clearLayers();
     list.querySelectorAll('.match-item').forEach(el => { el.classList.remove('selected'); el.setAttribute('aria-pressed', 'false'); });
@@ -206,6 +215,8 @@
   });
   document.getElementById('radarFocus').addEventListener('click', () => { if (selectedMatchId) selectMatch(selectedMatchId); });
   window.radarLoading = function(name) {
+    window.gridlockAnalystContext = {mode:name,selection:null};
+    window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
     datasetSelect.value = name;
     yearSummary.hidden = true;
     yearSummary.textContent = '';
@@ -238,5 +249,5 @@
     retry.addEventListener('click', () => loadDataset(name));
     list.append(retry);
   };
-  loadDataset('verified');
+  loadDataset('estimated');
 })();

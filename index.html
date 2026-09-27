@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="canonical-data.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gridlock — Coordination Radar</title>
@@ -636,6 +637,7 @@
 <link rel="stylesheet" href="shared-background.css">
 <link rel="stylesheet" href="shared-typography.css">
 <link rel="stylesheet" href="radar-focus.css">
+<link rel="stylesheet" href="ai-analyst.css">
 </head>
 <body>
 <svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -721,7 +723,7 @@
     <div class="overview-metric"><strong id="ovGpc">—</strong><span>Georgia Power</span></div>
     <div class="overview-metric"><strong id="ovMapped">—</strong><span>Verified mapped</span></div>
   </section>
-  <div class="coverage-note"><span id="overviewCoverage" role="status">Loading verified coverage…</span><span>VERIFIED DATASET · SC / GA</span></div>
+  <div class="coverage-note"><span id="overviewCoverage" role="status">Loading verified coverage…</span><span>CANONICAL DATASET · SC / GA</span></div>
   <section class="workflow" aria-labelledby="workflowTitle">
     <div class="workflow-heading"><h3 id="workflowTitle">From plans to opportunities.</h3></div>
     <div class="workflow-steps">
@@ -735,7 +737,7 @@
   <section class="trust-grid" aria-label="Analysis principles">
     <article><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Precise proximity.</h3><p>Closest-point distance. Clear timelines.</p></article>
     <article><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Traceable evidence.</h3><p>Sources, methods, and confidence in view.</p></article>
-    <article><span class="eyebrow">03 / CLEAR BOUNDARIES</span><h3>Transparent confidence.</h3><p>Verified, estimated, and demo. Always distinct.</p></article>
+    <article><span class="eyebrow">03 / CLEAR BOUNDARIES</span><h3>Transparent confidence.</h3><p>Verified, estimated, and unresolved. Always distinct.</p></article>
   </section>
   <footer class="overview-footer"><span>GRIDLOCK / SHELLHACKS 2026</span><span>Public-source evidence · Deterministic spatial analysis · Human review</span></footer>
 </main>
@@ -745,7 +747,7 @@
       <span>Dataset</span>
       <button id="btnVerified" class="active" type="button">Verified</button>
       <button id="btnEstimated" class="estimated" type="button">Estimated Coverage</button>
-      <button id="btnDemo" class="demo" type="button">Demo</button>
+
     </div>
     <div class="year-control hidden" id="yearControl">
       <label for="yearSlider">Viewing year</label>
@@ -914,9 +916,9 @@ function computeScenarioOverlap(winA, winB) {
 }
 
 const DATASETS = {
-  verified: { url: './data/analysis.json', label: 'Verified' },
-  estimated: { url: './data/estimated_analysis.json', label: 'Estimated Coverage' },
-  demo: { url: './data/demo_analysis.json', label: 'Demo' },
+  verified: { url: './data/published/website_data.json', label: 'Verified' },
+  estimated: { url: './data/published/website_data.json', label: 'Estimated Coverage' },
+
 };
 
 const map = L.map('map', { zoomControl: true }).setView([32.6, -81.3], 8);
@@ -927,14 +929,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let analysis = null;
 let selectedMatchId = null;
-let currentDataset = 'verified';
+let currentDataset = 'estimated';
 const drawnLayers = L.layerGroup().addTo(map);
 const projectMarkers = new Map();
 const matchLayers = new Map();
 
 document.getElementById('btnVerified').addEventListener('click', () => loadDataset('verified'));
 document.getElementById('btnEstimated').addEventListener('click', () => loadDataset('estimated'));
-document.getElementById('btnDemo').addEventListener('click', () => loadDataset('demo'));
+
 
 // --- "How Gridlock works" methodology modal ---
 const methodologyOverlay = document.getElementById('methodologyOverlay');
@@ -953,10 +955,9 @@ function loadDataset(name) {
   currentDataset = name;
   document.getElementById('btnVerified').classList.toggle('active', name === 'verified');
   document.getElementById('btnEstimated').classList.toggle('active', name === 'estimated');
-  document.getElementById('btnDemo').classList.toggle('active', name === 'demo');
+
   document.getElementById('load-error').style.display = 'none';
-  fetch(DATASETS[name].url)
-    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  GridLockData.mode(name)
     .then(data => { if (request !== radarLoadRequest) return; analysis = data; selectedMatchId = null; render(); })
     .catch(err => {
       if (request !== radarLoadRequest) return;
@@ -1024,7 +1025,7 @@ function noMatchesMessage(summary, isDemo, isEmpty) {
   const pairsChecked = summary.pairs_checked;
   const withoutGeom = summary.projects_without_geometry;
   if (!isDemo && desc > 0 && gpc > 0 && (pairsChecked === 0 || pairsChecked == null) && withoutGeom) {
-    return `${summary.total_projects} verified project(s) loaded (${desc} DESC, ${gpc} GPC), but ${withoutGeom} have no usable geometry yet — nothing to map or compare. Add geometry to data/verified_projects.json and rerun scoring_engine.py.`;
+    return `${summary.total_projects} verified project(s) loaded (${desc} DESC, ${gpc} GPC), but ${withoutGeom} have no usable geometry yet — nothing to map or compare. Regenerate the canonical publication through the data pipeline.`;
   }
   if (!isDemo && withoutGeom > 0 && pairsChecked > 0) {
     const mapped = (summary.total_projects || 0) - withoutGeom;
@@ -1202,7 +1203,7 @@ function render() {
     layout.classList.add('has-banner');
   } else if (isEmpty) {
     banner.className = 'banner visible verified-empty';
-    banner.textContent = 'No verified DESC/GPC records loaded yet. Paste trusted pipeline output into data/verified_projects.json, then rerun scoring_engine.py. Demo data is available for UI preview only.';
+    banner.textContent = 'No verified DESC/GPC records loaded yet. Check the canonical publication and regenerate it through the data pipeline.';
     layout.classList.add('has-banner');
   } else {
     banner.className = 'banner';
@@ -1694,17 +1695,12 @@ function openLinkedView() {
 }
 openLinkedView();
 window.addEventListener('hashchange', openLinkedView);
-fetch(DATASETS.verified.url)
-  .then(response => { if (!response.ok) throw new Error('Verified data unavailable'); return response.json(); })
-  .then(data => {
-    const summary = summaryOf(data);
-    const values = { ovTotal: summary.total_projects, ovDesc: summary.desc_projects, ovGpc: summary.gpc_projects,
-      ovMapped: summary.projects_with_geometry ?? (summary.projects_without_geometry != null ? summary.total_projects - summary.projects_without_geometry : null) };
-    Object.entries(values).forEach(([id, value]) => { document.getElementById(id).textContent = value == null ? '—' : Number(value).toLocaleString(); });
-    const possible = summary.desc_projects * summary.gpc_projects;
-    document.getElementById('overviewCoverage').textContent = `${possible.toLocaleString()} possible cross-utility pairs · ${summary.pairs_checked.toLocaleString()} evaluable · ${summary.pairs_within_40km.toLocaleString()} verified opportunities under 40 km`;
-  })
-  .catch(() => { document.getElementById('overviewCoverage').textContent = 'Verified metrics are unavailable. Open the Radar to check the dataset status.'; });
+GridLockData.load().then(({master,web})=>{
+ const summary=web.modes.full.summary;
+ const values={ovTotal:master.total_projects,ovDesc:master.DESC_count,ovGpc:master.GPC_count,ovMapped:master.verified_geometry_count+master.estimated_geometry_count};
+ Object.entries(values).forEach(([id,value])=>document.getElementById(id).textContent=value.toLocaleString());
+ document.getElementById('overviewCoverage').textContent=`${(master.DESC_count*master.GPC_count).toLocaleString()} possible cross-utility pairs · ${summary.pairs_checked} evaluable · ${summary.pairs_within_40km} full-coverage opportunities under 40 km`;
+}).catch(()=>{document.getElementById('overviewCoverage').textContent='Canonical publication unavailable.';});
 
 </script>
 <script>
@@ -1732,5 +1728,6 @@ fetch(DATASETS.verified.url)
 </script>
 <script src="radar.js"></script>
 <script src="radar-ambient.js"></script>
+<script src="ai-analyst.js"></script>
 </body>
 </html>
