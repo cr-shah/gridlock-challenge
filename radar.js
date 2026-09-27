@@ -88,9 +88,6 @@
   const mode = () => 'Unified coverage';
   const badge = p => GridLockRadarModel.geometryBadge(p);
   const geometryStatus = p => `${badge(p).label} geometry`;
-  const matchBadge = m => [m.project_a,m.project_b].every(p => badge(p).className === 'verified')
-    ? {label:'Verified geometry',className:'verified'}
-    : {label:'Includes estimates',className:'estimated'};
   const timing = m => m.timeline_overlap ? 'Timing overlaps' : m.timeline_gap_years == null ? 'Timing unknown' : `${m.timeline_gap_years}-year timing gap`;
   const projectTitle = p => `<div class="radar-project-name"><span class="radar-utility ${p.utility === 'GPC' ? 'gpc' : ''}">${e(p.utility)}</span>${e(p.name)}</div>${typeAndVoltageRow(p) ? `<div class="radar-muted">${typeAndVoltageRow(p)}</div>` : ''}`;
   const statusChips = m => `<div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-chip">${e(timing(m))}</span></div>`;
@@ -114,14 +111,11 @@
     const areasNode = inspector.querySelector('.coord-areas');
     inspector.hidden = false;
     const tier = m.distance_tier_label || m.tier_label || 'Tier unavailable';
-    const evidenceBadge = matchBadge(m);
-    const estimated = evidenceBadge.className === 'estimated';
-    const geometryFact = evidenceBadge.label;
     inspector.innerHTML = `<div class="radar-inspector-head"><h3>Opportunity ${e(m.match_id.toUpperCase())}</h3><button type="button" class="radar-action" data-radar-close aria-label="Close opportunity details">×</button></div>
       <div class="radar-distance">${e(m.distance_km)} <small>km</small></div>
-      <div class="radar-chips"><span class="radar-chip ${evidenceBadge.className}">${e(evidenceBadge.label)}</span><span class="radar-tier">${e(tier)}</span></div>
+      <div class="radar-chips"><span class="radar-tier">${e(tier)}</span></div>
       <section class="radar-pair">${projectTitle(m.project_a)}<span aria-hidden="true">↕</span>${projectTitle(m.project_b)}</section>
-      <section><h4>Why flagged</h4><ul class="radar-facts"><li>✓ Distance within 40 km</li><li>${estimated || currentDataset === 'demo' ? '◌' : '✓'} ${e(geometryFact)}</li><li>${m.timeline_overlap ? '✓ Timing overlaps' : m.timeline_gap_years == null ? '— Timing unknown' : `✓ ${e(m.timeline_gap_years)}-year gap is within the schedule screen`}</li></ul>${m.close_tier_blocked ? '<p>Close tier blocked · broad screening only</p>' : ''}</section>
+      <section><h4>Why flagged</h4><ul class="radar-facts"><li>✓ Distance within 40 km</li><li>${m.timeline_overlap ? '✓ Timing overlaps' : m.timeline_gap_years == null ? '— Timing unknown' : `✓ ${e(m.timeline_gap_years)}-year gap is within the schedule screen`}</li></ul>${m.close_tier_blocked ? '<p>Close tier blocked · broad screening only</p>' : ''}</section>
       <details class="radar-evidence"><summary>View full evidence <span aria-hidden="true">↗</span></summary>
         <section><h4>Projects & provenance</h4>${evidence(m.project_a)}${evidence(m.project_b)}</section>
         <section data-radar-schedule><h4>Schedules</h4><p>${e(m.project_a.utility)} · ${e(formatYears(m.project_a))}<br>${e(m.project_b.utility)} · ${e(formatYears(m.project_b))}</p></section>
@@ -174,17 +168,16 @@
     banner.classList.add('radar-banner');
     const summary = summaryOf(analysis);
     const mapped = summary.projects_with_geometry ?? (summary.total_projects - (summary.projects_without_geometry || 0));
-    metrics.innerHTML = [[analysis.catalog_total || summary.total_projects,'Catalog projects','catalog'],[mapped,'Mapped projects','mapped'],[analysis.verified_count ?? '—','Verified geometry','verified'],[analysis.estimated_count ?? '—','Estimated geometry','estimated'],[analysis.matches.length,'Opportunities','opportunities']].map(([value,label,kind]) => `<div class="stat ${kind}"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
-    banner.textContent = `${analysis.matches.length} schedule-aligned opportunities · verified and estimated geometry are shown together and labeled.`;
+    metrics.innerHTML = [[analysis.catalog_total || summary.total_projects,'Catalog projects','catalog'],[mapped,'Mapped projects','mapped'],[analysis.matches.length,'Opportunities','opportunities']].map(([value,label,kind]) => `<div class="stat ${kind}"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
+    banner.textContent = `${analysis.matches.length} schedule-aligned opportunities across ${mapped} mapped projects.`;
     list.querySelectorAll('.match-item').forEach(el => {
       const m = analysis.matches.find(m => m.match_id === el.dataset.matchId);
       if (!m) return;
       el.tabIndex = 0;
       el.setAttribute('role', 'button');
       el.setAttribute('aria-pressed', String(m.match_id === selectedMatchId));
-      const evidenceBadge = matchBadge(m);
       const tierMeta = GridLockRadarModel.coordinationTier(m.distance_tier || m.tier);
-      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span><span class="radar-chip ${e(evidenceBadge.className)}">${e(evidenceBadge.label)}</span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier ${e(tierMeta.className)}">${e(tierMeta.label)}</span>`;
+      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier ${e(tierMeta.className)}">${e(tierMeta.label)}</span>`;
       el.addEventListener('mouseenter', () => highlight(m));
       el.addEventListener('mouseleave', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
       el.addEventListener('focus', () => highlight(m));
