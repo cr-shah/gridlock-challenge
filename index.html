@@ -385,6 +385,10 @@
   .overview-metric span { display:block; color:#a9b4c6; margin-top:6px; font-size:12px; }
   .coverage-note { display:flex; justify-content:space-between; gap:20px; color:#8e9cb3; font-size:11px; margin:15px 0 45px; line-height:1.6; }
   .coverage-note b { color:#d4dce8; font-weight:500; }
+  .coverage-note a { color:inherit; text-decoration-color:rgba(139,196,185,.55); text-underline-offset:4px; transition:color .15s ease,text-decoration-color .15s ease; }
+  .coverage-note a:hover { color:#e0f3ee; text-decoration-color:#8BC4B9; }
+  .coverage-note .canonical-data-link { color:#c6dcda; font-weight:600; letter-spacing:.03em; }
+  .coverage-note .canonical-data-link::after { content:" ↗"; }
   .workflow { border-top:1px solid #ffffff14; padding-top:28px; }
   .workflow-heading { display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
   .workflow h3 { font-size:20px; font-weight:500; letter-spacing:-.4px; margin:0; }
@@ -923,6 +927,7 @@
     body:not(.radar-view) > .ai-launch::before { content:"✨"; font-size:17px; }
   }
   @media(prefers-reduced-motion:reduce) {
+    .coverage-note a { transition:none; }
     main.overview .overview-trust .trust-grid article { transition:none; }
     main.overview .overview-trust .trust-grid article:hover { transform:none; }
   }
@@ -954,6 +959,7 @@
     main.overview .workflow .workflow-step p,
     main.overview .overview-trust .trust-grid .eyebrow,
     main.overview .overview-trust .trust-grid p { color:CanvasText; }
+    .coverage-note a, .coverage-note .canonical-data-link { color:LinkText; text-decoration-color:LinkText; }
   }
 </style>
 <link rel="stylesheet" href="radar.css" />
@@ -1046,7 +1052,7 @@
     <div class="overview-metric"><strong id="ovGpc">—</strong><span>Georgia Power</span></div>
     <div class="overview-metric"><strong id="ovMapped">—</strong><span>Verified mapped</span></div>
   </section>
-  <div class="coverage-note"><span id="overviewCoverage" role="status">Loading verified coverage…</span><span>CANONICAL DATASET · SC / GA</span></div>
+  <div class="coverage-note"><a id="overviewCoverage" href="https://github.com/cr-shah/gridlock-challenge/blob/demo/data/published/website_data.json" target="_blank" rel="noopener" aria-live="polite">Loading verified coverage…</a><a class="canonical-data-link" href="https://github.com/cr-shah/gridlock-challenge/blob/demo/data/published/gridlock_master_projects.json" target="_blank" rel="noopener">CANONICAL DATASET · SC / GA</a></div>
   <section class="overview-product" aria-labelledby="productOverviewTitle">
     <span class="eyebrow">OVERVIEW</span>
     <h2 id="productOverviewTitle">See where utilities can coordinate before construction begins</h2>
@@ -2077,7 +2083,12 @@ GridLockData.load().then(({master,web})=>{
  Object.entries(processValues).forEach(([id,value])=>document.getElementById(id).textContent=value.toLocaleString());
  document.getElementById('workflowCoverage').textContent=`${verified.toLocaleString()} verified locations plus ${master.estimated_geometry_count.toLocaleString()} estimated locations expand usable coverage from ${coverage}; ${master.unresolved_count.toLocaleString()} projects remain unresolved. ${summary.pairs_checked.toLocaleString()} pairs have usable geometry for comparison. Schedule-aligned opportunities include overlaps and gaps of up to ${summary.max_timeline_gap_years} years.`;
  document.getElementById('overviewCoverage').textContent=`${(master.DESC_count*master.GPC_count).toLocaleString()} possible cross-utility pairs · ${summary.candidate_pairs_within_40km ?? summary.pairs_within_40km} within 40 km · ${summary.schedule_aligned_opportunities ?? web.modes.full.matches.length} opportunities within a 2-year schedule gap`;
-}).catch(()=>{document.getElementById('overviewCoverage').textContent='Canonical publication unavailable.';document.getElementById('workflowCoverage').textContent='Canonical spatial coverage unavailable.';});
+}).catch(()=>{
+ const overviewCoverage=document.getElementById('overviewCoverage');
+ overviewCoverage.textContent='';
+ overviewCoverage.hidden=true;
+ document.getElementById('workflowCoverage').textContent='';
+});
 
 </script>
 <script>
