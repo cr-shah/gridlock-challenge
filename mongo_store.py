@@ -12,16 +12,15 @@ class StoreError(RuntimeError):
     pass
 
 
-def import_dataset(data, dataset_id, source_file, imported_at):
+def import_dataset(publication, imported_at):
     # Validate and prepare the entire dataset before connecting or writing.
     from project_schema import build_documents
-    documents, metadata = build_documents(data, dataset_id, source_file, imported_at)
+    documents, metadata = build_documents(publication, imported_at)
     uri = os.environ.get('MONGODB_URI', '')
     database_name = os.environ.get('MONGODB_DB', '')
     if not uri.strip() or not database_name.strip():
         raise StoreError('Set both MONGODB_URI and MONGODB_DB environment variables.')
     try:
-        from bson import BSON
         from pymongo import MongoClient, ReplaceOne
         from pymongo.read_concern import ReadConcern
         from pymongo.write_concern import WriteConcern
@@ -29,10 +28,6 @@ def import_dataset(data, dataset_id, source_file, imported_at):
         raise StoreError('Install dependencies with: python -m pip install -r requirements.txt') from None
 
     try:
-        # BSON preflight prevents an oversized/malformed document failing mid-write.
-        for document in [*documents, metadata]:
-            if len(BSON.encode(document)) > 16 * 1024 * 1024:
-                raise StoreError('An import document exceeds the MongoDB document size limit.')
         with MongoClient(uri, serverSelectionTimeoutMS=10000) as client:
             database = client[database_name]
 
