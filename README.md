@@ -2,19 +2,30 @@
 
 Product layer for the ShellHacks 2026 Gridlock Challenge.
 
-Trusted DESC and Georgia Power project records go in. Closest-point geography, challenge distance tiers, and timeline comparison come out on a static map.
+The pipeline-published canonical DESC and Georgia Power catalog goes in. Closest-point geography,
+challenge distance tiers, and timeline comparison come out on a static map.
 
 This repository does **not** scrape planning PDFs. Document discovery, parsing, validation, and provenance live in the separate `gridlock-data-pipeline` repo.
 
+```text
+gridlock-data-pipeline/data/published/gridlock_master_projects.json
+  → data/published/website_data.json
+  → data/published/gridlock_all_project_pairs.xlsx
+  → data/published/project_explorer.json
+  → data/published/summary_statistics.json
 ```
-data/verified_projects.json  →  scoring_engine.py  →  data/analysis.json  →  index.html
-```
+
+The pipeline also publishes NDJSON for MongoDB and CSV for SQL staging. Those machine-ingestion
+formats remain in `gridlock-data-pipeline/data/published`; the Excel workbook is only a generated
+analyst report and is never the source of truth.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
-python scoring_engine.py                 # verified records → data/analysis.json
+cd ../gridlock-data-pipeline
+python -m gridlock_pipeline publish      # master + every downstream artifact
+cd ../gridlock-challenge
 python scoring_engine.py --demo          # labeled placeholder data → data/demo_analysis.json
 python -m http.server 8000
 ```
@@ -23,15 +34,20 @@ Open `http://localhost:8000`. Opening the HTML file directly (`file://`) will fa
 
 `python -m unittest tests/test_scoring_engine.py` runs the focused engine tests.
 
-## Where to put real records
+## Canonical real-project data
 
-Paste or export the first trusted DESC and Georgia Power projects into:
+Real project identity and geometry evidence are maintained in `gridlock-data-pipeline`. Do not
+edit product-repository JSON snapshots independently. The generated local master is:
 
-**`data/verified_projects.json`**
+**`data/published/gridlock_master_projects.json`**
 
-Then rerun `python scoring_engine.py`. Do not invent coordinates, routes, years, or ownership. If a field is unknown, leave it `null`.
+Each project appears exactly once and carries `verified_geometry`, `estimated_geometry`,
+`analysis_geometry`, and `geometry_status`. Verified mode filters to `VERIFIED`; Estimated
+Coverage filters to `VERIFIED` plus `ESTIMATED`. Neither mode maintains a separate project list.
 
-`data/projects.json` is demo/legacy only. The dashboard can load it through the **Demo** toggle; it is never labeled verified.
+`data/verified_projects.json`, `data/estimated_geometry.json`, `data/analysis.json`, and
+`data/estimated_analysis.json` are retained legacy snapshots and are not website inputs.
+`data/projects.json` remains demo-only.
 
 ## Product data contract
 

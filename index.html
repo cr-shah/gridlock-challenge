@@ -462,8 +462,8 @@ function computeScenarioOverlap(winA, winB) {
 }
 
 const DATASETS = {
-  verified: { url: './data/analysis.json', label: 'Verified' },
-  estimated: { url: './data/estimated_analysis.json', label: 'Estimated Coverage' },
+  verified: { url: './data/published/website_data.json', label: 'Verified' },
+  estimated: { url: './data/published/website_data.json', label: 'Estimated Coverage' },
   demo: { url: './data/demo_analysis.json', label: 'Demo' },
 };
 
@@ -503,7 +503,11 @@ function loadDataset(name) {
   document.getElementById('load-error').style.display = 'none';
   fetch(DATASETS[name].url)
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(data => { analysis = data; selectedMatchId = null; render(); })
+    .then(data => {
+      analysis = name === 'demo' ? data : selectPublishedMode(data, name);
+      selectedMatchId = null;
+      render();
+    })
     .catch(err => {
       console.error(err);
       // Never silently fall back to the other dataset — show an explicit,
@@ -512,6 +516,37 @@ function loadDataset(name) {
       document.getElementById('load-error').style.display = 'flex';
       renderLoadErrorState(name, err);
     });
+}
+
+function selectPublishedMode(data, name) {
+  const modeName = name === 'estimated' ? 'full' : 'verified';
+  const mode = data.modes && data.modes[modeName];
+  if (!mode) throw new Error(`Published website data is missing mode: ${modeName}`);
+  const allowedStatuses = modeName === 'verified'
+    ? new Set(['VERIFIED'])
+    : new Set(['VERIFIED', 'ESTIMATED']);
+  const projects = (data.projects || []).filter(p => allowedStatuses.has(p.geometry_status));
+  const byId = new Map((data.projects || []).map(project => [project.id, project]));
+  const matches = (mode.matches || []).map(match => ({
+    ...match,
+    project_a: byId.get(match.project_a_id),
+    project_b: byId.get(match.project_b_id),
+  }));
+  if (matches.some(match => !match.project_a || !match.project_b)) {
+    throw new Error('Published match references an unknown project ID');
+  }
+  return {
+    dataset: name === 'estimated' ? 'estimated' : 'verified',
+    data_source: 'gridlock_master_projects',
+    dataset_version: data.dataset_version,
+    generated_at: data.generated_at,
+    pipeline_commit: data.pipeline_commit,
+    summary: mode.summary,
+    input_project_count: projects.length,
+    match_count: matches.length,
+    projects,
+    matches,
+  };
 }
 
 function renderLoadErrorState(name, err) {
@@ -569,7 +604,7 @@ function noMatchesMessage(summary, isDemo, isEmpty) {
   const pairsChecked = summary.pairs_checked;
   const withoutGeom = summary.projects_without_geometry;
   if (!isDemo && desc > 0 && gpc > 0 && (pairsChecked === 0 || pairsChecked == null) && withoutGeom) {
-    return `${summary.total_projects} verified project(s) loaded (${desc} DESC, ${gpc} GPC), but ${withoutGeom} have no usable geometry yet — nothing to map or compare. Add geometry to data/verified_projects.json and rerun scoring_engine.py.`;
+    return `${summary.total_projects} verified project(s) loaded (${desc} DESC, ${gpc} GPC), but ${withoutGeom} have no usable geometry yet — nothing to map or compare. Regenerate the pipeline master dataset and downstream exports.`;
   }
   if (!isDemo && withoutGeom > 0 && pairsChecked > 0) {
     const mapped = (summary.total_projects || 0) - withoutGeom;
@@ -747,7 +782,7 @@ function render() {
     layout.classList.add('has-banner');
   } else if (isEmpty) {
     banner.className = 'banner visible verified-empty';
-    banner.textContent = 'No verified DESC/GPC records loaded yet. Paste trusted pipeline output into data/verified_projects.json, then rerun scoring_engine.py. Demo data is available for UI preview only.';
+    banner.textContent = 'No verified DESC/GPC records loaded yet. Regenerate data/published/gridlock_master_projects.json from the pipeline. Demo data is available for UI preview only.';
     layout.classList.add('has-banner');
   } else {
     banner.className = 'banner';
@@ -1029,8 +1064,10 @@ function renderScenario(m) {
       scenario.target === 'a' ? shiftedWin : otherWin,
       scenario.target === 'a' ? otherWin : shiftedWin
     );
-    const geoScore = m.priority_score - (m.timeline_overlap ? TIMELINE_OVERLAP_BONUS : 0);
-    const newScore = geoScore + (overlap.overlap ? TIMELINE_OVERLAP_BONUS : 0);
+    const currentScore = typeof m.priority_score === 'number' ? m.priority_score : m.coordination_score;
+    const timelineBonus = currentDataset === 'estimated' ? 20 : TIMELINE_OVERLAP_BONUS;
+    const geoScore = currentScore - (m.timeline_overlap ? timelineBonus : 0);
+    const newScore = geoScore + (overlap.overlap ? timelineBonus : 0);
     const changeNote = overlap.overlap === m.timeline_overlap
       ? "No change from today's ranking."
       : (overlap.overlap ? 'This would newly overlap — priority score would rise.' : 'This would break the current overlap — priority score would fall.');
@@ -1040,7 +1077,7 @@ function renderScenario(m) {
     resultHtml = `
       <div class="sresult">
         If ${escapeHtml(targetProject.utility)}'s schedule shifts by ${scenario.offset > 0 ? '+' : ''}${scenario.offset} year(s), these two projects <b>${relDesc}</b>.
-        Distance tier is unchanged — a schedule shift doesn't move geography. Simulated priority score: <b>${newScore}</b> (today: ${m.priority_score}). ${changeNote}
+        Distance tier is unchanged — a schedule shift doesn't move geography. Simulated priority score: <b>${newScore}</b> (today: ${currentScore}). ${changeNote}
       </div>`;
   }
 
@@ -1051,7 +1088,7 @@ function renderScenario(m) {
       <div class="starget">${targetBtns}</div>
       <div class="soffsets">${offsetBtns}</div>
       ${resultHtml}
-      <div class="snote">Illustrative only — shifts the displayed schedule for comparison. Never writes to data/verified_projects.json or any other file.</div>
+      <div class="snote">Illustrative only — shifts the displayed schedule for comparison. Never writes to the pipeline master dataset or any source file.</div>
     </div>`;
 }
 
