@@ -635,6 +635,7 @@
 <link rel="stylesheet" href="radar.css" />
 <link rel="stylesheet" href="shared-background.css">
 <link rel="stylesheet" href="shared-typography.css">
+<link rel="stylesheet" href="radar-focus.css">
 </head>
 <body>
 <svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -1393,7 +1394,7 @@ function selectMatch(matchId) {
     const cb = m.closest_points?.b || m.closest_point_b;
     if (ca) focus.push([ca.lat, ca.lng]);
     if (cb) focus.push([cb.lat, cb.lng]);
-    if (focus.length) map.fitBounds(focus, { padding: [60, 60], maxZoom: 12 });
+    if (focus.length) map.flyToBounds(focus, { padding: [60, 60], maxZoom: 12, animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches, duration: .65 });
   } catch (err) {
     console.warn('Could not focus map on this match (malformed coordinates):', err, m);
   }
@@ -1730,5 +1731,6 @@ fetch(DATASETS.verified.url)
 })();
 </script>
 <script src="radar.js"></script>
+<script src="radar-ambient.js"></script>
 </body>
 </html>

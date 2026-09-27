@@ -8,11 +8,17 @@
   workspace.append(inspector);
   const toolbar = document.createElement('div');
   toolbar.className = 'radar-scope radar-toolbar';
-  toolbar.innerHTML = '<div class="radar-title"><h1>Coordination Radar</h1><small>Cross-utility opportunities · geography first</small></div>';
+  toolbar.innerHTML = '<div class="radar-title"><h1>COORDINATION RADAR</h1><small>Discover coordination opportunities between utility transmission projects.</small></div>';
   const toolbarTools = document.createElement('div');
   toolbarTools.className = 'radar-toolbar-tools';
   toolbarTools.append(document.getElementById('yearControl'));
-  toolbar.append(document.querySelector('.dataset-toggle'), toolbarTools);
+  const datasetSelect = document.createElement('select');
+  datasetSelect.id = 'radarDataset';
+  datasetSelect.setAttribute('aria-label', 'Dataset');
+  datasetSelect.innerHTML = '<option value="verified">Verified</option><option value="estimated">Estimated Coverage</option><option value="demo">Demo</option>';
+  datasetSelect.addEventListener('change', () => loadDataset(datasetSelect.value));
+  document.querySelector('.dataset-toggle').hidden = true;
+  toolbar.append(datasetSelect, toolbarTools);
   document.getElementById('radarToolbar').classList.add('radar-legacy-toolbar');
   const banner = document.getElementById('dataBanner');
   banner.classList.add('radar-banner');
@@ -54,11 +60,23 @@
   };
 
   const legend = document.querySelector('.legend');
-  legend.innerHTML = '<details open><summary>Map key</summary>' + legend.innerHTML + '<div class="row">Dashed routes: estimated geometry</div></details>';
+  legend.innerHTML = '<details><summary>ⓘ Legend</summary>' + legend.innerHTML + '<div class="row">Dashed routes: estimated geometry</div></details>';
   const actions = document.createElement('div');
   actions.className = 'radar-map-actions';
   actions.innerHTML = '<button type="button" class="radar-action" id="radarExtent">All projects</button><button type="button" class="radar-action" id="radarFocus">Focus pair</button>';
   document.querySelector('.map-wrap').append(actions);
+  const rail = document.createElement('div');
+  rail.className = 'radar-rail';
+  const catalog = document.createElement('details');
+  catalog.className = 'radar-catalog';
+  catalog.innerHTML = '<summary>Browse opportunities</summary>';
+  const sidebar = workspace.querySelector('.sidebar');
+  const metrics = document.getElementById('stats');
+  metrics.classList.add('radar-compact-metrics');
+  toolbar.after(metrics);
+  catalog.append(sidebar);
+  rail.append(inspector, catalog);
+  workspace.append(rail);
   const selection = L.layerGroup().addTo(map);
   const e = escapeHtml;
   const mode = () => DATASETS[currentDataset].label;
@@ -86,20 +104,24 @@
     const areasNode = inspector.querySelector('.coord-areas');
     inspector.hidden = false;
     const tier = m.distance_tier_label || m.tier_label || 'Tier unavailable';
-    inspector.innerHTML = `<div class="radar-inspector-head"><h3>Opportunity ${e(m.match_id)}</h3><button type="button" class="radar-action" data-radar-close aria-label="Close opportunity details">Close ×</button></div>
-      ${statusChips(m)}<section>${projectTitle(m.project_a)}<div class="radar-muted">↕ Cross-utility comparison</div>${projectTitle(m.project_b)}</section>
-      <section><div class="radar-distance">${e(m.distance_km)} <small>km · closest points</small></div><p>${e(tier)}</p></section>
-      <section><h4>Why this was flagged</h4><p>The measured closest-point distance is ${e(m.distance_km)} km, within the analysis tier “${e(tier)}”.</p><p>${m.timeline_overlap ? 'The source schedules overlap.' : m.timeline_gap_years == null ? 'Timing is unknown for at least one project; overlap is not assumed.' : `The source schedules do not overlap (${e(m.timeline_gap_years)}-year gap). Geography places this pair in the results.`}</p>${m.screening_note ? `<p>${e(m.screening_note)}</p>` : ''}${m.close_tier_blocked ? '<p>Geometry eligibility blocks a closer tier; this pair remains in the under-40 km screen.</p>' : ''}${currentDataset === 'estimated' ? '<p>Interpret proximity alongside the geometry methods and confidence below. Estimated routes are screening geometry.</p>' : ''}<p>Potential coordination for human investigation, not a decision that utilities must coordinate.</p></section>
-      <section data-radar-schedule><h4>Schedules</h4><p>${e(m.project_a.utility)} · ${e(formatYears(m.project_a))}<br>${e(m.project_b.utility)} · ${e(formatYears(m.project_b))}</p></section>
-      <section><h4>Analysis brief</h4><p style="white-space:pre-line">${e(m.coordination_brief || m.priority_explanation || 'No brief available.')}</p>${typeof m.coordination_score === 'number' ? `<p>Within-tier coordination score: ${e(m.coordination_score)}<br>${e(m.coordination_explanation || '')}</p>` : ''}<button class="copy-brief-btn" type="button" data-match-id="${e(m.match_id)}">Copy coordination brief</button></section>
-      <section><h4>Opportunity evidence</h4><p>Source records and geometry provenance for this pair.</p>${evidence(m.project_a)}${evidence(m.project_b)}</section>`;
+    const estimated = [m.project_a,m.project_b].some(p => p.estimated_geometry);
+    const geometryFact = currentDataset === 'demo' ? 'Demo geometry' : estimated ? 'Estimated geometry · screening only' : 'Verified geometry';
+    inspector.innerHTML = `<div class="radar-inspector-head"><h3>Opportunity ${e(m.match_id.toUpperCase())}</h3><button type="button" class="radar-action" data-radar-close aria-label="Close opportunity details">×</button></div>
+      <div class="radar-distance">${e(m.distance_km)} <small>km</small></div>
+      <div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-tier">${e(tier)}</span></div>
+      <section class="radar-pair">${projectTitle(m.project_a)}<span aria-hidden="true">↕</span>${projectTitle(m.project_b)}</section>
+      <section><h4>Why flagged</h4><ul class="radar-facts"><li>✓ Distance within 40 km</li><li>${estimated || currentDataset === 'demo' ? '◌' : '✓'} ${e(geometryFact)}</li><li>${m.timeline_overlap ? '✓ Timing overlaps' : m.timeline_gap_years == null ? '— Timing unknown' : '✕ No timing overlap'}</li></ul>${m.close_tier_blocked ? '<p>Close tier blocked · broad screening only</p>' : ''}</section>
+      <details class="radar-evidence"><summary>View full evidence <span aria-hidden="true">↗</span></summary>
+        <section><h4>Projects & provenance</h4>${evidence(m.project_a)}${evidence(m.project_b)}</section>
+        <section data-radar-schedule><h4>Schedules</h4><p>${e(m.project_a.utility)} · ${e(formatYears(m.project_a))}<br>${e(m.project_b.utility)} · ${e(formatYears(m.project_b))}</p></section>
+        <section><h4>Analysis brief</h4><p style="white-space:pre-line">${e(m.coordination_brief || m.priority_explanation || 'No brief available.')}</p>${typeof m.coordination_score === 'number' ? `<p>Within-tier score ${e(m.coordination_score)} · ${e(m.coordination_explanation || '')}</p>` : ''}<button class="copy-brief-btn" type="button" data-match-id="${e(m.match_id)}">Copy coordination brief</button></section>
+      </details>`;
     const schedule = inspector.querySelector('[data-radar-schedule]');
     if (timelineNode) schedule.append(timelineNode);
-    // Estimated analysis uses a different within-tier score: do not display the
-    // verified-only simulator's undefined/NaN priority score for these records.
     if (scenarioNode && Number.isFinite(m.priority_score)) schedule.append(scenarioNode);
-    if (areasNode) inspector.append(areasNode);
-    if (savingsNode) inspector.append(savingsNode);
+    const drawer = inspector.querySelector('.radar-evidence');
+    if (areasNode) drawer.append(areasNode);
+    if (savingsNode) drawer.append(savingsNode);
     requestAnimationFrame(() => map.invalidateSize());
   };
   function highlight(m) {
@@ -108,12 +130,13 @@
     [m.project_a, m.project_b].forEach(p => {
       const color = getVar(p.utility === 'DESC' ? '--utility-a' : '--utility-b');
       projectParts(p).forEach(part => {
-        if (part.length > 1) L.polyline(part, { color, weight: 7, opacity: .95, dashArray: p.estimated_geometry ? '6 4' : null, interactive: false }).addTo(selection);
+        if (part.length > 1) L.polyline(part, { color, weight: 6, opacity: .95, className: 'radar-route-pulse', dashArray: p.estimated_geometry ? '6 4' : null, interactive: false }).addTo(selection);
         if (part.length) L.circleMarker(part[0], { color, radius: 10, weight: 3, dashArray: p.estimated_geometry ? '4 3' : null, fillOpacity: .25, interactive: false }).addTo(selection);
       });
     });
     const a = m.closest_points?.a || m.closest_point_a;
     const b = m.closest_points?.b || m.closest_point_b;
+    if (a && b) L.polyline([[a.lat,a.lng],[b.lat,b.lng]], { color:'#8BC4B9', weight:4, opacity:.95, dashArray:'8 10', className:'radar-connection-flow', interactive:false }).addTo(selection);
     [a,b].filter(Boolean).forEach(p => L.circleMarker([p.lat,p.lng], { radius: 5, color: getVar('--text'), weight: 2, fillColor: getVar('--panel'), fillOpacity: 1, interactive: false }).addTo(selection));
   }
   const originalSelect = selectMatch;
@@ -131,6 +154,11 @@
     workspace.removeAttribute('aria-busy');
     originalRender();
     banner.classList.add('radar-banner');
+    datasetSelect.value = currentDataset;
+    const summary = summaryOf(analysis);
+    const mapped = summary.projects_with_geometry ?? (summary.total_projects - (summary.projects_without_geometry || 0));
+    const mappedLabel = currentDataset === 'verified' ? 'Verified mapped' : currentDataset === 'estimated' ? 'Mapped incl. estimates' : 'Demo mapped';
+    metrics.innerHTML = [[summary.total_projects,'Projects'],[mapped,mappedLabel],[analysis.matches.length,'Opportunities']].map(([value,label]) => `<div class="stat"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
     document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
     if (currentDataset === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only.';
     list.querySelectorAll('.match-item').forEach(el => {
@@ -139,7 +167,11 @@
       el.tabIndex = 0;
       el.setAttribute('role', 'button');
       el.setAttribute('aria-pressed', String(m.match_id === selectedMatchId));
-      el.innerHTML = `<div class="radar-card-top"><span class="radar-muted">${String(analysis.matches.indexOf(m) + 1).padStart(2, '0')} · OPPORTUNITY</span><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div>${projectTitle(m.project_a)}${projectTitle(m.project_b)}<div class="radar-chips"><span class="radar-chip">${e(m.distance_tier_label || m.tier_label)}</span></div>${statusChips(m)}<div class="radar-chips">${[m.project_a,m.project_b].map(p => `<span class="radar-chip">${e(p.utility)} · ${e(geometryStatus(p))} · ${e(p.geometry_confidence || 'confidence unknown')}</span>`).join('')}</div>`;
+      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span><span class="radar-chip ${currentDataset}">${e(mode())}</span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier">${e(m.distance_tier_label || m.tier_label)}</span>`;
+      el.addEventListener('mouseenter', () => highlight(m));
+      el.addEventListener('mouseleave', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
+      el.addEventListener('focus', () => highlight(m));
+      el.addEventListener('blur', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
       el.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectMatch(m.match_id); } });
     });
     projectsOf(analysis).forEach(p => {
@@ -149,12 +181,14 @@
       line.on('mouseover', () => line.setStyle({ weight: 7 }));
       line.on('mouseout', () => line.setStyle({ weight: id === selectedMatchId ? 6 : 3 }));
     });
+    if (!analysis.matches.length) catalog.open = true;
     applyYearFilter();
   };
   inspector.addEventListener('click', event => {
     if (!event.target.closest('[data-radar-close]')) return;
     const previousId = selectedMatchId;
     inspector.hidden = true;
+    catalog.open = true;
     selectedMatchId = null;
     document.getElementById('radarFocus').disabled = true;
     selection.clearLayers();
@@ -172,6 +206,7 @@
   });
   document.getElementById('radarFocus').addEventListener('click', () => { if (selectedMatchId) selectMatch(selectedMatchId); });
   window.radarLoading = function(name) {
+    datasetSelect.value = name;
     yearSummary.hidden = true;
     yearSummary.textContent = '';
     document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.id === {verified: 'btnVerified', estimated: 'btnEstimated', demo: 'btnDemo'}[name])));
@@ -193,6 +228,8 @@
   renderLoadErrorState = function(name, err) {
     workspace.removeAttribute('aria-busy');
     originalError(name, err);
+    catalog.open = true;
+    metrics.innerHTML = '<div class="radar-state">Dataset unavailable</div>';
     updateYearLabels();
     if (name === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only. ' + banner.textContent;
     banner.classList.add('radar-banner');
