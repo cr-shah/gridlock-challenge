@@ -1729,11 +1729,11 @@ function showView(view) {
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));
 document.getElementById('navMethodology').addEventListener('click', openMethodology);
 function openLinkedView() {
-  if (window.location.hash === '#radar') { closeMethodology(); showView('radar'); }
+  const requestedView = new URLSearchParams(window.location.search).get('view');
+  if (requestedView === 'radar' || window.location.hash === '#radar') { closeMethodology(); showView('radar'); }
   else if (window.location.hash === '#methodology') { showView('overview'); openMethodology(); }
   else { showView('overview'); }
 }
-openLinkedView();
 window.addEventListener('hashchange', openLinkedView);
 GridLockData.load().then(({master,web})=>{
  const summary=web.modes.full.summary;
@@ -1767,6 +1767,7 @@ GridLockData.load().then(({master,web})=>{
 })();
 </script>
 <script src="radar.js"></script>
+<script>openLinkedView();</script>
 <script src="radar-ambient.js"></script>
 <script src="ai-analyst.js"></script>
 </body>
