@@ -59,9 +59,6 @@
       const t0 = performance.now(), tick = now => { const k = Math.min(1, (now - t0) / 700); dd.textContent = String(Math.round(target * (1 - Math.pow(1 - k, 3)))); if (k < 1) requestAnimationFrame(tick); };
       dd.textContent = '0'; requestAnimationFrame(tick);
     });
-    const unresolved = state.projects.filter(p => !M.isMapped(p)).length, note = $('pd-scopenote');
-    note.replaceChildren(document.createTextNode(`${unresolved} of ${state.projects.length} projects have no usable geometry, so they can’t appear in a spatial opportunity. `));
-    const a = node('a', '', 'Browse all projects in the Project Explorer'); a.href = './project-explorer.html'; note.append(a, document.createTextNode('.'));
   }
   function renderHow() {
     const crit = M.CRITERIA, recipe = $('pd-recipe');

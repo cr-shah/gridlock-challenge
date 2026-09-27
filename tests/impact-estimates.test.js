@@ -53,4 +53,6 @@ test('pages cache-bust the impact UI assets for static deployment', () => {
   assert.match(leaderboard, /project-discovery\.js\?v=/);
   assert.match(leaderboard, /project-discovery\.css\?v=/);
   assert.match(overview, /project-discovery-model\.js\?v=/);
+  assert.doesNotMatch(leaderboard, /pd-scopenote|no usable geometry|Browse all projects in the Project Explorer/);
+  assert.doesNotMatch(fs.readFileSync(path.join(root, 'project-discovery.js'), 'utf8'), /pd-scopenote|no usable geometry|Browse all projects in the Project Explorer/);
 });
