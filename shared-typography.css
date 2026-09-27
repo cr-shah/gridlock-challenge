@@ -64,3 +64,33 @@ body.project-explorer .pe-heading h1 {
   body .radar-title h1,
   body.project-explorer .pe-heading h1 { letter-spacing:-1px; }
 }
+
+/* Shared page-title scale; overrides the compact Radar presentation. */
+:root { --type-page:clamp(40px,5.2vw,72px); }
+body .overview .hero h1 .hero-intro { font-size:clamp(34px,3.5vw,48px); font-weight:700; color:#fff; }
+body .overview .hero h1 .hero-keyword,
+body.radar-view .radar-toolbar .radar-title h1,
+body.project-explorer .pe-heading h1 {
+ font-size:var(--type-page); font-weight:700; line-height:1.1; letter-spacing:-1.8px;
+}
+body.radar-view .radar-toolbar .radar-title h1 { color:#bce6de; margin-bottom:10px; }
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+ body.radar-view .radar-toolbar .radar-title h1 {
+  background:linear-gradient(110deg,#9edfff 0%,#b6a4ff 18%,#f5a6d5 36%,#ffd49b 54%,#bce99e 72%,#91e4d6 86%,#9edfff 100%);
+  background-size:250% 100%; background-clip:text; -webkit-background-clip:text;
+  color:transparent; animation:radar-title-flow 7s linear infinite;
+ }
+}
+@media(max-width:560px) {
+ :root { --type-page:clamp(34px,9.4vw,48px); }
+ body .overview .hero h1 .hero-intro { font-size:clamp(30px,7.5vw,38px); }
+ body .overview .hero h1 .hero-keyword,
+ body.radar-view .radar-toolbar .radar-title h1,
+ body.project-explorer .pe-heading h1 { letter-spacing:-1px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ body.radar-view .radar-toolbar .radar-title h1 { animation:none; }
+}
+@media(forced-colors:active) {
+ body.radar-view .radar-toolbar .radar-title h1 { background:none; color:CanvasText; animation:none; }
+}
