@@ -1,0 +1,13 @@
+{
+  "DESC_count": 54,
+  "GPC_count": 24,
+  "dataset_version": "1.0.0",
+  "estimated_geometry_count": 44,
+  "full_pairs_within_40km": 38,
+  "generated_at": "2026-09-27T01:39:03.615547+00:00",
+  "pipeline_commit": "7c72a0c670bba9b94513e49f16684fb71f3e9124",
+  "total_projects": 78,
+  "unresolved_count": 19,
+  "verified_geometry_count": 15,
+  "verified_pairs_within_40km": 6
+}
