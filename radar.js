@@ -64,6 +64,13 @@
   const catalog = document.createElement('details');
   catalog.className = 'radar-catalog';
   catalog.innerHTML = '<summary>Browse opportunities</summary>';
+  let detailOpen = false;
+  function updateSidebarView() {
+    inspector.hidden = !detailOpen;
+    catalog.hidden = detailOpen;
+    if (!detailOpen) catalog.open = true;
+  }
+  updateSidebarView();
   const sidebar = workspace.querySelector('.sidebar');
   const metrics = document.getElementById('stats');
   metrics.classList.add('radar-compact-metrics');
@@ -104,6 +111,12 @@
   const geometryStatus = p => `${badge(p).label} geometry`;
   const timing = m => m.timeline_overlap ? 'Timing overlaps' : m.timeline_gap_years == null ? 'Timing unknown' : `${m.timeline_gap_years}-year timing gap`;
   const projectTitle = p => `<div class="radar-project-name"><span class="radar-utility ${p.utility === 'GPC' ? 'gpc' : ''}">${e(p.utility)}</span>${e(p.name)}</div>${typeAndVoltageRow(p) ? `<div class="radar-muted">${typeAndVoltageRow(p)}</div>` : ''}`;
+  function cardProject(project) {
+    const utility = project.utility;
+    const kind = utility === 'DESC' ? 'desc' : utility === 'GPC' ? 'gpc' : null;
+    const label = utility === 'GPC' ? 'Georgia Power' : utility || 'Utility unavailable';
+    return `<div class="radar-card-project"><span class="pd-util${kind ? ` is-${kind}` : ''}">${kind ? `<i class="pd-dot pd-dot-${kind}" aria-hidden="true"></i>` : ''}${e(label)}</span><span class="radar-card-name">${e(project.name)}</span></div>`;
+  }
   const statusChips = m => `<div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-chip">${e(timing(m))}</span></div>`;
   function evidence(p) {
     const field = (label, value) => `<dt>${label}</dt><dd>${e(value || 'Unavailable')}</dd>`;
@@ -123,7 +136,7 @@
     const timelineNode = inspector.querySelector('.timeline-viz');
     const savingsNode = inspector.querySelector('.savings');
     const areasNode = inspector.querySelector('.coord-areas');
-    inspector.hidden = false;
+    updateSidebarView();
     const tier = m.distance_tier_label || m.tier_label || 'Tier unavailable';
     inspector.innerHTML = `<div class="radar-inspector-head"><h3>Opportunity ${e(m.match_id.toUpperCase())}</h3><button type="button" class="radar-action" data-radar-close aria-label="Close opportunity details">×</button></div>
       <div class="radar-distance">${e(m.distance_km)} <small>km</small></div>
@@ -166,13 +179,18 @@
   const originalSelect = selectMatch;
   selectMatch = function(id) {
     document.getElementById('radarFocus').disabled = false;
-    inspector.hidden = false;
+    detailOpen = false;
+    updateSidebarView();
     map.invalidateSize();
     originalSelect(id);
     window.gridlockAnalystContext = {mode:currentDataset,selection:{kind:'opportunity',id}};
     window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
     highlight((analysis?.matches || []).find(m => m.match_id === id));
-    list.querySelectorAll('.match-item').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.matchId === id)));
+    list.querySelectorAll('.match-item').forEach(el => {
+      el.setAttribute('aria-pressed', String(el.dataset.matchId === id));
+      const button = el.querySelector('[data-radar-details]');
+      if (button) button.hidden = el.dataset.matchId !== id;
+    });
   };
   const originalRender = render;
   render = function() {
@@ -193,12 +211,28 @@
       el.setAttribute('role', 'button');
       el.setAttribute('aria-pressed', String(m.match_id === selectedMatchId));
       const tierMeta = GridLockRadarModel.coordinationTier(m.distance_tier || m.tier);
-      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier ${e(tierMeta.className)}">${e(tierMeta.label)}</span>`;
+      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}">${cardProject(m.project_a)}<span aria-hidden="true">↔</span>${cardProject(m.project_b)}</div><span class="radar-tier ${e(tierMeta.className)}">${e(tierMeta.label)}</span>`;
+      const detailsButton = document.createElement('button');
+      detailsButton.type = 'button';
+      detailsButton.className = 'radar-action radar-view-details';
+      detailsButton.dataset.radarDetails = m.match_id;
+      detailsButton.textContent = 'View details';
+      detailsButton.setAttribute('aria-label', `View details for opportunity ${m.match_id.toUpperCase()}`);
+      detailsButton.setAttribute('aria-controls', 'detailPanel');
+      detailsButton.hidden = m.match_id !== selectedMatchId;
+      detailsButton.addEventListener('click', event => {
+        event.stopPropagation();
+        detailOpen = true;
+        renderDetailPanel(m);
+        updateSidebarView();
+        inspector.querySelector('[data-radar-close]')?.focus();
+      });
+      el.append(detailsButton);
       el.addEventListener('mouseenter', () => highlight(m));
       el.addEventListener('mouseleave', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
       el.addEventListener('focus', () => highlight(m));
       el.addEventListener('blur', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
-      el.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectMatch(m.match_id); } });
+      el.addEventListener('keydown', event => { if (event.target === el && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); selectMatch(m.match_id); } });
     });
     projectsOf(analysis).forEach(p => {
       projectMarkers.get(p.id)?.setStyle({ dashArray: p.estimated_geometry ? '4 3' : null });
@@ -213,15 +247,8 @@
   inspector.addEventListener('click', event => {
     if (!event.target.closest('[data-radar-close]')) return;
     const previousId = selectedMatchId;
-    inspector.hidden = true;
-    catalog.open = true;
-    selectedMatchId = null;
-    window.gridlockAnalystContext = {mode:currentDataset,selection:null};
-    window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
-    document.getElementById('radarFocus').disabled = true;
-    selection.clearLayers();
-    list.querySelectorAll('.match-item').forEach(el => { el.classList.remove('selected'); el.setAttribute('aria-pressed', 'false'); });
-    matchLayers.forEach(line => line.setStyle({ weight: 3 }));
+    detailOpen = false;
+    updateSidebarView();
     map.invalidateSize();
     Array.from(list.querySelectorAll('.match-item')).find(el => el.dataset.matchId === previousId)?.focus();
   });
@@ -244,7 +271,8 @@
     selectedMatchId = null;
     document.getElementById('radarFocus').disabled = true;
     workspace.setAttribute('aria-busy', 'true');
-    inspector.hidden = true;
+    detailOpen = false;
+    updateSidebarView();
     document.getElementById('stats').innerHTML = '';
     document.getElementById('listHeading').textContent = 'Ranked coordination opportunities';
     document.getElementById('yearControl').classList.add('hidden');

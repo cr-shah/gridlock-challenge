@@ -171,3 +171,16 @@ body.radar-view #layout.radar-workspace { height:var(--radar-available-height,ca
  body.radar-view #layout.radar-workspace { height:auto; min-height:0; }
  body.radar-view .radar-workspace .map-wrap { height:var(--radar-available-height,50dvh); min-height:220px; }
 }
+
+.radar-view-details { display:block; margin-top:10px; }
+.radar-view-details[hidden] { display:none; }
+
+/* Leadership Board utility indicators, scoped to compact Radar cards. */
+.radar-card-project { min-width:0; }
+.radar-card-project .pd-util { display:inline-flex; align-items:center; gap:6px; font:600 12px "IBM Plex Mono",monospace; letter-spacing:.4px; }
+.radar-card-project .pd-util.is-desc { color:#9ad3ff; }
+.radar-card-project .pd-util.is-gpc { color:#f2c273; }
+.radar-card-project .pd-dot { display:inline-block; flex-shrink:0; width:9px; height:9px; }
+.radar-card-project .pd-dot-desc { border-radius:50%; background:var(--pd-desc,#5db8ff); }
+.radar-card-project .pd-dot-gpc { background:var(--pd-gpc,#e8a33d); transform:rotate(45deg) scale(.9); }
+.radar-card-name { display:block; }
