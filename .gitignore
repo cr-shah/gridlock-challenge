@@ -1,3 +1,19 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+
+# Local configuration and secrets (keep the credential-free example trackable).
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+.secrets/
+secrets/
+secrets.*
+credentials/
+credentials.*
+*.pem
+*.key
+.venv/
+venv/
