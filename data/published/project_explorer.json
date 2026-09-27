@@ -1,7 +1,7 @@
 {
   "dataset_version": "1.0.0",
-  "generated_at": "2026-09-27T01:39:03.615547+00:00",
-  "pipeline_commit": "7c72a0c670bba9b94513e49f16684fb71f3e9124",
+  "generated_at": "2026-09-27T02:35:55.910711+00:00",
+  "pipeline_commit": "a49d41ba92cacd5163a10e74efa4f4292eb28d86",
   "projects": [
     {
       "geometry_confidence": "ESTIMATED",

@@ -1,14 +1,19 @@
 {
-  "dataset_version": "1.0.0",
-  "generated_at": "2026-09-27T01:39:03.615547+00:00",
-  "pipeline_commit": "7c72a0c670bba9b94513e49f16684fb71f3e9124",
-  "source_product_commit": "94156f6cd373bff4def28b7daa8263841b54dbea",
-  "imported_at": "2026-09-27T01:45:29.135258+00:00",
-  "upstream_manifest_verified": false,
   "artifacts": {
-    "website_data.json": "e42860fa985dd827ea86d785c0280932443b4d45584331f007e85a9e0a7b7b7f",
-    "gridlock_master_projects.json": "3f845b7f1ebc517367398821e35d6b006385e9c5c3126d54736785ec0cdd976d",
-    "project_explorer.json": "984f7faafe412aab1354e20bca140b6a09e608d451238250037028268547e9b5",
-    "summary_statistics.json": "72b2efc38dcc16d50bd4e0c2cfc1594091dd8f7269a5d50eaecf258810ec7c22"
-  }
+    "gridlock_master_projects.json": "3500277fb8c7ac62b2910df23932dd02911beda708c3f960659ab3fdf0e748b5",
+    "project_explorer.json": "4274dbb55e076b3b88115afd61b835ce2ff3510f332baaf014e341fc0371760e",
+    "summary_statistics.json": "caa19bf698cd1e8fcfd5e3c2e190126789e41d0287e42bdee67eb1619d07a88d",
+    "website_data.json": "fa58019d54bb818b51021d93a24b5c9946c5643b38949d5f48dd8f34284d662f"
+  },
+  "dataset_version": "1.0.0",
+  "generated_at": "2026-09-27T02:35:55.910711+00:00",
+  "imported_at": "2026-09-27T02:35:56.377698+00:00",
+  "opportunity_policy": {
+    "distance_km_lt": 40,
+    "timeline_gap_years_lte": 2,
+    "unknown_timing_eligible": false
+  },
+  "pipeline_commit": "a49d41ba92cacd5163a10e74efa4f4292eb28d86",
+  "source_product_commit": "152711cce5046c5412f07c172d301427d31f3edb",
+  "upstream_manifest_verified": true
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="radar-model.js"></script>
 <script src="canonical-data.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -743,12 +744,6 @@
 </main>
 <div class="topbar" id="radarToolbar" hidden>
   <div class="topbar-right">
-    <div class="dataset-toggle">
-      <span>Dataset</span>
-      <button id="btnVerified" class="active" type="button">Verified</button>
-      <button id="btnEstimated" class="estimated" type="button">Estimated Coverage</button>
-
-    </div>
     <div class="year-control hidden" id="yearControl">
       <label for="yearSlider">Viewing year</label>
       <input type="range" id="yearSlider" min="2026" max="2030" step="1" value="2028" />
@@ -777,8 +772,8 @@
       </ul>
       <p>These tiers describe <b>coordination potential based on distance</b> — they are not a safety or risk severity rating.</p>
       <p><b>Timeline overlap is secondary.</b> It adds a small bonus to the ranking, but it can never outrank a closer geographic tier — two projects 1 km apart always rank above two projects 20 km apart, regardless of timing.</p>
-      <p><b>Unresolved geography is excluded, not guessed.</b> In Verified mode a project without usable coordinates is counted in the totals but is never mapped, compared, or assigned a made-up location.</p>
-      <p><b>Estimated Coverage</b> is a separate screening mode. It never replaces official geometry. Straight lines between uniquely matched public substations, a matching HIFLD corridor on a rebuild, a single resolved facility point, or a county anchor are stored apart from the verified geometry. County anchors and single estimated points cannot create a touching, under-1.6 km, or under-8 km tier. Estimated geometry — planning-screening use only.</p>
+      <p><b>Unresolved geography is excluded, not guessed.</b> A project without usable coordinates remains in the catalog but is never mapped, compared, or assigned a made-up location.</p>
+      <p><b>Verified and estimated geometry appear together</b> in one coverage view and are always labeled. Estimates never replace official geometry. County anchors and single estimated points cannot create a touching, under-1.6 km, or under-8 km tier.</p>
       <p><b>Evidence is public-source only.</b> Every verified project traces back to a cited public planning document; nothing is scraped live or inferred without a source.</p>
       <p class="trust-note">AI may assist with extraction and explanation; geographic overlap is verified with deterministic GIS calculations, not by a model's judgment.</p>
     </div>
@@ -916,9 +911,7 @@ function computeScenarioOverlap(winA, winB) {
 }
 
 const DATASETS = {
-  verified: { url: './data/published/website_data.json', label: 'Verified' },
-  estimated: { url: './data/published/website_data.json', label: 'Estimated Coverage' },
-
+  estimated: { url: './data/published/website_data.json', label: 'Unified coverage' },
 };
 
 const map = L.map('map', { zoomControl: true }).setView([32.6, -81.3], 8);
@@ -933,10 +926,6 @@ let currentDataset = 'estimated';
 const drawnLayers = L.layerGroup().addTo(map);
 const projectMarkers = new Map();
 const matchLayers = new Map();
-
-document.getElementById('btnVerified').addEventListener('click', () => loadDataset('verified'));
-document.getElementById('btnEstimated').addEventListener('click', () => loadDataset('estimated'));
-
 
 // --- "How Gridlock works" methodology modal ---
 const methodologyOverlay = document.getElementById('methodologyOverlay');
@@ -953,8 +942,6 @@ function loadDataset(name) {
   const request = ++radarLoadRequest;
   if (window.radarLoading) window.radarLoading(name);
   currentDataset = name;
-  document.getElementById('btnVerified').classList.toggle('active', name === 'verified');
-  document.getElementById('btnEstimated').classList.toggle('active', name === 'estimated');
 
   document.getElementById('load-error').style.display = 'none';
   GridLockData.mode(name)
@@ -1150,6 +1137,9 @@ function projectParts(project) {
   if (!project) return [];
   const geometry = project.geometry;
   const geometryType = project.geometry_type;
+  if (geometry && !Array.isArray(geometry)) {
+    return GridLockRadarModel.geometryParts(geometry);
+  }
   if (Array.isArray(geometry)) {
     const multi = geometryType === 'MultiLineString' ||
       (geometry.length && Array.isArray(geometry[0]) && Array.isArray(geometry[0][0]));
@@ -1243,6 +1233,7 @@ function render() {
       const color = p.utility === 'DESC' ? getVar('--utility-a') : getVar('--utility-b');
       const marker = L.circleMarker(pts[0], {
         radius: 6, color, weight: 2, fillColor: color, fillOpacity: 0.55,
+        className: `gridlock-project-marker ${p.estimated_geometry ? 'estimated' : 'verified'}`,
       }).addTo(drawnLayers);
       const conf = p.data_confidence ? `<br>Record confidence: ${escapeHtml(p.data_confidence)}` : '';
       const src = p.source_url ? `<br><a href="${escapeHtml(p.source_url)}" target="_blank" rel="noopener">View source</a>` : '';
@@ -1263,7 +1254,7 @@ function render() {
         if (part.length > 1) {
           const hit = L.polyline(part, { color, weight: 14, opacity: 0 }).addTo(drawnLayers);
           hit.bindPopup(popupHtml);
-          const route = L.polyline(part, { color, weight: 3, opacity: 0.75, dashArray: dash }).addTo(drawnLayers);
+          const route = L.polyline(part, { color, weight: 3, opacity: 0.75, dashArray: dash, className: `gridlock-project-route ${p.estimated_geometry ? 'estimated' : 'verified'}` }).addTo(drawnLayers);
           route.bindPopup(popupHtml);
         }
       });
@@ -1373,7 +1364,9 @@ function render() {
     : '<div class="empty">No pair is inside 40 km, so there is no coordination brief, timeline, or closest-point connector to show. Projects with geometry are on the map.</div>';
 
   applyYearFilter();
-  if (matches[0]) selectMatch(matches[0].match_id);
+  const initial = GridLockRadarModel.initialSelection(matches, layout.hidden);
+  if (initial.focusNow) selectMatch(initial.id);
+  else selectedMatchId = initial.id;
   requestAnimationFrame(() => map.invalidateSize());
 }
 
@@ -1699,7 +1692,7 @@ GridLockData.load().then(({master,web})=>{
  const summary=web.modes.full.summary;
  const values={ovTotal:master.total_projects,ovDesc:master.DESC_count,ovGpc:master.GPC_count,ovMapped:master.verified_geometry_count+master.estimated_geometry_count};
  Object.entries(values).forEach(([id,value])=>document.getElementById(id).textContent=value.toLocaleString());
- document.getElementById('overviewCoverage').textContent=`${(master.DESC_count*master.GPC_count).toLocaleString()} possible cross-utility pairs · ${summary.pairs_checked} evaluable · ${summary.pairs_within_40km} full-coverage opportunities under 40 km`;
+ document.getElementById('overviewCoverage').textContent=`${(master.DESC_count*master.GPC_count).toLocaleString()} possible cross-utility pairs · ${summary.candidate_pairs_within_40km ?? summary.pairs_within_40km} within 40 km · ${summary.schedule_aligned_opportunities ?? web.modes.full.matches.length} opportunities within a 2-year schedule gap`;
 }).catch(()=>{document.getElementById('overviewCoverage').textContent='Canonical publication unavailable.';});
 
 </script>

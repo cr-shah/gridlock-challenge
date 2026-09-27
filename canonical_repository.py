@@ -2,6 +2,7 @@
 import hashlib
 import json
 from master_dataset import load_master, to_scoring_project
+from publication_validation import validate_publication
 
 def load_publication(root):
     folder=root/'data/published'
@@ -11,6 +12,7 @@ def load_publication(root):
             raise ValueError('Canonical artifact integrity mismatch: '+filename)
     master=load_master(folder/'gridlock_master_projects.json')
     web=json.loads((folder/'website_data.json').read_text())
+    validate_publication(master,web)
     if master['dataset_version']!='1.0.0': raise ValueError('Unsupported dataset version')
     for key in ('dataset_version','pipeline_commit','generated_at'):
         if not master.get(key) or web.get(key)!=master[key]: raise ValueError('Mixed publication metadata')

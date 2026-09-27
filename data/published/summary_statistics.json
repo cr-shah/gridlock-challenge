@@ -1,13 +1,15 @@
 {
   "DESC_count": 54,
   "GPC_count": 24,
+  "candidate_pairs_within_40km": 38,
   "dataset_version": "1.0.0",
   "estimated_geometry_count": 44,
-  "full_pairs_within_40km": 38,
-  "generated_at": "2026-09-27T01:39:03.615547+00:00",
-  "pipeline_commit": "7c72a0c670bba9b94513e49f16684fb71f3e9124",
+  "generated_at": "2026-09-27T02:35:55.910711+00:00",
+  "max_timeline_gap_years": 2,
+  "pipeline_commit": "a49d41ba92cacd5163a10e74efa4f4292eb28d86",
+  "schedule_aligned_opportunities": 24,
   "total_projects": 78,
   "unresolved_count": 19,
   "verified_geometry_count": 15,
-  "verified_pairs_within_40km": 6
+  "verified_schedule_aligned_opportunities": 0
 }

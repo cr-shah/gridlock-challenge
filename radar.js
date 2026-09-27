@@ -8,17 +8,11 @@
   workspace.append(inspector);
   const toolbar = document.createElement('div');
   toolbar.className = 'radar-scope radar-toolbar';
-  toolbar.innerHTML = '<div class="radar-title"><h1>COORDINATION RADAR</h1><small>Discover coordination opportunities between utility transmission projects.</small></div>';
+  toolbar.innerHTML = '<div class="radar-title"><span class="radar-kicker">DESC × GEORGIA POWER · UNIFIED COVERAGE</span><h1>COORDINATION RADAR</h1><small>See where planned transmission work is close enough to coordinate.</small></div>';
   const toolbarTools = document.createElement('div');
   toolbarTools.className = 'radar-toolbar-tools';
   toolbarTools.append(document.getElementById('yearControl'));
-  const datasetSelect = document.createElement('select');
-  datasetSelect.id = 'radarDataset';
-  datasetSelect.setAttribute('aria-label', 'Dataset');
-  datasetSelect.innerHTML = '<option value="verified">Verified</option><option value="estimated">Estimated Coverage</option>';
-  datasetSelect.addEventListener('change', () => loadDataset(datasetSelect.value));
-  document.querySelector('.dataset-toggle').hidden = true;
-  toolbar.append(datasetSelect, toolbarTools);
+  toolbar.append(toolbarTools);
   document.getElementById('radarToolbar').classList.add('radar-legacy-toolbar');
   const banner = document.getElementById('dataBanner');
   banner.classList.add('radar-banner');
@@ -74,13 +68,29 @@
   const metrics = document.getElementById('stats');
   metrics.classList.add('radar-compact-metrics');
   toolbar.after(metrics);
+  const guide = document.createElement('section');
+  guide.className = 'radar-guide';
+  guide.setAttribute('aria-labelledby', 'radarGuideTitle');
+  guide.innerHTML = `<div class="radar-guide-head"><div><span class="radar-kicker">DISTANCE + SCHEDULE ACTION GUIDE</span><h2 id="radarGuideTitle">What each opportunity means</h2></div><span>Only pairs within 40 km and a 2-year schedule gap are shown.</span></div>
+    <div class="radar-guide-grid">
+      <div class="radar-guide-item must"><span class="radar-guide-range">Touching / crossing</span><strong>Must coordinate</strong></div>
+      <div class="radar-guide-item land"><span class="radar-guide-range">&lt; 1.6 km</span><strong>ROW / land coordination potential</strong></div>
+      <div class="radar-guide-item logistics"><span class="radar-guide-range">&lt; 8 km</span><strong>Site logistics coordination potential</strong></div>
+      <div class="radar-guide-item crews"><span class="radar-guide-range">&lt; 40 km</span><strong>Crews / equipment coordination potential</strong></div>
+    </div>
+    <p class="radar-guide-note"><strong>Planning note:</strong> Projects remain visible even when they are not a schedule-aligned opportunity. Solid routes use verified geometry; dashed routes use estimates for screening. Every opportunity requires source review and human validation before coordination decisions.</p>`;
+  metrics.after(guide);
   catalog.append(sidebar);
   rail.append(inspector, catalog);
   workspace.append(rail);
   const selection = L.layerGroup().addTo(map);
   const e = escapeHtml;
-  const mode = () => DATASETS[currentDataset].label;
-  const geometryStatus = p => currentDataset === 'demo' ? 'Demo geometry' : p.estimated_geometry ? 'Estimated geometry' : (projectParts(p).length ? 'Verified geometry' : 'Geometry unavailable');
+  const mode = () => 'Unified coverage';
+  const badge = p => GridLockRadarModel.geometryBadge(p);
+  const geometryStatus = p => `${badge(p).label} geometry`;
+  const matchBadge = m => [m.project_a,m.project_b].every(p => badge(p).className === 'verified')
+    ? {label:'Verified geometry',className:'verified'}
+    : {label:'Includes estimates',className:'estimated'};
   const timing = m => m.timeline_overlap ? 'Timing overlaps' : m.timeline_gap_years == null ? 'Timing unknown' : `${m.timeline_gap_years}-year timing gap`;
   const projectTitle = p => `<div class="radar-project-name"><span class="radar-utility ${p.utility === 'GPC' ? 'gpc' : ''}">${e(p.utility)}</span>${e(p.name)}</div>${typeAndVoltageRow(p) ? `<div class="radar-muted">${typeAndVoltageRow(p)}</div>` : ''}`;
   const statusChips = m => `<div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-chip">${e(timing(m))}</span></div>`;
@@ -92,7 +102,7 @@
   buildCoordinationBriefText = function(m) {
     return originalBrief(m).replace(
       'Geographic overlap verified with deterministic GIS calculations (Gridlock coordination engine).',
-      `${mode()} · Deterministic closest-point GIS analysis. ${currentDataset === 'estimated' ? 'Estimated geometry — planning-screening use only.' : currentDataset === 'demo' ? 'Illustrative demo data, not verified evidence.' : 'Human review is required before coordination decisions.'}`
+      `${mode()} · Deterministic closest-point GIS analysis. Verified and estimated geometry are labeled separately; estimates are for planning-screening use only.`
     );
   };
   const originalDetail = renderDetailPanel;
@@ -104,13 +114,14 @@
     const areasNode = inspector.querySelector('.coord-areas');
     inspector.hidden = false;
     const tier = m.distance_tier_label || m.tier_label || 'Tier unavailable';
-    const estimated = [m.project_a,m.project_b].some(p => p.estimated_geometry);
-    const geometryFact = currentDataset === 'demo' ? 'Demo geometry' : estimated ? 'Estimated geometry · screening only' : 'Verified geometry';
+    const evidenceBadge = matchBadge(m);
+    const estimated = evidenceBadge.className === 'estimated';
+    const geometryFact = evidenceBadge.label;
     inspector.innerHTML = `<div class="radar-inspector-head"><h3>Opportunity ${e(m.match_id.toUpperCase())}</h3><button type="button" class="radar-action" data-radar-close aria-label="Close opportunity details">×</button></div>
       <div class="radar-distance">${e(m.distance_km)} <small>km</small></div>
-      <div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-tier">${e(tier)}</span></div>
+      <div class="radar-chips"><span class="radar-chip ${evidenceBadge.className}">${e(evidenceBadge.label)}</span><span class="radar-tier">${e(tier)}</span></div>
       <section class="radar-pair">${projectTitle(m.project_a)}<span aria-hidden="true">↕</span>${projectTitle(m.project_b)}</section>
-      <section><h4>Why flagged</h4><ul class="radar-facts"><li>✓ Distance within 40 km</li><li>${estimated || currentDataset === 'demo' ? '◌' : '✓'} ${e(geometryFact)}</li><li>${m.timeline_overlap ? '✓ Timing overlaps' : m.timeline_gap_years == null ? '— Timing unknown' : '✕ No timing overlap'}</li></ul>${m.close_tier_blocked ? '<p>Close tier blocked · broad screening only</p>' : ''}</section>
+      <section><h4>Why flagged</h4><ul class="radar-facts"><li>✓ Distance within 40 km</li><li>${estimated || currentDataset === 'demo' ? '◌' : '✓'} ${e(geometryFact)}</li><li>${m.timeline_overlap ? '✓ Timing overlaps' : m.timeline_gap_years == null ? '— Timing unknown' : `✓ ${e(m.timeline_gap_years)}-year gap is within the schedule screen`}</li></ul>${m.close_tier_blocked ? '<p>Close tier blocked · broad screening only</p>' : ''}</section>
       <details class="radar-evidence"><summary>View full evidence <span aria-hidden="true">↗</span></summary>
         <section><h4>Projects & provenance</h4>${evidence(m.project_a)}${evidence(m.project_b)}</section>
         <section data-radar-schedule><h4>Schedules</h4><p>${e(m.project_a.utility)} · ${e(formatYears(m.project_a))}<br>${e(m.project_b.utility)} · ${e(formatYears(m.project_b))}</p></section>
@@ -161,20 +172,19 @@
     workspace.removeAttribute('aria-busy');
     originalRender();
     banner.classList.add('radar-banner');
-    datasetSelect.value = currentDataset;
     const summary = summaryOf(analysis);
     const mapped = summary.projects_with_geometry ?? (summary.total_projects - (summary.projects_without_geometry || 0));
-    const mappedLabel = currentDataset === 'verified' ? 'Verified mapped' : currentDataset === 'estimated' ? 'Mapped incl. estimates' : 'Demo mapped';
-    metrics.innerHTML = [[summary.total_projects,'Projects'],[mapped,mappedLabel],[analysis.matches.length,'Opportunities']].map(([value,label]) => `<div class="stat"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
-    document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
-    if (currentDataset === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only.';
+    metrics.innerHTML = [[analysis.catalog_total || summary.total_projects,'Catalog projects','catalog'],[mapped,'Mapped projects','mapped'],[analysis.verified_count ?? '—','Verified geometry','verified'],[analysis.estimated_count ?? '—','Estimated geometry','estimated'],[analysis.matches.length,'Opportunities','opportunities']].map(([value,label,kind]) => `<div class="stat ${kind}"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
+    banner.textContent = `${analysis.matches.length} schedule-aligned opportunities · verified and estimated geometry are shown together and labeled.`;
     list.querySelectorAll('.match-item').forEach(el => {
       const m = analysis.matches.find(m => m.match_id === el.dataset.matchId);
       if (!m) return;
       el.tabIndex = 0;
       el.setAttribute('role', 'button');
       el.setAttribute('aria-pressed', String(m.match_id === selectedMatchId));
-      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span><span class="radar-chip ${currentDataset}">${e(mode())}</span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier">${e(m.distance_tier_label || m.tier_label)}</span>`;
+      const evidenceBadge = matchBadge(m);
+      const tierMeta = GridLockRadarModel.coordinationTier(m.distance_tier || m.tier);
+      el.innerHTML = `<div class="radar-card-top"><span class="radar-distance">${e(m.distance_km)} <small>km</small></span><span class="radar-chip ${e(evidenceBadge.className)}">${e(evidenceBadge.label)}</span></div><div class="radar-card-pair" title="${e(m.project_a.name)} ↔ ${e(m.project_b.name)}"><span>${e(m.project_a.name)}</span><span aria-hidden="true">↔</span><span>${e(m.project_b.name)}</span></div><span class="radar-tier ${e(tierMeta.className)}">${e(tierMeta.label)}</span>`;
       el.addEventListener('mouseenter', () => highlight(m));
       el.addEventListener('mouseleave', () => highlight((analysis?.matches || []).find(item => item.match_id === selectedMatchId)));
       el.addEventListener('focus', () => highlight(m));
@@ -217,10 +227,8 @@
   window.radarLoading = function(name) {
     window.gridlockAnalystContext = {mode:name,selection:null};
     window.dispatchEvent(new CustomEvent('gridlock:context',{detail:window.gridlockAnalystContext}));
-    datasetSelect.value = name;
     yearSummary.hidden = true;
     yearSummary.textContent = '';
-    document.querySelectorAll('.dataset-toggle button').forEach(b => b.setAttribute('aria-pressed', String(b.id === {verified: 'btnVerified', estimated: 'btnEstimated', demo: 'btnDemo'}[name])));
     selection.clearLayers();
     clearMap();
     analysis = null;
@@ -232,8 +240,8 @@
     document.getElementById('listHeading').textContent = 'Ranked coordination opportunities';
     document.getElementById('yearControl').classList.add('hidden');
     list.innerHTML = `<div class="radar-state" role="status">Loading ${e(DATASETS[name].label)} opportunities…</div>`;
-    banner.className = `banner visible radar-banner ${name === 'estimated' ? 'estimated' : name === 'demo' ? 'demo' : 'verified-empty'}`;
-    banner.textContent = name === 'estimated' ? 'Estimated geometry — planning-screening use only.' : name === 'demo' ? 'Demo — illustrative data, not verified evidence.' : 'Loading verified analysis…';
+    banner.className = 'banner visible radar-banner coverage';
+    banner.textContent = 'Loading unified project coverage…';
   };
   const originalError = renderLoadErrorState;
   renderLoadErrorState = function(name, err) {
@@ -242,7 +250,7 @@
     catalog.open = true;
     metrics.innerHTML = '<div class="radar-state">Dataset unavailable</div>';
     updateYearLabels();
-    if (name === 'estimated') banner.textContent = 'Estimated geometry — planning-screening use only. ' + banner.textContent;
+    banner.textContent = 'Unified project coverage is unavailable. ' + banner.textContent;
     banner.classList.add('radar-banner');
     const retry = document.createElement('button');
     retry.className = 'radar-action'; retry.textContent = 'Retry loading';

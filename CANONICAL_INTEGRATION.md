@@ -1,34 +1,34 @@
 # Canonical integration report
 
-Imported the product publication from `cr-shah/gridlock-challenge`, branch `feat/real-data-integration`, commit `94156f6cd373bff4def28b7daa8263841b54dbea`.
+## Current architecture
 
-## Architecture
+- `gridlock-data-pipeline` owns the canonical 78-project publication and machine-readable manifest.
+- `python -m gridlock_pipeline publish --product-root ../gridlock-challenge` regenerates both repositories end to end.
+- `scripts/publish_downstream.py` creates website, explorer, summary, workbook, and integrity-receipt outputs.
+- `publication_validation.py` fails publication when identities, dates, regional coordinates, geometry precedence, pair references, closest-point distances, distance tiers, or the two-year schedule policy are inconsistent.
+- `canonical-data.js` and `canonical_repository.py` validate hashes and publication logic before browser or AI consumption.
+- The Radar presents one unified coverage view. Geometry remains explicitly `VERIFIED`, `ESTIMATED`, or `UNRESOLVED`.
 
-- `data/published/`: unchanged upstream master, website, explorer and statistics JSON; `import_receipt.json` records source commit, publication metadata, local SHA-256 hashes and import time.
-- `canonical-data.js`: shared browser loader validates identity, version, local hashes and match references. It adapts `project_id` to the existing UI's `id` without changing identity. It uses published `analysis_geometry` directly.
-- `master_dataset.py`: upstream adapter, unchanged.
-- `canonical_repository.py`: validates local hashes, catalog consistency and saved match references for the Assistant. No GIS recomputation or data writes.
-- `index.html` / `radar.js`: full coverage is default; Verified is optional; Demo is removed from dataset controls. Landing metrics use canonical counts.
-- `project-explorer.html/js`: all 78 projects, including unresolved records; utility, year, type, voltage and geometry-status filters.
-- `analyst/core.py` / `analyst/server.py` / `ai-analyst.js`: canonical-only grounding, publication provenance on citations, nested published assets served safely.
+## Current publication
 
-Full Radar: 59 mapped projects, 38 matches. Verified-only: 15 mapped projects, 6 matches. Catalog: 54 DESC + 24 GPC = 78 projects; geometry states: 15 VERIFIED, 44 ESTIMATED, 19 UNRESOLVED. Unresolved projects are not mapped. Saved geometry, distances, tier rules, scoring code and original legacy data files are unchanged.
+- 78 canonical projects: 54 DESC and 24 Georgia Power.
+- 15 verified geometries, 44 estimated geometries, and 19 unresolved geometries.
+- 59 mapped projects and 840 evaluable cross-utility pairs.
+- 38 pairs are under 40 km.
+- 24 of those pairs have a known timeline gap of at most two years and are published as opportunities.
+- Pairs with unknown timing or gaps of three years or more remain analysis candidates but do not appear as coordination opportunities.
 
-## Integrity limitation
+The local master artifact is verified against the sibling pipeline publication manifest. The import receipt records the pipeline commit, publication timestamp, policy, verification result, and hashes of every browser-consumed artifact.
 
-The pipeline repository could not be authenticated, and its raw publication manifest URL returned 404. Therefore **upstream manifest verification has not been completed**. The imported product files are pinned to the above Git commit; local hashes detect subsequent changes but do not substitute for the publisher's manifest. `upstream_manifest_verified` is explicitly false in the import receipt. Obtain the authentic pipeline manifest and verify the master artifact against it before treating this import as fully publisher-verified. The publisher scripts were not copied or run; this integration consumes an existing snapshot.
+## Boundaries
 
-After a new publication, import the complete matching set and verify it against the authentic upstream manifest before updating the receipt. Never mix publication versions or edit generated project fields by hand.
+- Verified geometry always takes precedence over estimated geometry.
+- Estimated geometry remains labeled and is for planning screening only.
+- Unresolved projects remain in the catalog; coordinates are never invented.
+- Excel is a generated review artifact and is never read by the application.
+- AI explains saved evidence. It does not calculate distance, alter project facts, or create opportunities.
+- Every opportunity still requires source review and human validation before coordination decisions.
 
-## Validation
+## Verification
 
-- `.venv/bin/python -m unittest discover -s tests`: 60 passing tests, including existing scoring/estimated-coverage tests and new canonical integration tests.
-- JavaScript syntax checks and execution of the shared browser adapter against the imported files: passed; verified 78 catalog records, 59/38 full projects/matches and 15/6 verified projects/matches.
-- Inline JavaScript parsing: passed.
-- No live Gemini calls needed for this integration. No billing changes or paid services added.
-
-## Database readiness
-
-The app consumes JSON directly and needs no database. No MongoDB/SQL server, migration or import was created. The canonical IDs and provenance are available for a future database adapter. Pipeline NDJSON/CSV and authenticated publication manifest access are still required for the handoff's full database import workflow.
-
-Changes are local; nothing was committed or pushed.
+The website test suite covers canonical integrity, publication policy, date/place/distance corruption, the analyst boundary, scoring, and map-model helpers. The pipeline suite covers deterministic extraction, normalization, canonical publication, transport formats, manifests, and failure preservation. Desktop and mobile browser checks cover the Radar, schedule filtering, detail selection, Project Explorer, and responsive overflow.

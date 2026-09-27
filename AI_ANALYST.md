@@ -2,7 +2,7 @@
 
 AI explains. GIS verifies. Humans decide.
 
-Snowflake is no longer required. The Python server reads the local project and analysis JSON files and sends facts from the current dataset mode to Gemini. The requested model is `gemini-3.8-flash`.
+Snowflake is not required. The Python server reads the validated canonical publication and sends facts from the unified coverage view to Gemini. The requested model is `gemini-3.8-flash`.
 
 ## Setup
 
@@ -26,7 +26,7 @@ Do not paste the key into chat or frontend files. `.env` is ignored by Git. Old 
 Start the server from the repo:
 
 ```sh
-cd /Users/havu/gridlock-challenge
+cd /path/to/gridlock-challenge
 .venv/bin/python -m analyst.server
 ```
 
@@ -38,13 +38,13 @@ Open **http://127.0.0.1:8002/**. Restart this server after changing `.env`. If t
 2. Choose **Generate Executive Brief**. Copy it or choose **Save as PDF**, then Save as PDF in the browser print dialog.
 3. Select a project in Project Explorer and request a summary.
 4. Ask “Show Georgia Power projects” or “What is GIS enrichment?”
-5. Switch dataset modes and confirm that the response labels match. Unsupported questions should receive “No supporting evidence was found in the available GridLock dataset.”
+5. Confirm that verified and estimated geometry remain clearly labeled in the cited evidence. Unsupported questions should receive the no-evidence response.
 
 The desktop drawer can be resized with its lower-left resize handle. Mobile sizing adapts to the viewport. Conversation history stays in page memory and clears on reload/navigation.
 
 ## Grounding
 
-The server reads only the canonical publication in `data/published/` through `canonical_repository.py`. Projects use exact canonical project IDs. Saved Radar matches are hydrated from that catalog, and answers retain dataset-version and pipeline-commit provenance. Legacy/demo files are not used. Geometry state is explicitly VERIFIED, ESTIMATED or UNRESOLVED; unresolved projects remain searchable. Local artifact hashes and matching publication versions are validated before loading. See `CANONICAL_INTEGRATION.md` for the upstream manifest verification limitation.
+The server reads only the canonical publication in `data/published/` through `canonical_repository.py`. Projects use exact canonical project IDs. Saved Radar matches are hydrated from that catalog, and answers retain dataset-version and pipeline-commit provenance. Legacy/demo files are not used. Geometry state is explicitly VERIFIED, ESTIMATED or UNRESOLVED; unresolved projects remain searchable. Artifact hashes, the pipeline manifest, publication versions, date logic, regional coordinates, saved distances, and opportunity policy are validated before loading.
 
 Gemini writes concise explanations and returns supporting fact IDs. The server validates references against the current dataset and checks that numbers appear in cited facts. These checks do not prove every generated claim: users should review the attached evidence. HTML is stripped from source content before it enters the prompt and from response content before display. The UI supports a limited safe Markdown subset (paragraphs, headings, bold and lists), never raw HTML.
 

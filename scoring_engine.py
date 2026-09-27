@@ -28,6 +28,8 @@ from pathlib import Path
 from shapely.geometry import LineString
 from shapely.ops import nearest_points
 
+from master_dataset import scoring_projects
+
 EARTH_RADIUS_KM = 6371.0088
 TOUCHING_EPS_KM = 1e-6
 COMPARE_UTILITIES = ("DESC", "GPC")
@@ -338,6 +340,8 @@ def normalize_project(raw, dataset="verified"):
         "geometry_method": raw.get("geometry_method") or None,
         "geometry_confidence": geometry_confidence,
         "geometry_notes": raw.get("geometry_notes") or None,
+        "geometry_status": raw.get("geometry_status") or None,
+        "estimated_geometry": bool(raw.get("estimated_geometry")),
         "lat1": lat1,
         "lng1": lng1,
         "lat2": lat2,
@@ -452,11 +456,16 @@ def detect_dataset(payload, input_path, explicit=None):
     return "verified"
 
 
-def load_projects(path):
+def load_projects(path, mode="verified"):
     with open(path) as handle:
         data = json.load(handle)
     if isinstance(data, list):
         return {"dataset": "verified", "projects": data}
+    if data.get("projects") and data.get("dataset_version") and data.get("total_projects") is not None:
+        return {
+            "dataset": "verified" if mode == "verified" else "estimated",
+            "projects": scoring_projects(data, mode),
+        }
     projects = data.get("projects")
     if projects is None:
         raise ValueError(f"{path} must contain a 'projects' array")
@@ -546,8 +555,8 @@ def build_output(normalized, matches, summary, dataset):
     }
 
 
-def run(input_path, output_path, dataset=None):
-    payload = load_projects(input_path)
+def run(input_path, output_path, dataset=None, mode="verified"):
+    payload = load_projects(input_path, mode=mode)
     dataset = detect_dataset(payload, input_path, explicit=dataset)
     raw_projects = payload.get("projects") or []
     normalized, matches, summary = analyze_projects(raw_projects, dataset=dataset)
@@ -574,22 +583,23 @@ def run(input_path, output_path, dataset=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", default="data/verified_projects.json")
-    parser.add_argument("--output", default="data/analysis.json")
+    parser.add_argument("--input", default="data/published/gridlock_master_projects.json")
+    parser.add_argument("--output", default="data/published/scoring_verified.json")
     parser.add_argument(
         "--demo",
         action="store_true",
         help="Score labeled demo/legacy data (data/projects.json → data/demo_analysis.json)",
     )
     parser.add_argument("--dataset", choices=("verified", "demo"), default=None)
+    parser.add_argument("--mode", choices=("verified", "full"), default="verified")
     args = parser.parse_args()
     input_path = args.input
     output_path = args.output
     dataset = args.dataset
     if args.demo:
-        if args.input == "data/verified_projects.json":
+        if args.input == "data/published/gridlock_master_projects.json":
             input_path = "data/projects.json"
-        if args.output == "data/analysis.json":
+        if args.output == "data/published/scoring_verified.json":
             output_path = "data/demo_analysis.json"
         dataset = dataset or "demo"
-    run(input_path, output_path, dataset=dataset)
+    run(input_path, output_path, dataset=dataset, mode=args.mode)

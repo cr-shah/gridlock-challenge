@@ -13,8 +13,8 @@ from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parents[1]
 DISCLAIMER = 'Based on existing GIS analysis and project evidence.'
-NO_EVIDENCE = "I couldn't find information about that topic in the current GridLock dataset.\n\nTry asking about:\n• Opportunities\n• Projects\n• Evidence\n• Methodology\n• Verified vs Estimated analysis"
-GREETING = "Hi! I'm the GridLock AI Analyst.\n\nI can explain coordination opportunities, summarize projects, describe methodology, and help you understand the evidence behind GridLock's findings.\n\nTry asking:\n• What does GridLock do?\n• Why was this opportunity flagged?\n• Explain Verified vs Estimated mode.\n• Summarize this project."
+NO_EVIDENCE = "I couldn't find information about that topic in the current GridLock dataset.\n\nTry asking about:\n• Opportunities\n• Projects\n• Evidence\n• Methodology\n• Verified and estimated geometry"
+GREETING = "Hi! I'm the GridLock AI Analyst.\n\nI can explain coordination opportunities, summarize projects, describe methodology, and help you understand the evidence behind GridLock's findings.\n\nTry asking:\n• What does GridLock do?\n• Why was this opportunity flagged?\n• How is geometry confidence labeled?\n• Summarize this project."
 
 class PlainText(HTMLParser):
     def __init__(self):
@@ -93,7 +93,8 @@ def corpus(root=ROOT):
             'Public sources → normalization → geometry enrichment → deterministic GIS analysis → coordination opportunities.',
             'GIS compares closest-point distances between DESC and Georgia Power projects; geography determines the tier.',
             'Distance tiers are touching/crossing, under 1.6 km, under 8 km, and under 40 km; pairs at 40 km or more are excluded.',
-            'Verified uses available verified geometry. Estimated Coverage is a separate, labeled screening layer. Demo uses illustrative records.',
+            'The unified coverage view uses verified geometry where available and labeled estimated geometry for screening; the two confidence states are not separate project inventories.',
+            'Published opportunities must be under 40 km and have a known schedule gap of no more than two years.',
             'GIS enrichment attaches evidence-backed geographic shapes and confidence metadata to project records so the GIS engine can compare them.',
             'Shared Crews / Equipment is a screening category for investigating shared construction resources; it is not a confirmed agreement or savings estimate.',
             'Missing geometry and missing years are not invented. AI explains. GIS verifies. Humans decide.'

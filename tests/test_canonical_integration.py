@@ -14,8 +14,9 @@ class CanonicalTests(unittest.TestCase):
   for p in master['projects']:
    self.assertEqual(p['analysis_geometry'],p['verified_geometry'] or p['estimated_geometry'])
   self.assertEqual(sum(p['analysis_geometry'] is not None for p in master['projects']),59)
-  self.assertEqual(len(modes['verified']['matches']),6)
-  self.assertEqual(len(modes['estimated']['matches']),38)
+  self.assertEqual(len(modes['verified']['matches']),0)
+  self.assertEqual(len(modes['estimated']['matches']),24)
+  self.assertTrue(all(m['timeline_gap_years'] <= 2 for m in modes['estimated']['matches']))
  def test_matches_and_catalog_are_consistent(self):
   master,modes=load_publication(ROOT)
   original=copy.deepcopy(master)

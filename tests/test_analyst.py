@@ -10,7 +10,7 @@ class AnalystTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.records=core.corpus()
-        cls.selected=next(r for r in cls.records.values() if r['kind']=='opportunity' and r['mode']=='verified')
+        cls.selected=next(r for r in cls.records.values() if r['kind']=='opportunity' and r['mode']=='estimated')
 
     def test_corpus_modes_and_fingerprints(self):
         self.assertEqual({r['mode'] for r in self.records.values()},set(core.FILES))
@@ -56,7 +56,7 @@ class AnalystTests(unittest.TestCase):
     def test_brief_uses_saved_result(self):
         record=self.selected
         with patch.object(core,'retrieve',return_value=[]),patch.object(core,'post_json',return_value=self.response([record['id']+'#1'])):
-            out=core.answer({'question':'Brief','mode':'verified','selection':{'kind':'opportunity','id':record['raw']['match_id']},'brief':True})
+            out=core.answer({'question':'Brief','mode':'estimated','selection':{'kind':'opportunity','id':record['raw']['match_id']},'brief':True})
         self.assertEqual(out['brief']['distance_km'],record['raw']['distance_km'])
         self.assertEqual(out['text'],record['facts'][1])
         self.assertEqual(out['disclaimer'],core.DISCLAIMER)
