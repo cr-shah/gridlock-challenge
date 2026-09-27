@@ -219,3 +219,6 @@ body.project-explorer { background:#2F3E46; isolation:isolate; }
   .project-explorer .pe-fact { grid-template-columns:110px minmax(0,1fr); font-size:14px; }
   .project-explorer .pe-section-head { flex-wrap:wrap; }
 }
+
+/* Five nav links: wrap on narrow phones instead of overflowing. */
+@media(max-width:560px) { .project-explorer .pe-nav { flex-wrap:wrap; justify-content:flex-start; gap:0 18px; } }

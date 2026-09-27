@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coordination Leaderboard — GridLock</title>
+  <meta name="description" content="Every published DESC and Georgia Power coordination opportunity, ranked by proximity first and timing second.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared-background.css">
+  <link rel="stylesheet" href="project-discovery.css">
+  <link rel="stylesheet" href="ai-analyst.css">
+  <script src="canonical-data.js"></script>
+  <script src="radar-model.js" defer></script>
+  <script src="project-discovery-model.js" defer></script>
+  <script src="project-discovery.js" defer></script>
+</head>
+<body class="project-discovery">
+  <div class="pd-grid" aria-hidden="true"></div>
+  <a class="pd-skip" href="#pd-board">Skip to the leaderboard</a>
+
+  <header class="pd-header">
+    <a class="pd-brand" href="./index.html" aria-label="GridLock overview"><span class="pd-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>GRIDLOCK</a>
+    <nav class="pd-nav" aria-label="Main navigation">
+      <a href="./index.html">Overview</a>
+      <a href="./index.html#radar">Coordination Radar</a>
+      <a href="./project-explorer.html">Projects</a>
+      <a href="./project-discovery.html" aria-current="page">Leaderboard</a>
+      <a href="./index.html#methodology">Methodology</a>
+    </nav>
+    <span class="pd-status"><i aria-hidden="true"></i>PUBLIC-SOURCE INTELLIGENCE</span>
+  </header>
+
+  <main class="pd-main" id="pd-main">
+    <section class="pd-hero" aria-labelledby="pd-title">
+      <p class="pd-eyebrow">COORDINATION LEADERBOARD</p>
+      <h1 id="pd-title">Where DESC and Georgia Power should talk first.</h1>
+      <p class="pd-lede">Every published coordination opportunity, ranked by how close the projects are and how well their schedules line up. Each entry pairs one DESC project with one Georgia Power project.</p>
+      <dl class="pd-stats" id="pd-stats" aria-label="Leaderboard at a glance">
+        <div><dt>Ranked opportunities</dt><dd>—</dd></div>
+        <div><dt>Projects involved</dt><dd>—</dd></div>
+        <div><dt>Schedules overlap</dt><dd>—</dd></div>
+        <div><dt>Touching / crossing</dt><dd>—</dd></div>
+      </dl>
+      <p class="pd-help pd-scopenote" id="pd-scopenote"></p>
+    </section>
+
+    <section class="pd-board" id="pd-board" aria-labelledby="pd-board-title" aria-busy="true" tabindex="-1">
+      <div class="pd-board-head">
+        <h2 id="pd-board-title">Ranked coordination opportunities</h2>
+        <ol class="pd-recipe" id="pd-recipe" aria-label="How entries are ordered, most important first"></ol>
+        <details class="pd-how" id="pd-how">
+          <summary>How ranking works</summary>
+          <div class="pd-how-body" id="pd-how-body"></div>
+        </details>
+        <div class="pd-boardbar">
+          <ul class="pd-legend" id="pd-legend" aria-label="Jump to a proximity tier"></ul>
+          <div class="pd-tools">
+            <span class="pd-count" id="pd-count" role="status" aria-live="polite" aria-atomic="true">Loading…</span>
+            <button type="button" class="pd-btn pd-btn-ghost" id="pd-expand" disabled>Expand all</button>
+            <button type="button" class="pd-btn pd-btn-ghost" id="pd-collapse" disabled>Collapse all</button>
+          </div>
+        </div>
+        <p class="pd-help">Colors show coordination potential, not safety risk. Every opportunity still needs source review and human validation.</p>
+      </div>
+      <div class="pd-note-bar" id="pd-focus-note" hidden></div>
+      <div id="pd-board-body"><div class="pd-state" role="status"><span class="pd-spinner" aria-hidden="true"></span><h3>Building the leaderboard</h3><p>Reading and verifying canonical project records.</p></div></div>
+    </section>
+  </main>
+  <script src="ai-analyst.js"></script>
+</body>
+</html>

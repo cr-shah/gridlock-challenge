@@ -3,6 +3,7 @@
 <head>
 <script src="radar-model.js"></script>
 <script src="canonical-data.js"></script>
+<script src="project-discovery-model.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gridlock — Coordination Radar</title>
@@ -158,6 +159,16 @@
     border-radius: 4px; padding: 8px 10px; color: var(--text-dim);
   }
   .detail-panel .savings b { color: var(--text); }
+  .savings.impact-estimate .impact-range { font-size: 20px; font-weight: 700; color: var(--text); margin: 4px 0 2px; }
+  .savings.impact-estimate .impact-base { color: var(--text); }
+  .savings.impact-estimate .impact-norm, .savings.impact-estimate .impact-disclaimer,
+  .savings.impact-estimate .impact-caution, .savings.impact-estimate .impact-shared { margin-top: 8px; }
+  .savings.impact-estimate .impact-disclaimer { font-style: italic; }
+  .savings.impact-estimate ul { margin: 4px 0 0; padding-left: 18px; }
+  .savings.impact-estimate .impact-method { margin-top: 8px; }
+  .savings.impact-estimate .impact-method summary { cursor: pointer; color: var(--text); }
+  .savings.impact-estimate .impact-method a { color: inherit; text-decoration: underline; }
+  .savings.impact-estimate .impact-formula { color: var(--text); }
   .evidence {
     margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--panel-border);
     font-size: 12px; color: var(--text-dim);
@@ -677,6 +688,7 @@
     <button class="nav-link active" data-view="overview" aria-current="page">Overview</button>
     <button class="nav-link" data-view="radar">Coordination Radar</button>
     <a class="nav-link" href="./project-explorer.html">Projects</a>
+    <a class="nav-link" href="./project-discovery.html">Leaderboard</a>
     <button class="nav-link" id="navMethodology">Methodology</button>
   </div>
   <div class="nav-status"><span class="status-dot"></span>PUBLIC-SOURCE INTELLIGENCE</div>
@@ -1085,7 +1097,7 @@ function evidenceRow(project) {
     rows.push(`<div class="row" style="padding-left:10px">Geometry — ${geomBits.join(' · ')}</div>`);
   }
   if (project.geometry_notes && (project.estimated_geometry || currentDataset === 'estimated')) {
-    rows.push(`<div class="row" style="padding-left:10px">${escapeHtml(project.geometry_notes)}</div>`);
+    rows.push(`<div class="row" style="padding-left:10px">${escapeHtml(stripScreeningNote(project.geometry_notes))}</div>`);
   }
   return rows.join('');
 }
@@ -1186,9 +1198,9 @@ function render() {
       'Showing labeled demo/legacy data. Coordinates are approximate and are not verified DESC or Georgia Power records.';
     layout.classList.add('has-banner');
   } else if (isEstimated) {
-    banner.className = 'banner visible estimated';
-    banner.textContent = 'Estimated geometry — planning-screening use only';
-    layout.classList.add('has-banner');
+    banner.className = 'banner';
+    banner.textContent = '';
+    layout.classList.remove('has-banner');
   } else if (isEmpty) {
     banner.className = 'banner visible verified-empty';
     banner.textContent = 'No verified DESC/GPC records loaded yet. Check the canonical publication and regenerate it through the data pipeline.';
@@ -1241,7 +1253,7 @@ function render() {
       if (p.geometry_source) {
         geomBits.push(`<a href="${escapeHtml(p.geometry_source)}" target="_blank" rel="noopener">Geometry source</a>`);
       }
-      if (p.geometry_notes) geomBits.push(escapeHtml(p.geometry_notes));
+      if (p.geometry_notes) geomBits.push(escapeHtml(stripScreeningNote(p.geometry_notes)));
       const geom = geomBits.length ? `<br>${geomBits.join('<br>')}` : '';
       const popupHtml = `<b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.utility)} · ${escapeHtml(formatYears(p))}${conf}${src}${geom}`;
       marker.bindPopup(popupHtml);
@@ -1502,17 +1514,43 @@ function renderScenario(m) {
     </div>`;
 }
 
+// Display-only: drop the standing "planning-screening" sentence from saved text (data itself is untouched).
+function stripScreeningNote(t) { return String(t == null ? '' : t).replace(/\s*Estimated geometry — planning-screening use only\.?/g, '').trim(); }
+
+// Presentation-only planning estimate. Shown for the four match IDs in project-discovery-model.js
+// and for no other opportunity. Never reads or writes data/published/.
+function renderImpactEstimate(matchId) {
+  const I = window.GridLockImpact;
+  const est = I && I.get(matchId);
+  if (!est) return '';
+  const links = I.SOURCES.map(x => `<li><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(x.label)}</a></li>`).join('');
+  const shared = est.potentialSharedResources.map(r => `<li>${escapeHtml(r)}</li>`).join('');
+  return `
+    <div class="savings impact-estimate">
+      <b>${escapeHtml(est.estimateLabel)}</b>
+      <div class="impact-range">${I.usd(est.lowUsd)} – ${I.usd(est.highUsd)}</div>
+      <div class="impact-base">Base scenario: ${I.usd(est.baseUsd)}</div>
+      <div class="impact-norm">${escapeHtml(I.NORMALIZATION)}</div>
+      <div class="impact-disclaimer">${escapeHtml(I.DISCLAIMER)}</div>
+      <div class="impact-caution"><b>Confidence: ${escapeHtml(est.confidence)}.</b> ${escapeHtml(est.caution)}</div>
+      <div class="impact-shared"><b>Potentially shared:</b><ul>${shared}</ul></div>
+      <details class="impact-method">
+        <summary>Methodology and sources</summary>
+        <p>${escapeHtml(I.METHODOLOGY_LEAD)}</p>
+        <p class="impact-formula">${escapeHtml(I.METHODOLOGY_FORMULA)}</p>
+        <p>${escapeHtml(I.METHODOLOGY_BODY)}</p>
+        <ul class="impact-links">${links}</ul>
+      </details>
+    </div>`;
+}
+
 function renderDetailPanel(m) {
   const tierLabel = m.distance_tier_label || m.tier_label || m.distance_tier || m.tier;
   const tierKey = m.distance_tier || m.tier;
   const timing = m.timeline_overlap
     ? `Overlap ${m.overlap_years ? m.overlap_years.join('–') : ''}`.trim()
     : (m.timeline_gap_years == null ? 'Timing unknown' : `Gap of ${m.timeline_gap_years} year(s)`);
-  const savings = m.est_savings_usd ? `
-    <div class="savings">
-      <b>Illustrative savings (demo only):</b> $${Number(m.est_savings_usd.low_usd).toLocaleString()}–$${Number(m.est_savings_usd.high_usd).toLocaleString()}<br>
-      ${escapeHtml(m.est_savings_usd.assumption)}
-    </div>` : '';
+  const savings = renderImpactEstimate(m.match_id);
 
   const typeRowA = typeAndVoltageRow(m.project_a);
   const typeRowB = typeAndVoltageRow(m.project_b);
@@ -1532,7 +1570,7 @@ function renderDetailPanel(m) {
       </div>
       <button class="copy-brief-btn" type="button" data-match-id="${escapeHtml(m.match_id)}">Copy coordination brief</button>
     </div>
-    <div class="brief">${escapeHtml(m.coordination_brief || m.priority_explanation)}</div>
+    <div class="brief">${escapeHtml(stripScreeningNote(m.coordination_brief || m.priority_explanation))}</div>
     <div class="meta" style="font-size:12px;color:var(--text-dim)">
       <b style="color:var(--text)">${escapeHtml(m.project_a.utility)}</b> ${escapeHtml(m.project_a.name)}
       ${typeRowA ? `<div class="type-row">${typeRowA}</div>` : ''}
@@ -1543,7 +1581,6 @@ function renderDetailPanel(m) {
       ${escapeHtml(timing)}
       ${typeof m.coordination_score === 'number' ? `<br>Coordination score ${m.coordination_score} — ${escapeHtml(m.coordination_explanation || '')}` : ''}
       ${m.close_tier_blocked ? '<br>Close tier blocked: low-confidence or single-point geometry stays in the under-40 km screen.' : ''}
-      ${m.screening_note ? `<br>${escapeHtml(m.screening_note)}` : ''}
     </div>
     ${renderTimelineViz(m)}
     ${renderScenario(m)}

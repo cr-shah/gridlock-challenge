@@ -146,7 +146,7 @@ function renderDetail() {
   const geo = section('GEOGRAPHY');
   [['Geometry status',p.geometry_status], ['Mapping', hasGeometry(p) ? 'Mapped — canonical geometry available' : 'Unmapped — no usable canonical geometry'], ['Geometry type', p.geometry_type], ['Geometry method', p.geometry_method], ['Geometry confidence', p.geometry_confidence]].forEach(([k, v]) => fact(geo.facts, k, v));
   geo.section.append(node('p', 'pe-note', hasGeometry(p) ? 'Mapping availability does not imply surveyed geometry or high confidence.' : 'This project remains in the catalog. No usable canonical geometry is available for geographic comparison; no coordinates have been invented.'));
-  if (present(p.geometry_notes)) geo.section.append(node('p', 'pe-note', p.geometry_notes));
+  if (present(p.geometry_notes)) geo.section.append(node('p', 'pe-note', String(p.geometry_notes).replace(/\s*Estimated geometry — planning-screening use only\.?/g, '').trim()));
   const source = section('SOURCE & EVIDENCE');
   [['Source page', p.source_page], ['Source URL', evidenceLink(p.source_url)], ['Source scope', p.source_scope], ['Source project name', p.source_project_name], ['Geometry source', evidenceLink(p.geometry_source)], ['Source owner label', p.source_owner_label], ['Ownership provenance', p.ownership_provenance_note], ['Utility attribution confidence', p.utility_attribution_confidence], ['Record confidence', p.data_confidence]].forEach(([k, v]) => fact(source.facts, k, v));
   if (p.status_verification_needed === true) source.section.append(node('p', 'pe-warning', 'Status verification needed — this source record flags the project status for further verification.'));

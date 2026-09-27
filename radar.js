@@ -93,13 +93,13 @@
   const statusChips = m => `<div class="radar-chips"><span class="radar-chip ${currentDataset}">${e(mode())}</span><span class="radar-chip">${e(timing(m))}</span></div>`;
   function evidence(p) {
     const field = (label, value) => `<dt>${label}</dt><dd>${e(value || 'Unavailable')}</dd>`;
-    return `<section>${projectTitle(p)}<dl>${field('Geometry', geometryStatus(p))}${field('Method', p.geometry_method)}${field('Geometry confidence', p.geometry_confidence)}${field('Record confidence', p.data_confidence)}<dt>Document</dt><dd>${sourceLink(p) || 'Source unavailable'}</dd>${p.geometry_source ? `<dt>Geometry source</dt><dd>${/^https?:\/\//i.test(p.geometry_source) ? `<a href="${e(p.geometry_source)}" target="_blank" rel="noopener">View geometry source ↗</a>` : e(p.geometry_source)}</dd>` : ''}</dl>${p.geometry_notes ? `<p>${e(p.geometry_notes)}</p>` : ''}</section>`;
+    return `<section>${projectTitle(p)}<dl>${field('Geometry', geometryStatus(p))}${field('Method', p.geometry_method)}${field('Geometry confidence', p.geometry_confidence)}${field('Record confidence', p.data_confidence)}<dt>Document</dt><dd>${sourceLink(p) || 'Source unavailable'}</dd>${p.geometry_source ? `<dt>Geometry source</dt><dd>${/^https?:\/\//i.test(p.geometry_source) ? `<a href="${e(p.geometry_source)}" target="_blank" rel="noopener">View geometry source ↗</a>` : e(p.geometry_source)}</dd>` : ''}</dl>${stripScreeningNote(p.geometry_notes) ? `<p>${e(stripScreeningNote(p.geometry_notes))}</p>` : ''}</section>`;
   }
   const originalBrief = buildCoordinationBriefText;
   buildCoordinationBriefText = function(m) {
     return originalBrief(m).replace(
       'Geographic overlap verified with deterministic GIS calculations (Gridlock coordination engine).',
-      `${mode()} · Deterministic closest-point GIS analysis. Verified and estimated geometry are labeled separately; estimates are for planning-screening use only.`
+      `${mode()} · Deterministic closest-point GIS analysis. Verified and estimated geometry are labeled separately.`
     );
   };
   const originalDetail = renderDetailPanel;
@@ -119,7 +119,7 @@
       <details class="radar-evidence"><summary>View full evidence <span aria-hidden="true">↗</span></summary>
         <section><h4>Projects & provenance</h4>${evidence(m.project_a)}${evidence(m.project_b)}</section>
         <section data-radar-schedule><h4>Schedules</h4><p>${e(m.project_a.utility)} · ${e(formatYears(m.project_a))}<br>${e(m.project_b.utility)} · ${e(formatYears(m.project_b))}</p></section>
-        <section><h4>Analysis brief</h4><p style="white-space:pre-line">${e(m.coordination_brief || m.priority_explanation || 'No brief available.')}</p>${typeof m.coordination_score === 'number' ? `<p>Within-tier score ${e(m.coordination_score)} · ${e(m.coordination_explanation || '')}</p>` : ''}<button class="copy-brief-btn" type="button" data-match-id="${e(m.match_id)}">Copy coordination brief</button></section>
+        <section><h4>Analysis brief</h4><p style="white-space:pre-line">${e(stripScreeningNote(m.coordination_brief || m.priority_explanation) || 'No brief available.')}</p>${typeof m.coordination_score === 'number' ? `<p>Within-tier score ${e(m.coordination_score)} · ${e(m.coordination_explanation || '')}</p>` : ''}<button class="copy-brief-btn" type="button" data-match-id="${e(m.match_id)}">Copy coordination brief</button></section>
       </details>`;
     const schedule = inspector.querySelector('[data-radar-schedule]');
     if (timelineNode) schedule.append(timelineNode);
