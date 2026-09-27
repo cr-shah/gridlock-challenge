@@ -1713,9 +1713,9 @@ function render() {
 
   applyYearFilter();
   const initial = GridLockRadarModel.initialSelection(matches, layout.hidden);
-  if (initial.focusNow) selectMatch(initial.id);
-  else selectedMatchId = initial.id;
-  requestAnimationFrame(() => map.invalidateSize());
+  selectedMatchId = initial.id;
+  // Finish radar.js's presentation render before sizing/focusing the visible map.
+  if (!layout.hidden) refreshRadarMap();
 }
 
 function selectMatch(matchId) {
@@ -2039,6 +2039,20 @@ function applyYearFilter() {
 
 // Shared navigation and verified Overview metrics. Source records are read-only.
 let activeView = 'overview';
+let radarRefreshFrame;
+function refreshRadarMap() {
+  cancelAnimationFrame(radarRefreshFrame);
+  radarRefreshFrame = requestAnimationFrame(() => {
+    if (activeView !== 'radar') return;
+    map.invalidateSize();
+    if (selectedMatchId) selectMatch(selectedMatchId);
+    radarRefreshFrame = requestAnimationFrame(() => {
+      if (activeView !== 'radar') return;
+      map.invalidateSize({ pan: false });
+      document.documentElement.classList.remove('initial-radar-route');
+    });
+  });
+}
 function showView(view) {
   activeView = view;
   const radar = view === 'radar';
@@ -2053,15 +2067,11 @@ function showView(view) {
     if (selected) button.setAttribute('aria-current', 'page');
     else button.removeAttribute('aria-current');
   });
-  if (radar) requestAnimationFrame(() => {
-    map.invalidateSize();
-    if (selectedMatchId) selectMatch(selectedMatchId);
-    requestAnimationFrame(() => {
-      map.invalidateSize({ pan: false });
-      document.documentElement.classList.remove('initial-radar-route');
-    });
-  });
-  else document.documentElement.classList.remove('initial-radar-route');
+  if (radar) refreshRadarMap();
+  else {
+    cancelAnimationFrame(radarRefreshFrame);
+    document.documentElement.classList.remove('initial-radar-route');
+  }
   window.scrollTo(0, 0);
 }
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));

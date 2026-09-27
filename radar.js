@@ -88,14 +88,15 @@
   metrics.after(guide);
   // Size the map from its actual position, including wrapped controls and zoom.
   let fitFrame;
+  function sizeRadarViewport() {
+    if(!document.body.classList.contains('radar-view'))return;
+    const available=Math.max(220,window.innerHeight-workspace.getBoundingClientRect().top-16);
+    workspace.style.setProperty('--radar-available-height',`${available}px`);
+    if(typeof map!=='undefined')map.invalidateSize({pan:false});
+  }
   function fitRadarViewport() {
     cancelAnimationFrame(fitFrame);
-    fitFrame=requestAnimationFrame(()=>{
-      if(!document.body.classList.contains('radar-view'))return;
-      const available=Math.max(220,window.innerHeight-workspace.getBoundingClientRect().top-16);
-      workspace.style.setProperty('--radar-available-height',`${available}px`);
-      if(typeof map!=='undefined')map.invalidateSize({pan:false});
-    });
+    fitFrame=requestAnimationFrame(sizeRadarViewport);
   }
   window.addEventListener('resize',fitRadarViewport);
   new MutationObserver(fitRadarViewport).observe(document.body,{attributes:true,attributeFilter:['class']});
@@ -181,6 +182,8 @@
     document.getElementById('radarFocus').disabled = false;
     detailOpen = false;
     updateSidebarView();
+    // Focus against the completed layout, even before ResizeObserver's next frame.
+    sizeRadarViewport();
     map.invalidateSize();
     originalSelect(id);
     window.gridlockAnalystContext = {mode:currentDataset,selection:{kind:'opportunity',id}};
