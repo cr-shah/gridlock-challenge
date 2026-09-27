@@ -89,3 +89,6 @@
 .ai-panel :focus-visible { outline:2px solid #227d88; }
 @keyframes ai-gradient { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
 @media(prefers-reduced-motion:reduce) { .ai-panel,.ai-launch,.ai-message { animation:none; } .ai-launch,.ai-send { transition:none; } }
+
+/* Reserve document-end space for the fixed launcher on every integrated page. */
+body:has(> .ai-launch) { height:auto; min-height:100vh; padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px)); }

@@ -1,0 +1,47 @@
+/* Lower Overview only; preserve the hero, top metrics, navigation and Radar. */
+.overview-product, .overview .workflow, .overview-trust { padding:36px 0; border-top:1px solid #8bc4b933; }
+.overview-product > .eyebrow, .overview .workflow-heading > .eyebrow, .overview-trust > .eyebrow { color:#9dc7c3; font:500 12px/1.5 "IBM Plex Mono",monospace; letter-spacing:.08em; }
+.overview-product h2, .overview .workflow-heading h3, .overview-trust h2 { max-width:850px; margin:12px 0 20px; font-size:clamp(26px,3vw,36px); line-height:1.25; letter-spacing:-.6px; text-wrap:balance; }
+.overview-product { padding-bottom:24px; }
+.overview .workflow { padding-top:26px; }
+.overview-product > p { max-width:68ch; margin:0; font-size:clamp(17px,1.45vw,20px); line-height:1.8; font-weight:500; color:#d0e0df; }
+.overview .workflow-heading { display:block; }
+.overview-process-copy { max-width:76ch; padding-left:clamp(14px,2vw,22px); border-left:2px solid #8bc4b977; color:#c7d9d8; font-size:clamp(16px,1.3vw,18px); line-height:1.8; overflow-wrap:anywhere; }
+.overview-process-copy p { margin:0 0 20px; }
+.overview-process-copy p:last-child { margin-bottom:0; }
+.overview .overview-process-coverage { display:block; font:inherit; font-weight:600; margin:0 0 20px; color:#d6e9e4; }
+.overview-process-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; margin:28px 0 36px; padding:20px 0; border-block:1px solid #8bc4b933; }
+.overview-process-metrics > div { min-width:0; }
+.overview-process-metrics strong { display:block; font:500 clamp(23px,2vw,28px)/1.4 "IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; color:#c4ece1; }
+.overview-process-metrics span { display:block; margin-top:5px; font-size:13px; line-height:1.5; color:#afc8ca; }
+.overview .workflow-steps { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0; list-style:none; padding:0; margin:0; }
+.overview .workflow-step { position:relative; min-width:0; padding:25px 16px 0 0; border:0; background:none; border-radius:0; overflow-wrap:anywhere; }
+.overview .workflow-step::before { content:""; position:absolute; top:5px; left:0; right:0; height:1px; background:#8bc4b977; }
+.overview .workflow-step:last-child::before { display:none; }
+.overview .workflow-step::after { content:""; position:absolute; left:0; top:0; width:9px; height:9px; border:1px solid #8bc4b9; border-radius:50%; background:#8bc4b9; }
+.overview .workflow-step .step-number { font:500 10px/1.6 "IBM Plex Mono",monospace; color:#9dc7c3; }
+.overview .workflow-step h4 { font-size:17px; margin:8px 0; line-height:1.4; }
+.overview .workflow-step p { font-size:14px; font-weight:400; line-height:1.6; margin:0; }
+.overview .trust-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin:24px 0 0; padding:0; border:0; }
+.overview .trust-grid article { min-width:0; overflow-wrap:anywhere; }
+.overview .trust-grid .eyebrow { font-size:11px; letter-spacing:.04em; }
+.overview .trust-grid h3 { font-size:21px; margin:12px 0; line-height:1.35; }
+.overview .trust-grid p { font-size:16px; font-weight:400; line-height:1.7; }
+.overview .overview-footer { font-size:12px; font-weight:500; margin-top:0; padding-top:22px; overflow-wrap:anywhere; }
+@media(max-width:900px) {
+  .overview .workflow-steps { grid-template-columns:minmax(0,1fr); }
+  .overview .workflow-step { padding:0 0 22px 26px; }
+  .overview .workflow-step::before { left:5px; top:5px; right:auto; bottom:0; width:1px; height:auto; }
+  .overview .workflow-step::after { top:5px; }
+  .overview .workflow-step:last-child { padding-bottom:0; }
+  .overview .trust-grid { grid-template-columns:1fr; gap:24px; }
+}
+@media(max-width:560px) {
+  .overview-process-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+  .overview .overview-footer { flex-direction:column; gap:8px; }
+}
+@media(forced-colors:active) {
+  .overview-product, .overview .workflow, .overview-trust, .overview-process-metrics, .overview-process-copy { border-color:CanvasText; }
+  .overview .workflow-step::before, .overview .workflow-step::after { background:CanvasText; border-color:CanvasText; }
+  .overview-product > p, .overview-process-copy, .overview .overview-process-coverage, .overview-process-metrics strong, .overview-process-metrics span { color:CanvasText; }
+}

@@ -655,6 +655,7 @@
 <link rel="stylesheet" href="shared-typography.css">
 <link rel="stylesheet" href="radar-focus.css">
 <link rel="stylesheet" href="ai-analyst.css">
+<link rel="stylesheet" href="overview-lower.css">
 </head>
 <body>
 <svg class="ambient-network" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -740,20 +741,40 @@
     <div class="overview-metric"><strong id="ovMapped">—</strong><span>Verified mapped</span></div>
   </section>
   <div class="coverage-note"><span id="overviewCoverage" role="status">Loading verified coverage…</span><span>CANONICAL DATASET · SC / GA</span></div>
-  <section class="workflow" aria-labelledby="workflowTitle">
-    <div class="workflow-heading"><h3 id="workflowTitle">From plans to opportunities.</h3></div>
-    <div class="workflow-steps">
-      <div class="workflow-step"><span class="step-number">01 / SOURCE</span><h4>Public sources</h4><p>Public utility plans.</p></div>
-      <div class="workflow-step"><span class="step-number">02 / STRUCTURE</span><h4>Normalize</h4><p>One consistent format.</p></div>
-      <div class="workflow-step"><span class="step-number">03 / LOCATE</span><h4>Map</h4><p>Evidence-backed geography.</p></div>
-      <div class="workflow-step"><span class="step-number">04 / COMPARE</span><h4>GIS analysis</h4><p>Compare distance and timing.</p></div>
-      <div class="workflow-step"><span class="step-number">05 / INVESTIGATE</span><h4>Coordination opportunities</h4><p>Ready for human review.</p></div>
-    </div>
+  <section class="overview-product" aria-labelledby="productOverviewTitle">
+    <span class="eyebrow">OVERVIEW</span>
+    <h2 id="productOverviewTitle">See where utilities can coordinate before construction begins</h2>
+    <p>GridLock brings public transmission plans from Dominion Energy South Carolina and Georgia Power into one shared coordination view. It identifies nearby projects with overlapping or closely aligned schedules so planners can investigate opportunities to coordinate land, site logistics, crews, equipment, and construction planning before work begins.</p>
   </section>
-  <section class="trust-grid" aria-label="Analysis principles">
-    <article><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Precise proximity.</h3><p>Closest-point distance. Clear timelines.</p></article>
-    <article><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Traceable evidence.</h3><p>Sources, methods, and confidence in view.</p></article>
-    <article><span class="eyebrow">03 / CLEAR BOUNDARIES</span><h3>Transparent confidence.</h3><p>Verified, estimated, and unresolved. Always distinct.</p></article>
+  <section class="workflow" aria-labelledby="workflowTitle">
+    <div class="workflow-heading"><span class="eyebrow">HOW WE BUILT IT</span><h3 id="workflowTitle">From public plans to coordination opportunities</h3></div>
+    <div class="overview-process-copy">
+      <p>Our pipeline extracts and standardizes real utility project names, schedules, voltages, locations, and source evidence into one traceable dataset.</p>
+      <p>A confidence-tiered spatial completion layer uses official maps, named facilities, and public grid data to resolve usable project locations while preserving verified, estimated, and unresolved distinctions.</p>
+      <p class="coverage-note overview-process-coverage" id="workflowCoverage" role="status">Loading canonical spatial coverage…</p>
+      <p>We compare usable DESC–Georgia Power geometry by closest-point distance and construction timing to surface opportunities for shared land, logistics, crews, and equipment.</p>
+    </div>
+    <div class="overview-process-metrics" aria-label="Process metrics">
+      <div><strong id="processTotal">—</strong><span>Real utility projects</span></div>
+      <div><strong id="processPairs">—</strong><span>Potential cross-utility pairs</span></div>
+      <div><strong id="processMapped">—</strong><span>Projects spatially resolved</span></div>
+      <div><strong id="processOpportunities">—</strong><span>Schedule-aligned opportunities</span></div>
+    </div>
+    <ol class="workflow-steps" aria-label="Data pipeline">
+      <li class="workflow-step"><span class="step-number">01 / SOURCE</span><h4>Public plans</h4><p>Retain utility records and evidence.</p></li>
+      <li class="workflow-step"><span class="step-number">02 / NORMALIZE</span><h4>One dataset</h4><p>Standardize fields for comparison.</p></li>
+      <li class="workflow-step"><span class="step-number">03 / SPATIALLY RESOLVE</span><h4>Find locations</h4><p>Preserve location confidence.</p></li>
+      <li class="workflow-step"><span class="step-number">04 / COMPARE</span><h4>Distance + timing</h4><p>Compare geometry and schedules.</p></li>
+      <li class="workflow-step"><span class="step-number">05 / REVIEW</span><h4>Human decisions</h4><p>Investigate coordination potential.</p></li>
+    </ol>
+  </section>
+  <section class="overview-trust" aria-labelledby="overviewTrustTitle">
+    <span class="eyebrow">WHY TRUST THE RESULTS?</span><h2 id="overviewTrustTitle">Evidence you can inspect.</h2>
+    <div class="trust-grid">
+      <article><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Measure the closest points.</h3><p>Use deterministic closest-point GIS comparisons rather than relying only on project centers.</p></article>
+      <article><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Follow the source.</h3><p>Keep source evidence, geometry method, and confidence available for review.</p></article>
+      <article><span class="eyebrow">03 / VISIBLE UNCERTAINTY</span><h3>Keep uncertainty visible.</h3><p>Keep verified, estimated, and unresolved geometry distinct instead of presenting uncertain locations as exact.</p></article>
+    </div>
   </section>
   <footer class="overview-footer"><span>GRIDLOCK / SHELLHACKS 2026</span><span>Public-source evidence · Deterministic spatial analysis · Human review</span></footer>
 </main>
@@ -1739,8 +1760,13 @@ GridLockData.load().then(({master,web})=>{
  const summary=web.modes.full.summary;
  const values={ovTotal:master.total_projects,ovDesc:master.DESC_count,ovGpc:master.GPC_count,ovMapped:master.verified_geometry_count+master.estimated_geometry_count};
  Object.entries(values).forEach(([id,value])=>document.getElementById(id).textContent=value.toLocaleString());
+ const verified=master.verified_geometry_count, resolved=values.ovMapped, total=master.total_projects;
+ const coverage=total ? `${Math.round(verified/total*100)}% to ${Math.round(resolved/total*100)}%` : 'unavailable';
+ const processValues={processTotal:total,processPairs:master.DESC_count*master.GPC_count,processMapped:resolved,processOpportunities:summary.schedule_aligned_opportunities ?? web.modes.full.matches.length};
+ Object.entries(processValues).forEach(([id,value])=>document.getElementById(id).textContent=value.toLocaleString());
+ document.getElementById('workflowCoverage').textContent=`${verified.toLocaleString()} verified locations plus ${master.estimated_geometry_count.toLocaleString()} estimated locations expand usable coverage from ${coverage}; ${master.unresolved_count.toLocaleString()} projects remain unresolved. ${summary.pairs_checked.toLocaleString()} pairs have usable geometry for comparison. Schedule-aligned opportunities include overlaps and gaps of up to ${summary.max_timeline_gap_years} years.`;
  document.getElementById('overviewCoverage').textContent=`${(master.DESC_count*master.GPC_count).toLocaleString()} possible cross-utility pairs · ${summary.candidate_pairs_within_40km ?? summary.pairs_within_40km} within 40 km · ${summary.schedule_aligned_opportunities ?? web.modes.full.matches.length} opportunities within a 2-year schedule gap`;
-}).catch(()=>{document.getElementById('overviewCoverage').textContent='Canonical publication unavailable.';});
+}).catch(()=>{document.getElementById('overviewCoverage').textContent='Canonical publication unavailable.';document.getElementById('workflowCoverage').textContent='Canonical spatial coverage unavailable.';});
 
 </script>
 <script>
