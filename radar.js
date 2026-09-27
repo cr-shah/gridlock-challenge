@@ -8,7 +8,7 @@
   workspace.append(inspector);
   const toolbar = document.createElement('div');
   toolbar.className = 'radar-scope radar-toolbar';
-  toolbar.innerHTML = '<div class="radar-title"><h1>COORDINATION RADAR</h1><small>Discover coordination opportunities between utility transmission projects.</small></div>';
+  toolbar.innerHTML = '<div class="radar-title"><h1>Coordination Radar</h1><small>Discover coordination opportunities between utility transmission projects.</small></div>';
   const toolbarTools = document.createElement('div');
   toolbarTools.className = 'radar-toolbar-tools';
   toolbarTools.append(document.getElementById('yearControl'));
