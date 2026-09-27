@@ -8,6 +8,10 @@ body.radar-view .radar-toolbar-tools { grid-column:auto; grid-row:auto; width:22
 body.radar-view .radar-toolbar .year-control label { font-size:13px; }
 body.radar-view .radar-toolbar .year-readout { font-size:16px; min-width:44px; }
 body:not(.radar-view) .radar-compact-metrics { display:none; }
+/* .radar-guide is built and inserted as a sibling of #radarToolbar (not inside the
+   hidden .layout), so without this it renders on every page — Overview, Projects,
+   Methodology — clipped by the floating Ask GridLock button at the bottom. */
+body:not(.radar-view) .radar-guide { display:none; }
 .radar-compact-metrics { display:flex; gap:10px; padding:0 3% 16px; border:0; }
 .radar-compact-metrics .stat { display:flex; gap:9px; align-items:baseline; padding:10px 16px; background:#15232bb3; border:1px solid #8bc4b933; border-radius:7px; backdrop-filter:blur(8px); }
 .radar-compact-metrics .stat .n { font-size:22px; font-weight:700; }

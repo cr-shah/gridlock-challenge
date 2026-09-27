@@ -660,6 +660,301 @@
     .overview .trust-grid h3 { font-size:29px; }
     .overview .workflow-step p, .overview .trust-grid p { font-size:21px; }
   }
+
+  /* Lower Overview: connected process and inspectable evidence. */
+  main.overview .overview-product,
+  main.overview .workflow,
+  main.overview .overview-trust {
+    position:relative;
+    padding:clamp(44px,6vw,78px) 0;
+    border-top:1px solid rgba(139,196,185,.28);
+  }
+  main.overview .overview-product {
+    display:grid;
+    grid-template-columns:minmax(180px,.55fr) minmax(0,1.45fr);
+    gap:clamp(28px,5vw,78px);
+    align-items:start;
+  }
+  main.overview .overview-product > .eyebrow { padding-top:8px; }
+  main.overview .overview-product h2 {
+    grid-column:2;
+    max-width:780px;
+    margin:0 0 18px;
+    font-size:clamp(28px,3.2vw,44px);
+    line-height:1.16;
+    letter-spacing:-1px;
+  }
+  main.overview .overview-product > p {
+    grid-column:2;
+    max-width:68ch;
+    margin:0;
+    padding:2px 0 2px 22px;
+    border-left:2px solid rgba(139,196,185,.62);
+    color:#c9dcdb;
+    font-size:clamp(15px,1.25vw,17px);
+    font-weight:400;
+    line-height:1.75;
+  }
+  main.overview .workflow-heading { display:block; max-width:920px; }
+  main.overview .workflow-heading h3,
+  main.overview .overview-trust h2 {
+    max-width:880px;
+    margin:12px 0 28px;
+    font-size:clamp(28px,3.2vw,44px);
+    line-height:1.16;
+    letter-spacing:-1px;
+  }
+  main.overview .overview-process-copy {
+    max-width:78ch;
+    padding:4px 0 4px clamp(18px,2vw,28px);
+    border-left:2px solid rgba(139,196,185,.58);
+    color:#c6d8d8;
+    font-size:clamp(15px,1.25vw,17px);
+    font-weight:400;
+    line-height:1.72;
+  }
+  main.overview .overview-process-copy p { margin:0 0 15px; }
+  main.overview .overview-process-copy p:last-child { margin-bottom:0; }
+  main.overview .overview-process-copy .overview-process-coverage {
+    display:block;
+    margin:0 0 15px;
+    color:#d9ebe6;
+    font-family:inherit;
+    font-size:inherit;
+    font-weight:500;
+  }
+  main.overview .overview-process-metrics {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:1px;
+    margin:clamp(30px,4vw,48px) 0;
+    padding:1px;
+    border:1px solid rgba(139,196,185,.24);
+    border-radius:12px;
+    background:rgba(139,196,185,.18);
+    overflow:hidden;
+  }
+  main.overview .overview-process-metrics > div {
+    min-width:0;
+    padding:20px clamp(14px,2vw,24px);
+    background:rgba(18,35,43,.92);
+  }
+  main.overview .overview-process-metrics strong {
+    display:block;
+    color:#c8eee4;
+    font:600 clamp(24px,2.4vw,34px)/1.2 "IBM Plex Mono",monospace;
+    font-variant-numeric:tabular-nums;
+  }
+  main.overview .overview-process-metrics span {
+    display:block;
+    margin-top:8px;
+    color:#abc5c6;
+    font-size:13px;
+    font-weight:500;
+    line-height:1.45;
+  }
+  main.overview .workflow .workflow-steps {
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:14px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  main.overview .workflow .workflow-step {
+    position:relative;
+    min-width:0;
+    min-height:200px;
+    padding:68px 18px 20px;
+    border:1px solid rgba(139,196,185,.22);
+    border-radius:12px;
+    background:linear-gradient(155deg,rgba(31,55,62,.9),rgba(17,34,42,.92));
+    box-shadow:0 14px 34px rgba(4,19,25,.15);
+    overflow:visible;
+  }
+  main.overview .workflow .workflow-step::before {
+    content:"";
+    position:absolute;
+    z-index:0;
+    top:30px;
+    left:48px;
+    width:calc(100% + 14px);
+    height:1px;
+    background:linear-gradient(90deg,#8BC4B9 0%,rgba(139,196,185,.28) 100%);
+  }
+  main.overview .workflow .workflow-step:last-child::before { display:none; }
+  main.overview .workflow .workflow-step::after { content:none; }
+  main.overview .workflow .step-number {
+    position:absolute;
+    z-index:1;
+    top:10px;
+    left:14px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#a9cac6;
+    font:600 10px/1.2 "IBM Plex Mono",monospace;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  main.overview .workflow .step-index {
+    display:grid;
+    place-items:center;
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+    border:1px solid rgba(182,231,220,.72);
+    border-radius:50%;
+    background:#183a42;
+    color:#d9f3ec;
+    font-size:12px;
+    box-shadow:0 0 0 6px rgba(139,196,185,.08);
+  }
+  main.overview .workflow .workflow-step h4 {
+    margin:10px 0 9px;
+    font-size:18px;
+    font-weight:600;
+    line-height:1.35;
+  }
+  main.overview .workflow .workflow-step p {
+    margin:0;
+    color:#b6cdcd;
+    font-size:14px;
+    font-weight:400;
+    line-height:1.6;
+  }
+  main.overview .overview-trust .trust-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;
+    margin:0;
+    padding:0;
+    border:0;
+  }
+  main.overview .overview-trust .trust-grid article {
+    min-width:0;
+    padding:clamp(22px,2.5vw,32px);
+    border:1px solid rgba(139,196,185,.24);
+    border-radius:14px;
+    background:linear-gradient(145deg,rgba(31,55,62,.88),rgba(17,34,42,.94));
+    box-shadow:0 14px 38px rgba(4,19,25,.18);
+    overflow-wrap:anywhere;
+    transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+  }
+  main.overview .overview-trust .trust-grid article:hover {
+    transform:translateY(-5px);
+    border-color:rgba(171,226,215,.56);
+    box-shadow:0 22px 46px rgba(4,19,25,.28);
+  }
+  main.overview .trust-icon {
+    display:grid;
+    place-items:center;
+    width:46px;
+    height:46px;
+    margin-bottom:22px;
+    border:1px solid rgba(139,196,185,.34);
+    border-radius:12px;
+    background:rgba(139,196,185,.09);
+    color:#a9ddd2;
+  }
+  main.overview .trust-icon svg { width:24px; height:24px; }
+  main.overview .overview-trust .trust-grid .eyebrow {
+    color:#91bbb7;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.08em;
+  }
+  main.overview .overview-trust .trust-grid h3 {
+    margin:13px 0 11px;
+    font-size:21px;
+    font-weight:600;
+    line-height:1.3;
+    letter-spacing:-.3px;
+  }
+  main.overview .overview-trust .trust-grid p {
+    margin:0;
+    color:#b8cece;
+    font-size:15px;
+    font-weight:400;
+    line-height:1.65;
+  }
+  main.overview .overview-footer {
+    margin:0;
+    padding:28px 0 44px;
+    border-top:1px solid rgba(139,196,185,.28);
+    color:#a9c1c2;
+    font-size:12px;
+    font-weight:500;
+    line-height:1.6;
+  }
+  @media(max-width:1000px) {
+    main.overview .overview-trust .trust-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  }
+  @media(max-width:900px) {
+    main.overview .overview-product { grid-template-columns:1fr; gap:14px; }
+    main.overview .overview-product h2,
+    main.overview .overview-product > p { grid-column:1; }
+    main.overview .workflow .workflow-steps { grid-template-columns:1fr; gap:14px; overflow:visible; padding:0; }
+    main.overview .workflow .workflow-step { min-height:0; padding:22px 20px 22px 78px; }
+    main.overview .workflow .workflow-step::before { top:48px; left:34px; width:1px; height:calc(100% + 14px); background:linear-gradient(180deg,#8BC4B9 0%,rgba(139,196,185,.28) 100%); }
+    main.overview .workflow .step-number { top:20px; left:14px; align-items:flex-start; }
+    main.overview .workflow .step-label { display:none; }
+    main.overview .workflow .workflow-step h4 { margin-top:0; }
+    main.overview .overview-trust .trust-grid { grid-template-columns:1fr; }
+  }
+  @media(max-width:560px) {
+    main.overview .overview-process-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    main.overview .workflow .workflow-step { padding-right:16px; }
+    main.overview .overview-trust .trust-grid article { padding:22px; }
+    main.overview .overview-product,
+    main.overview .workflow,
+    main.overview .overview-trust,
+    main.overview .overview-footer { padding-right:58px; }
+    body:not(.radar-view) > .ai-launch {
+      display:grid;
+      place-items:center;
+      width:46px;
+      height:46px;
+      padding:0;
+      overflow:hidden;
+      font-size:0;
+      white-space:nowrap;
+    }
+    body:not(.radar-view) > .ai-launch::before { content:"✨"; font-size:17px; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    main.overview .overview-trust .trust-grid article { transition:none; }
+    main.overview .overview-trust .trust-grid article:hover { transform:none; }
+  }
+  @media(forced-colors:active) {
+    main.overview .overview-product,
+    main.overview .workflow,
+    main.overview .overview-trust,
+    main.overview .overview-product > p,
+    main.overview .overview-process-copy,
+    main.overview .overview-process-metrics,
+    main.overview .workflow .workflow-step,
+    main.overview .overview-trust .trust-grid article,
+    main.overview .trust-icon,
+    main.overview .workflow .step-index,
+    main.overview .overview-footer { border-color:CanvasText; }
+    main.overview .overview-process-metrics,
+    main.overview .overview-process-metrics > div,
+    main.overview .workflow .workflow-step,
+    main.overview .overview-trust .trust-grid article,
+    main.overview .trust-icon,
+    main.overview .workflow .step-index { background:Canvas; color:CanvasText; box-shadow:none; }
+    main.overview .workflow .workflow-step::before { background:CanvasText; }
+    main.overview .overview-product > p,
+    main.overview .overview-process-copy,
+    main.overview .overview-process-copy .overview-process-coverage,
+    main.overview .overview-process-metrics strong,
+    main.overview .overview-process-metrics span,
+    main.overview .workflow .step-number,
+    main.overview .workflow .workflow-step p,
+    main.overview .overview-trust .trust-grid .eyebrow,
+    main.overview .overview-trust .trust-grid p { color:CanvasText; }
+  }
 </style>
 <link rel="stylesheet" href="radar.css" />
 <link rel="stylesheet" href="shared-background.css">
@@ -772,19 +1067,19 @@
       <div><strong id="processOpportunities">—</strong><span>Schedule-aligned opportunities</span></div>
     </div>
     <ol class="workflow-steps" aria-label="Data pipeline">
-      <li class="workflow-step"><span class="step-number">01 / SOURCE</span><h4>Public plans</h4><p>Retain utility records and evidence.</p></li>
-      <li class="workflow-step"><span class="step-number">02 / NORMALIZE</span><h4>One dataset</h4><p>Standardize fields for comparison.</p></li>
-      <li class="workflow-step"><span class="step-number">03 / SPATIALLY RESOLVE</span><h4>Find locations</h4><p>Preserve location confidence.</p></li>
-      <li class="workflow-step"><span class="step-number">04 / COMPARE</span><h4>Distance + timing</h4><p>Compare geometry and schedules.</p></li>
-      <li class="workflow-step"><span class="step-number">05 / REVIEW</span><h4>Human decisions</h4><p>Investigate coordination potential.</p></li>
+      <li class="workflow-step"><span class="step-number"><span class="step-index">01</span><span class="step-label">Source</span></span><h4>Public plans</h4><p>Retain utility records and evidence.</p></li>
+      <li class="workflow-step"><span class="step-number"><span class="step-index">02</span><span class="step-label">Normalize</span></span><h4>One dataset</h4><p>Standardize fields for comparison.</p></li>
+      <li class="workflow-step"><span class="step-number"><span class="step-index">03</span><span class="step-label">Spatially resolve</span></span><h4>Find locations</h4><p>Preserve location confidence.</p></li>
+      <li class="workflow-step"><span class="step-number"><span class="step-index">04</span><span class="step-label">Compare</span></span><h4>Distance + timing</h4><p>Compare geometry and schedules.</p></li>
+      <li class="workflow-step"><span class="step-number"><span class="step-index">05</span><span class="step-label">Review</span></span><h4>Human decisions</h4><p>Investigate coordination potential.</p></li>
     </ol>
   </section>
   <section class="overview-trust" aria-labelledby="overviewTrustTitle">
     <span class="eyebrow">WHY TRUST THE RESULTS?</span><h2 id="overviewTrustTitle">Evidence you can inspect.</h2>
     <div class="trust-grid">
-      <article><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Measure the closest points.</h3><p>Use deterministic closest-point GIS comparisons rather than relying only on project centers.</p></article>
-      <article><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Follow the source.</h3><p>Keep source evidence, geometry method, and confidence available for review.</p></article>
-      <article><span class="eyebrow">03 / VISIBLE UNCERTAINTY</span><h3>Keep uncertainty visible.</h3><p>Keep verified, estimated, and unresolved geometry distinct instead of presenting uncertain locations as exact.</p></article>
+      <article><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4M8 11h6M11 8v6"/></svg></span><span class="eyebrow">01 / SPATIAL PRECISION</span><h3>Measure the closest points.</h3><p>Use deterministic closest-point GIS comparisons rather than relying only on project centers.</p></article>
+      <article><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20H7z"/><path d="M14 3.5V8h4M10 12h5M10 15.5h5"/></svg></span><span class="eyebrow">02 / TRACEABLE EVIDENCE</span><h3>Follow the source.</h3><p>Keep source evidence, geometry method, and confidence available for review.</p></article>
+      <article><span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 21 19H3z"/><path d="M12 9v4.5M12 17h.01"/></svg></span><span class="eyebrow">03 / VISIBLE UNCERTAINTY</span><h3>Keep uncertainty visible.</h3><p>Keep verified, estimated, and unresolved geometry distinct instead of presenting uncertain locations as exact.</p></article>
     </div>
   </section>
   <footer class="overview-footer"><span>GRIDLOCK / SHELLHACKS 2026</span><span>Public-source evidence · Deterministic spatial analysis · Human review</span></footer>
