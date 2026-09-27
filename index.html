@@ -972,7 +972,7 @@ function renderLoadErrorState(name, err) {
   document.getElementById('listHeading').textContent = 'Ranked coordination opportunities';
   document.getElementById('matchList').innerHTML =
     `<div class="empty-list">Couldn't load <code>${escapeHtml(DATASETS[name].url)}</code>. ` +
-    `If you opened this file directly (file://), serve it instead: <code>python -m http.server 8000</code>.</div>`;
+    `Reason: ${escapeHtml(err.message || String(err))}. Reload the page after restarting the local server.</div>`;
   document.getElementById('detailPanel').innerHTML =
     '<div class="empty">No data loaded — nothing to select.</div>';
   document.getElementById('yearControl').classList.add('hidden');

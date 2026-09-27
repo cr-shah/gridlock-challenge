@@ -150,3 +150,24 @@ body.radar-view .radar-toolbar-tools { grid-column:2; width:100%; }
   .radar-guide-item { min-height:64px; }
 }
 @media(prefers-reduced-motion:reduce) { .radar-workspace .match-item { transition:none; } }
+
+/* Compact controls keep the entire desktop map inside the first viewport. */
+body.radar-view .radar-toolbar { padding:10px 3% 8px; gap:10px; align-items:center; }
+body.radar-view .radar-toolbar .radar-title h1 { font-size:var(--type-workspace-title); margin:0; line-height:1.12; }
+body.radar-view .radar-compact-metrics { padding-bottom:8px; gap:6px; }
+body.radar-view .radar-compact-metrics .stat { min-width:0; padding:6px 11px; }
+body.radar-view .radar-compact-metrics .stat .n { font-size:20px; }
+body.radar-view .radar-guide { margin-bottom:8px; padding:6px; border-radius:8px; }
+body.radar-view .radar-guide-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; }
+body.radar-view .radar-guide-item { min-height:0; padding:7px 9px 7px 12px; }
+body.radar-view .radar-guide-range { margin-bottom:3px; font-size:10px; }
+body.radar-view .radar-guide-item strong { font-size:11px; line-height:1.3; }
+body.radar-view #layout.radar-workspace { height:var(--radar-available-height,calc(100dvh - 280px)); min-height:220px; margin-bottom:16px; }
+@media(max-width:700px) {
+ body.radar-view .radar-toolbar { grid-template-columns:1fr auto; }
+ body.radar-view .radar-title { grid-column:1; }
+ body.radar-view .radar-toolbar-tools { grid-column:2; width:150px; }
+ body.radar-view .radar-guide-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ body.radar-view #layout.radar-workspace { height:auto; min-height:0; }
+ body.radar-view .radar-workspace .map-wrap { height:var(--radar-available-height,50dvh); min-height:220px; }
+}

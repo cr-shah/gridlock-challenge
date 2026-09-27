@@ -10,8 +10,10 @@ from analyst.core import ROOT, answer, configuration, AnalystError
 
 load_dotenv(ROOT/'.env')
 GATE=BoundedSemaphore(3)
-ALLOWED={p.name for p in ROOT.iterdir() if p.suffix in {'.html','.css','.js'}}
-ALLOWED |= {str(p.relative_to(ROOT)) for p in (ROOT/'data/published').glob('*.json')}
+def allowed_asset(name):
+    path=ROOT/name
+    allowed=(path.parent==ROOT and path.suffix in {'.html','.css','.js'}) or (path.parent==ROOT/'data/published' and path.suffix=='.json')
+    return allowed and path.is_file() and path.resolve().is_relative_to(ROOT.resolve())
 
 class Handler(BaseHTTPRequestHandler):
     def respond(self,status,value):
@@ -21,9 +23,9 @@ class Handler(BaseHTTPRequestHandler):
         path=urlsplit(self.path).path
         if path=='/api/analyst/status':return self.respond(200,configuration())
         name=path.lstrip('/') or 'index.html'
-        if name not in ALLOWED:return self.respond(404,{'error':'Not found'})
+        if not allowed_asset(name):return self.respond(404,{'error':'Not found'})
         body=(ROOT/name).read_bytes()
-        self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(name)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(body)));self.send_header('X-Content-Type-Options','nosniff');self.end_headers();self.wfile.write(body)
+        self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(name)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(body)));self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.end_headers();self.wfile.write(body)
     def do_POST(self):
         if self.path!='/api/analyst':return self.respond(404,{'error':'Not found'})
         origin=self.headers.get('Origin')

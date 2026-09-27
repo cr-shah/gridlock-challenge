@@ -8,7 +8,7 @@
   workspace.append(inspector);
   const toolbar = document.createElement('div');
   toolbar.className = 'radar-scope radar-toolbar';
-  toolbar.innerHTML = '<div class="radar-title"><h1>Coordination Radar</h1><small>Discover coordination opportunities between utility transmission projects.</small></div>';
+  toolbar.innerHTML = '<div class="radar-title"><h1>Coordination Radar</h1></div>';
   const toolbarTools = document.createElement('div');
   toolbarTools.className = 'radar-toolbar-tools';
   toolbarTools.append(document.getElementById('yearControl'));
@@ -70,16 +70,30 @@
   toolbar.after(metrics);
   const guide = document.createElement('section');
   guide.className = 'radar-guide';
-  guide.setAttribute('aria-labelledby', 'radarGuideTitle');
-  guide.innerHTML = `<div class="radar-guide-head"><div><span class="radar-kicker">DISTANCE + SCHEDULE ACTION GUIDE</span><h2 id="radarGuideTitle">What each opportunity means</h2></div><span>Only pairs within 40 km and a 2-year schedule gap are shown.</span></div>
-    <div class="radar-guide-grid">
+  guide.setAttribute('aria-label', 'Opportunity distance tiers');
+  guide.innerHTML = `    <div class="radar-guide-grid">
       <div class="radar-guide-item must"><span class="radar-guide-range">Touching / crossing</span><strong>Must coordinate</strong></div>
       <div class="radar-guide-item land"><span class="radar-guide-range">&lt; 1.6 km</span><strong>ROW / land coordination potential</strong></div>
       <div class="radar-guide-item logistics"><span class="radar-guide-range">&lt; 8 km</span><strong>Site logistics coordination potential</strong></div>
       <div class="radar-guide-item crews"><span class="radar-guide-range">&lt; 40 km</span><strong>Crews / equipment coordination potential</strong></div>
     </div>
-    <p class="radar-guide-note"><strong>Planning note:</strong> Projects remain visible even when they are not a schedule-aligned opportunity. Solid routes use verified geometry; dashed routes use estimates for screening. Every opportunity requires source review and human validation before coordination decisions.</p>`;
+`;
   metrics.after(guide);
+  // Size the map from its actual position, including wrapped controls and zoom.
+  let fitFrame;
+  function fitRadarViewport() {
+    cancelAnimationFrame(fitFrame);
+    fitFrame=requestAnimationFrame(()=>{
+      if(!document.body.classList.contains('radar-view'))return;
+      const available=Math.max(220,window.innerHeight-workspace.getBoundingClientRect().top-16);
+      workspace.style.setProperty('--radar-available-height',`${available}px`);
+      if(typeof map!=='undefined')map.invalidateSize({pan:false});
+    });
+  }
+  window.addEventListener('resize',fitRadarViewport);
+  new MutationObserver(fitRadarViewport).observe(document.body,{attributes:true,attributeFilter:['class']});
+  if(window.ResizeObserver){const observer=new ResizeObserver(fitRadarViewport);[toolbar,metrics,guide].forEach(el=>observer.observe(el));}
+  fitRadarViewport();
   catalog.append(sidebar);
   rail.append(inspector, catalog);
   workspace.append(rail);
@@ -169,7 +183,9 @@
     const summary = summaryOf(analysis);
     const mapped = summary.projects_with_geometry ?? (summary.total_projects - (summary.projects_without_geometry || 0));
     metrics.innerHTML = [[analysis.catalog_total || summary.total_projects,'Catalog projects','catalog'],[mapped,'Mapped projects','mapped'],[analysis.matches.length,'Opportunities','opportunities']].map(([value,label,kind]) => `<div class="stat ${kind}"><span class="n">${e(value)}</span><span class="k">${e(label)}</span></div>`).join('');
-    banner.textContent = `${analysis.matches.length} schedule-aligned opportunities across ${mapped} mapped projects.`;
+    banner.textContent = '';
+    banner.className = 'banner radar-banner';
+    workspace.classList.remove('has-banner');
     list.querySelectorAll('.match-item').forEach(el => {
       const m = analysis.matches.find(m => m.match_id === el.dataset.matchId);
       if (!m) return;
