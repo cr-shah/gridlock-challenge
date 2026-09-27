@@ -7,6 +7,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gridlock — Coordination Radar</title>
+<script>
+  // Keep linked Radar routes hidden until the presentation layer and map are sized.
+  (() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('view') === 'radar' || url.hash === '#radar') {
+      document.documentElement.classList.add('initial-radar-route');
+      window.setTimeout(() => document.documentElement.classList.remove('initial-radar-route'), 1500);
+    }
+  })();
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +26,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <style>
+  html.initial-radar-route body { visibility: hidden; }
   :root {
     --bg: #2F3E46;
     --panel: #2F3E46;
@@ -1744,7 +1755,12 @@ function showView(view) {
   if (radar) requestAnimationFrame(() => {
     map.invalidateSize();
     if (selectedMatchId) selectMatch(selectedMatchId);
+    requestAnimationFrame(() => {
+      map.invalidateSize({ pan: false });
+      document.documentElement.classList.remove('initial-radar-route');
+    });
   });
+  else document.documentElement.classList.remove('initial-radar-route');
   window.scrollTo(0, 0);
 }
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => showView(button.dataset.view)));

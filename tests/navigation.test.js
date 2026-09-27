@@ -18,6 +18,9 @@ test('external pages use the stable Radar view route', () => {
 test('the initial linked view is revealed only after Radar presentation setup', () => {
   const html = read('index.html');
   assert.match(html, /requestedView === 'radar'/);
+  assert.match(html, /document\.documentElement\.classList\.add\('initial-radar-route'\)/);
+  assert.match(html, /html\.initial-radar-route body \{ visibility: hidden; \}/);
+  assert.match(html, /map\.invalidateSize\(\{ pan: false \}\);\s*document\.documentElement\.classList\.remove\('initial-radar-route'\)/);
   const radarScript = html.indexOf('<script src="radar.js"></script>');
   const initialReveal = html.indexOf('<script>openLinkedView();</script>');
   assert.ok(radarScript >= 0 && initialReveal > radarScript);
