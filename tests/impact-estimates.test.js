@@ -44,3 +44,13 @@ test('estimated projects and distances match the saved canonical opportunities',
     assert.equal(m.distance_km, e.distanceKm);
   });
 });
+
+test('pages cache-bust the impact UI assets for static deployment', () => {
+  const root = path.join(__dirname, '..');
+  const leaderboard = fs.readFileSync(path.join(root, 'project-discovery.html'), 'utf8');
+  const overview = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  assert.match(leaderboard, /project-discovery-model\.js\?v=/);
+  assert.match(leaderboard, /project-discovery\.js\?v=/);
+  assert.match(leaderboard, /project-discovery\.css\?v=/);
+  assert.match(overview, /project-discovery-model\.js\?v=/);
+});
