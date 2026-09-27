@@ -17,10 +17,20 @@ test('every low/base/high value equals basis x rate x shareable fraction', () =>
 
 test('formatting, wording and source links', () => {
   assert.equal(I.usd(60000), '$60,000');
-  assert.match(I.NORMALIZATION, /per \$10 million/);
-  assert.equal(I.SOURCES.length, 2);
+  assert.equal(I.pct(0.021), '2.1%');
+  assert.equal(I.pct(0.0015), '0.15%');
+  assert.equal(I.pct(0.0225), '2.25%');
+  assert.match(I.NORMALIZATION, /illustrative \$10 million/i);
+  assert.equal(I.SOURCES.length, 3);
   I.SOURCES.forEach(s => assert.match(s.url, /^https:\/\//));
   Object.values(I.ESTIMATES).forEach(e => assert.match(e.estimateLabel, /^Potential avoided/));
+  Object.values(I.ESTIMATES).forEach(e => {
+    assert.ok(e.savedEvidence.length >= 4);
+    assert.ok(e.coordinationCandidates.length >= 4);
+    assert.match(e.assumption, /scenario assumption, not an industry benchmark/i);
+  });
+  assert.match(I.METHODOLOGY_BODY, /local cost data/i);
+  assert.match(I.METHODOLOGY_BODY, /None of those sources supplies GridLock/i);
   assert.ok(!/guarantee/i.test(JSON.stringify(I)));
 });
 

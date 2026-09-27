@@ -159,7 +159,10 @@
     border-radius: 4px; padding: 8px 10px; color: var(--text-dim);
   }
   .detail-panel .savings b { color: var(--text); }
-  .savings.impact-estimate .impact-range { font-size: 20px; font-weight: 700; color: var(--text); margin: 4px 0 2px; }
+  .savings.impact-estimate .impact-kicker { color:var(--utility-a); font:600 10px "IBM Plex Mono",monospace; letter-spacing:1px; }
+  .savings.impact-estimate .impact-value { margin-top:6px; padding:10px 12px; border-left:3px solid var(--utility-a); background:rgba(8,24,30,.34); }
+  .savings.impact-estimate .impact-rate { font-size: 20px; font-weight: 700; color: var(--text); }
+  .savings.impact-estimate .impact-range { color:var(--text-dim); font-weight:600; }
   .savings.impact-estimate .impact-base { color: var(--text); }
   .savings.impact-estimate .impact-norm, .savings.impact-estimate .impact-disclaimer,
   .savings.impact-estimate .impact-caution, .savings.impact-estimate .impact-shared { margin-top: 8px; }
@@ -169,6 +172,8 @@
   .savings.impact-estimate .impact-method summary { cursor: pointer; color: var(--text); }
   .savings.impact-estimate .impact-method a { color: inherit; text-decoration: underline; }
   .savings.impact-estimate .impact-formula { color: var(--text); }
+  .savings.impact-estimate .impact-assumption { padding:8px 10px; border:1px dashed var(--line); border-radius:7px; }
+  .savings.impact-estimate .impact-caution { padding:8px 10px; border-left:3px solid var(--tier-logistics); background:rgba(244,211,94,.08); }
   .evidence {
     margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--panel-border);
     font-size: 12px; color: var(--text-dim);
@@ -1524,23 +1529,30 @@ function renderImpactEstimate(matchId) {
   const est = I && I.get(matchId);
   if (!est) return '';
   const links = I.SOURCES.map(x => `<li><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(x.label)}</a></li>`).join('');
-  const shared = est.potentialSharedResources.map(r => `<li>${escapeHtml(r)}</li>`).join('');
+  const evidence = est.savedEvidence.map(r => `<li>${escapeHtml(r)}</li>`).join('');
+  const shared = est.coordinationCandidates.map(r => `<li>${escapeHtml(r)}</li>`).join('');
   return `
     <div class="savings impact-estimate">
+      <div class="impact-kicker">SCREENING-LEVEL SCENARIO</div>
       <b>${escapeHtml(est.estimateLabel)}</b>
-      <div class="impact-range">${I.usd(est.lowUsd)} – ${I.usd(est.highUsd)}</div>
-      <div class="impact-base">Base scenario: ${I.usd(est.baseUsd)}</div>
+      <div class="impact-value">
+        <div class="impact-rate">${I.pct(I.effectiveRate(est, 'low'))}–${I.pct(I.effectiveRate(est, 'high'))} of eligible work</div>
+        <div class="impact-range">${I.usd(est.lowUsd)}–${I.usd(est.highUsd)} at the $10M example</div>
+        <div class="impact-base">Illustrative midpoint: ${I.pct(I.effectiveRate(est, 'base'))} · ${I.usd(est.baseUsd)}</div>
+      </div>
       <div class="impact-norm">${escapeHtml(I.NORMALIZATION)}</div>
-      <div class="impact-disclaimer">${escapeHtml(I.DISCLAIMER)}</div>
-      <div class="impact-caution"><b>Confidence: ${escapeHtml(est.confidence)}.</b> ${escapeHtml(est.caution)}</div>
-      <div class="impact-shared"><b>Potentially shared:</b><ul>${shared}</ul></div>
+      <div class="impact-evidence"><b>Saved evidence for this pair:</b><ul>${evidence}</ul></div>
+      <div class="impact-shared"><b>Coordination candidates to validate:</b><ul>${shared}</ul></div>
       <details class="impact-method">
-        <summary>Methodology and sources</summary>
+        <summary>Calculation, assumptions and sources</summary>
         <p>${escapeHtml(I.METHODOLOGY_LEAD)}</p>
         <p class="impact-formula">${escapeHtml(I.METHODOLOGY_FORMULA)}</p>
         <p>${escapeHtml(I.METHODOLOGY_BODY)}</p>
+        <p class="impact-assumption">${escapeHtml(est.assumption)}</p>
         <ul class="impact-links">${links}</ul>
       </details>
+      <div class="impact-caution"><b>Evidence strength: ${escapeHtml(est.confidence)}.</b> ${escapeHtml(est.caution)}</div>
+      <div class="impact-disclaimer">${escapeHtml(I.DISCLAIMER)}</div>
     </div>`;
 }
 

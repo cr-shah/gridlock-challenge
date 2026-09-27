@@ -173,23 +173,29 @@
     col.append(node('h5', '', 'TIMING'), facts([['Planned start', Number.isInteger(p.planned_start_year) ? p.planned_start_year : null, true], ['Planned end', Number.isInteger(p.planned_end_year) ? p.planned_end_year : null, true], ['In service', Number.isInteger(p.in_service_year) ? p.in_service_year : null, true]]));
     col.append(node('h5', '', 'GEOMETRY'), facts([['Status', M.humanize(p.geometry_status.toLowerCase()), true], ['Mapping', M.isMapped(p) ? 'Mapped — canonical geometry available' : 'Unmapped — no usable canonical geometry', true], ['Method', M.present(p.geometry_method) ? M.humanize(p.geometry_method) : null],
       ['Confidence', M.present(p.geometry_confidence) ? M.humanize(String(p.geometry_confidence).toLowerCase()) : null, true], ['Notes', M.present(p.geometry_notes) ? String(p.geometry_notes).replace(/\s*Estimated geometry — planning-screening use only\.?/g, '').trim() : p.geometry_notes]]));
-    col.append(node('h5', '', 'SOURCE EVIDENCE'), facts([['Source document', linkOrText(p.source_url), true], ['Source page', Number.isInteger(p.source_page) ? `Page ${p.source_page}` : null], ['Geometry source', linkOrText(p.geometry_source)], ['Record confidence', p.data_confidence]]));
+    col.append(node('h5', '', 'SOURCE EVIDENCE'), facts([['Source document', linkOrText(p.source_url), true], ['Source page', M.present(p.source_page) ? `Page ${p.source_page}` : null], ['Geometry source', linkOrText(p.geometry_source)], ['Record confidence', p.data_confidence]]));
     col.append(node('h5', '', 'LIMITATIONS')); const ul = node('ul', 'pd-limits'); limitations(p).forEach(t => ul.append(node('li', '', t))); col.append(ul);
     const a = node('a', 'pd-explorer-link', 'Open in the Project Explorer ↗'); a.href = `./project-explorer.html?project=${encodeURIComponent(p.id)}`; col.append(a);
     return col;
   }
-  // Presentation-only planning estimate: only the match IDs in impact-estimates.js get one.
+  // Presentation-only planning estimate: only the match IDs in project-discovery-model.js get one.
   function impactBlock(matchId) {
     const I = window.GridLockImpact, est = I && I.get(matchId); if (!est) return null;
     const box = node('div', 'pd-impact');
-    box.append(node('strong', 'pd-impact-label', est.estimateLabel), node('div', 'pd-impact-range', `${I.usd(est.lowUsd)} – ${I.usd(est.highUsd)}`),
-      node('div', 'pd-impact-base', `Base scenario: ${I.usd(est.baseUsd)}`), node('div', 'pd-impact-norm', I.NORMALIZATION), node('p', 'pd-impact-disclaimer', I.DISCLAIMER),
-      node('p', 'pd-impact-caution', `Confidence: ${est.confidence}. ${est.caution}`), node('strong', '', 'Potentially shared:'));
-    const shared = node('ul', 'pd-impact-list'); est.potentialSharedResources.forEach(r => shared.append(node('li', '', r))); box.append(shared);
-    const d = node('details', 'pd-impact-method'); d.append(node('summary', '', 'Methodology and sources'), node('p', '', I.METHODOLOGY_LEAD), node('p', 'pd-impact-formula', I.METHODOLOGY_FORMULA), node('p', '', I.METHODOLOGY_BODY));
+    box.append(node('span', 'pd-impact-kicker', 'SCREENING-LEVEL SCENARIO'), node('strong', 'pd-impact-label', est.estimateLabel));
+    const value = node('div', 'pd-impact-value');
+    value.append(node('div', 'pd-impact-rate', `${I.pct(I.effectiveRate(est, 'low'))}–${I.pct(I.effectiveRate(est, 'high'))} of eligible work`),
+      node('div', 'pd-impact-range', `${I.usd(est.lowUsd)}–${I.usd(est.highUsd)} at the $10M example`),
+      node('div', 'pd-impact-base', `Illustrative midpoint: ${I.pct(I.effectiveRate(est, 'base'))} · ${I.usd(est.baseUsd)}`));
+    box.append(value, node('p', 'pd-impact-norm', I.NORMALIZATION));
+    const evidenceTitle = node('strong', '', 'Saved evidence for this pair');
+    const evidence = node('ul', 'pd-impact-list pd-impact-evidence'); est.savedEvidence.forEach(r => evidence.append(node('li', '', r)));
+    box.append(evidenceTitle, evidence, node('strong', '', 'Coordination candidates to validate'));
+    const shared = node('ul', 'pd-impact-list'); est.coordinationCandidates.forEach(r => shared.append(node('li', '', r))); box.append(shared);
+    const d = node('details', 'pd-impact-method'); d.append(node('summary', '', 'Calculation, assumptions and sources'), node('p', '', I.METHODOLOGY_LEAD), node('p', 'pd-impact-formula', I.METHODOLOGY_FORMULA), node('p', '', I.METHODOLOGY_BODY), node('p', 'pd-impact-assumption', est.assumption));
     const links = node('ul', 'pd-impact-list');
     I.SOURCES.forEach(x => { const li = node('li', ''), a = node('a', '', x.label); a.href = x.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; li.append(a); links.append(li); });
-    d.append(links); box.append(d); return box;
+    d.append(links); box.append(d, node('p', 'pd-impact-caution', `Evidence strength: ${est.confidence}. ${est.caution}`), node('p', 'pd-impact-disclaimer', I.DISCLAIMER)); return box;
   }
   function buildDetails(e, box) {
     box.append(node('h3', '', 'SAVED ANALYSIS'));

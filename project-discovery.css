@@ -153,14 +153,22 @@
 .pd-details h3 { margin:0 0 10px; font:600 12px "IBM Plex Mono",monospace; letter-spacing:1.3px; color:var(--pd-mint); }
 .pd-analysis { display:grid; gap:10px; margin-bottom:16px; }
 .pd-note { margin:0; padding:10px 14px; border-left:3px solid var(--pd-mint); border-radius:0 8px 8px 0; background:rgba(139,196,185,.1); font-size:15px; }
-.pd-impact { display:grid; gap:8px; padding:14px; border:1px solid rgba(139,196,185,.35); border-radius:10px; background:rgba(139,196,185,.07); font-size:15px; }
-.pd-impact-range { font-size:28px; font-weight:700; line-height:1.15; }
+.pd-impact { display:grid; gap:9px; padding:16px; border:1px solid rgba(139,196,185,.42); border-radius:12px; background:linear-gradient(145deg,rgba(139,196,185,.1),rgba(8,24,30,.55)); font-size:15px; }
+.pd-impact-kicker { color:var(--pd-mint); font:600 11px "IBM Plex Mono",monospace; letter-spacing:1.2px; }
+.pd-impact-value { display:grid; gap:3px; padding:12px 14px; border-left:3px solid var(--pd-glow); border-radius:0 8px 8px 0; background:rgba(8,24,30,.48); }
+.pd-impact-rate { font-size:24px; font-weight:700; line-height:1.2; color:var(--pd-ink); }
+.pd-impact-range { color:var(--pd-muted); font-size:16px; font-weight:600; line-height:1.3; }
 .pd-impact-base { font-weight:600; }
 .pd-impact-disclaimer, .pd-impact-caution, .pd-impact p { margin:0; }
-.pd-impact-disclaimer { font-style:italic; }
+.pd-impact-norm { color:var(--pd-muted); }
+.pd-impact-disclaimer, .pd-impact-caution { padding:10px 12px; border-radius:8px; }
+.pd-impact-caution { border-left:3px solid var(--tier-logistics); background:rgba(244,211,94,.08); }
+.pd-impact-disclaimer { background:rgba(139,196,185,.08); color:var(--pd-muted); }
 .pd-impact-list { margin:0; padding-left:20px; }
+.pd-impact-evidence { color:var(--pd-muted); }
 .pd-impact-method summary { cursor:pointer; font-weight:600; }
 .pd-impact-method p { margin:8px 0 0; } .pd-impact-formula { font-weight:600; }
+.pd-impact-assumption { padding:9px 11px; border:1px dashed var(--pd-line-strong); border-radius:8px; color:var(--pd-muted); }
 .pd-impact a { color:inherit; text-decoration:underline; }
 .pd-note.is-warn { border-left-color:var(--tier-logistics); background:rgba(244,211,94,.1); }
 .pd-detail-cols { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }

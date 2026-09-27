@@ -188,9 +188,11 @@
       eligibleWorkBasisUsd: 10000000,
       mobilizationRates: { low: 0.03, base: 0.06, high: 0.09 },
       shareableFractions: { low: 0.20, base: 0.35, high: 0.50 },
-      potentialSharedResources: ['Heavy-equipment mobilization', 'Staging and site logistics', 'Outage planning', 'Commissioning and contractor scheduling'],
-      confidence: 'Medium-low',
-      caution: 'Both geometries use approximate verified endpoints. Confirm the shared terminal, work scope, exact schedules, and equipment requirements with the utilities.'
+      savedEvidence: ['0.00 km between modeled closest points', 'Both projects have a 2028 construction year', 'Both modeled routes use approximate verified endpoints', 'Both modeled routes terminate at the named McIntosh endpoint'],
+      coordinationCandidates: ['Heavy-equipment mobilization', 'Staging and site logistics', 'Outage-window planning', 'Commissioning and contractor sequencing'],
+      assumption: 'GridLock tests whether 20%–50% of the mobilization allowance could be avoided or reused if field validation confirms a common work site and genuinely overlapping scopes. This percentage is a scenario assumption, not an industry benchmark.',
+      confidence: 'Low — screening only',
+      caution: 'The canonical record includes no project budget, bid, work package, construction start date, or coordination agreement for this pair. Both geometries use approximate verified endpoints, not surveyed routes.'
     },
     e002: {
       matchId: 'e002',
@@ -203,9 +205,11 @@
       eligibleWorkBasisUsd: 10000000,
       mobilizationRates: { low: 0.03, base: 0.06, high: 0.09 },
       shareableFractions: { low: 0.10, base: 0.20, high: 0.30 },
-      potentialSharedResources: ['Sequential use of laydown or staging areas', 'Coordinated material deliveries', 'Specialty-equipment sourcing', 'Reuse of temporary logistics infrastructure'],
-      confidence: 'Medium-low',
-      caution: 'The projects are two years apart. Benefits require construction phases to converge or resources to transfer sequentially. One geometry is estimated.'
+      savedEvidence: ['4.83 km between modeled closest points', 'Saved tier: shared site logistics potential', 'Recorded years are 2026 and 2028', 'DESC geometry is verified/high; GPC geometry is estimated'],
+      coordinationCandidates: ['Sequential laydown or staging use', 'Coordinated material deliveries', 'Specialty-equipment sourcing', 'Reuse of temporary logistics infrastructure'],
+      assumption: 'GridLock tests whether 10%–30% of the mobilization allowance could be avoided or reused. That requires the recorded two-year gap to contain compatible construction phases or a practical sequential handoff. This percentage is a scenario assumption, not an industry benchmark.',
+      confidence: 'Low — schedule-dependent screen',
+      caution: 'The projects are recorded two years apart, and one geometry is estimated. Exact construction phases, staging needs, and contractor packages are not included in the canonical record.'
     },
     e007: {
       matchId: 'e007',
@@ -218,9 +222,11 @@
       eligibleWorkBasisUsd: 10000000,
       mobilizationRates: { low: 0.03, base: 0.06, high: 0.09 },
       shareableFractions: { low: 0.05, base: 0.15, high: 0.25 },
-      potentialSharedResources: ['Specialty-contractor procurement', 'Sequential use of transmission equipment', 'Regional staging coordination', '2026 workforce scheduling'],
-      confidence: 'Medium-low',
-      caution: 'A shared construction year does not prove exact schedule overlap. The Boulevard–Deptford geometry is estimated.'
+      savedEvidence: ['29.80 km between modeled closest points', 'Saved tier: shared crews / equipment potential', 'Both projects have a 2026 construction year', 'DESC geometry is verified/high; GPC geometry is estimated'],
+      coordinationCandidates: ['Specialty-contractor procurement', 'Sequential use of transmission equipment', 'Regional staging coordination', 'Workforce scheduling'],
+      assumption: 'GridLock tests whether 5%–25% of the mobilization allowance could be avoided or reused for two same-year projects in the under-40 km crew/equipment tier. This percentage is a scenario assumption, not an industry benchmark.',
+      confidence: 'Low — screening only',
+      caution: 'A shared construction year does not establish overlapping work dates, common contractors, or compatible equipment. The Boulevard–Deptford geometry is estimated.'
     },
     e009: {
       matchId: 'e009',
@@ -233,30 +239,38 @@
       eligibleWorkBasisUsd: 10000000,
       mobilizationRates: { low: 0.03, base: 0.06, high: 0.09 },
       shareableFractions: { low: 0.05, base: 0.15, high: 0.25 },
-      potentialSharedResources: ['Regional contractor procurement', 'Sequential use of cranes and line equipment', 'Workforce and delivery planning', '2027 construction scheduling'],
-      confidence: 'Medium-low',
-      caution: 'The Hooks–Modoc location uses an estimated facility point. Same-year timing does not prove exact construction overlap.'
+      savedEvidence: ['29.82 km between modeled closest points', 'Saved tier: shared crews / equipment potential', 'Both projects have a 2027 construction year', 'DESC uses an estimated facility point; GPC geometry is verified/high'],
+      coordinationCandidates: ['Regional contractor procurement', 'Sequential use of cranes and line equipment', 'Workforce planning', 'Delivery scheduling'],
+      assumption: 'GridLock tests whether 5%–25% of the mobilization allowance could be avoided or reused for two same-year projects in the under-40 km crew/equipment tier. This percentage is a scenario assumption, not an industry benchmark.',
+      confidence: 'Low — screening only',
+      caution: 'The Hooks–Modoc location uses an estimated facility point. A shared construction year does not establish overlapping work dates, common contractors, or compatible equipment.'
     }
   };
 
-  const METHODOLOGY_LEAD = 'Planning scenario, not a utility-provided budget. Potential avoided cost is calculated as:';
+  const METHODOLOGY_LEAD = 'Screening calculation, not a utility-provided budget or savings forecast. The calculation is:';
   const METHODOLOGY_FORMULA = 'combined eligible work × mobilization allowance × potentially shareable portion.';
-  const METHODOLOGY_BODY = 'The 3%–9% mobilization allowance is a cross-sector construction proxy from official FHWA cost guidance. The shareable portion is a GridLock scenario assumption based on the saved coordination tier, project timing, and resource-sharing possibilities. Low, base, and high cases are shown because the utilities have not published detailed construction budgets or coordination agreements.';
-  const DISCLAIMER = 'Illustrative, non-canonical planning estimate. Not published by DESC, Georgia Power, SCRTP, SERTP, FHWA, or GAO. Validate using actual project scopes, bids, schedules, and coordination agreements.';
-  const NORMALIZATION = 'Values are normalized per $10 million of combined eligible construction work.';
+  const METHODOLOGY_BODY = 'FHWA lists mobilization at 3%–9% in an order-of-magnitude communications-corridor construction example and warns that local cost data should be used for a specific project. DOE identifies mobilization/demobilization, labor, equipment, freight, and transportation as cost-estimate elements. GAO recommends documenting assumptions and testing sensitivity ranges. None of those sources supplies GridLock’s potentially shareable percentage; that factor is stated separately as a scenario assumption for each pair.';
+  const DISCLAIMER = 'Illustrative, non-canonical screening model. The canonical publication contains no utility-provided savings figure or coordination agreement for this pair. Replace the $10 million example with validated eligible work scope before using the result.';
+  const NORMALIZATION = 'Dollar values use an illustrative $10 million eligible-work input; they are not the projects’ reported costs.';
   const SOURCES = [
-    { label: 'FHWA construction-cost guidance — mobilization 3%–9%', url: 'https://ops.fhwa.dot.gov/publications/fhwahop09021/03cost.htm' },
+    { label: 'FHWA order-of-magnitude example — mobilization 3%–9% and local-data caveat', url: 'https://ops.fhwa.dot.gov/publications/fhwahop09021/03cost.htm' },
+    { label: 'U.S. DOE Cost Estimating Guide — mobilization, labor and equipment as estimate elements', url: 'https://www.energy.gov/documents/cost-estimating-guide' },
     { label: 'GAO cost-estimating guidance — document assumptions and sensitivity ranges', url: 'https://www.gao.gov/products/gao-20-195g' }
   ];
 
   const has = id => Object.prototype.hasOwnProperty.call(OPPORTUNITY_IMPACT_ESTIMATES, id);
   const get = id => (typeof id === 'string' && has(id)) ? OPPORTUNITY_IMPACT_ESTIMATES[id] : null;
   const usd = n => '$' + Math.round(n).toLocaleString('en-US');
+  const pct = n => {
+    const value = n * 100;
+    return `${value.toFixed(2).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1')}%`;
+  };
   // basis × mobilization rate × shareable fraction (rounded to whole dollars)
   const calc = (e, k) => Math.round(e.eligibleWorkBasisUsd * e.mobilizationRates[k] * e.shareableFractions[k]);
+  const effectiveRate = (e, k) => e.mobilizationRates[k] * e.shareableFractions[k];
   const verify = e => ['low', 'base', 'high'].every(k => calc(e, k) === e[k + 'Usd']);
 
-  return { ESTIMATES: OPPORTUNITY_IMPACT_ESTIMATES, METHODOLOGY_LEAD, METHODOLOGY_FORMULA, METHODOLOGY_BODY, DISCLAIMER, NORMALIZATION, SOURCES, get, usd, calc, verify };
+  return { ESTIMATES: OPPORTUNITY_IMPACT_ESTIMATES, METHODOLOGY_LEAD, METHODOLOGY_FORMULA, METHODOLOGY_BODY, DISCLAIMER, NORMALIZATION, SOURCES, get, usd, pct, calc, effectiveRate, verify };
 })();
   if (typeof window !== 'undefined') window.GridLockImpact = Impact;
   if (typeof module === 'object' && module.exports) module.exports.impact = Impact;
