@@ -1,5 +1,28 @@
 # Gridlock — coordination radar
 
+## Nationwide intelligence
+
+The local landing page now opens the national explorer: 12,334 filing records, 5,399
+located records, 1,352 national provisional candidates, plus the original 24 regional
+coordination opportunities. These are records from mixed-vintage public filings, not
+a complete or deduplicated inventory of active physical projects. Most active mapped
+locations are tentative; source review and date precision remain visible.
+
+Run `.venv/bin/python -m analyst.server` and open <http://127.0.0.1:8002/>.
+The original overview remains at `/index.html`, and Radar at `/index.html?view=radar`.
+Static-only hosting can still serve the regional pages; national exploration requires
+the Python API server. No API keys are required for national exploration or public
+NWS/USDA/FWS context. Existing AI configuration remains unchanged.
+
+Use **3D time lens** above the map to explore filed dates vertically and play through
+years. Select a project or click a map point, then open **Historical work-window lab**
+to replay 2016–2025 NOAA observations against editable workday/weather assumptions.
+Both retain unknowns and source confidence; replay is a scenario, not a forecast.
+
+See [the integration plan](INTEGRATION_PLAN.md), [delivery and API documentation](docs/NATIONWIDE.md),
+and [attribution](ATTRIBUTION.md). National records are imported through a separate,
+hashed adapter; the sibling pipeline remains authoritative for the original catalog.
+
 Gridlock turns the pipeline-published DESC and Georgia Power project catalog into a local coordination dashboard. The website shows all canonical projects, labels geometry confidence, and publishes only geographically close, schedule-aligned opportunities.
 
 ## Data flow
@@ -58,7 +81,7 @@ Open `http://127.0.0.1:8002/`. The dashboard and Project Explorer work without a
 ```bash
 cd gridlock-challenge
 .venv/bin/python -m unittest discover -s tests
-node --test tests/radar-model.test.js
+node --test tests/*.test.js
 
 cd ../gridlock-data-pipeline
 .venv/bin/python -m pytest -q

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gridlock — National intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <link rel="stylesheet" href="nationwide.css" />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+    ></script>
+    <script defer src="nationwide-model.js"></script>
+    <script defer src="planning-model.js"></script>
+    <script defer src="weather-planner.js"></script>
+    <script defer src="time-lens.js"></script>
+    <script defer src="nationwide.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#results">Skip map to records</a>
+    <header class="topbar">
+      <a class="brand" href="index.html"
+        ><span aria-hidden="true">▦</span> GRIDLOCK</a
+      >
+      <nav aria-label="Main navigation">
+        <a href="nationwide.html" aria-current="page">National intelligence</a
+        ><a href="index.html?view=radar">Coordination radar</a
+        ><a href="project-explorer.html">Regional projects</a>
+      </nav>
+      <span class="edition">PUBLIC SOURCE · RESEARCH EDITION</span>
+    </header>
+    <main>
+      <section class="heading">
+        <div>
+          <p class="eyebrow">THE GRID, IN CONTEXT</p>
+          <h1>
+            A national view.<br class="mobile" />
+            A local reason to act.
+          </h1>
+          <p>
+            Follow transmission plans from the country to the filing. Understand
+            the evidence before coordinating work.
+          </p>
+        </div>
+        <button id="coverageButton" class="quiet">Sources & coverage ↗</button>
+      </section>
+      <section class="metrics" aria-label="Catalog scope">
+        <div>
+          <span id="totalCount">—</span>
+          <p>filing records <small>including history</small></p>
+        </div>
+        <div>
+          <span id="mappedCount">—</span>
+          <p>located records <small>mixed confidence</small></p>
+        </div>
+        <div>
+          <span id="pairCount">—</span>
+          <p>national candidates <small>provisional proximity</small></p>
+        </div>
+        <div>
+          <span id="opportunityCount">—</span>
+          <p>regional opportunities <small>canonical policy</small></p>
+        </div>
+      </section>
+      <section class="workspace" aria-label="National explorer">
+        <aside class="rail">
+          <div class="rail-heading">
+            <h2>Explore the network</h2>
+            <button id="reset" class="text-button">Reset</button>
+          </div>
+          <label for="state">Geographic scope</label
+          ><select id="state">
+            <option value="">United States · all states</option>
+          </select>
+          <div class="region-buttons">
+            <button data-region="conus">Lower 48</button
+            ><button data-region="alaska">Alaska</button
+            ><button data-region="hawaii">Hawaii</button>
+          </div>
+          <div id="areaControl" hidden>
+            <label for="area">County vicinity · bounding-box scope</label
+            ><select id="area">
+              <option value="">Choose a local area</option>
+            </select>
+          </div>
+          <label for="search">Search filings</label
+          ><input
+            id="search"
+            type="search"
+            placeholder="Project, owner or planning region…"
+            maxlength="120"
+          />
+          <div class="filter-row">
+            <div>
+              <label for="status">Project status</label
+              ><select id="status">
+                <option value="active">Planning + unknown</option>
+                <option value="all">All records</option>
+                <option value="planned">Planned</option>
+                <option value="proposed">Proposed</option>
+                <option value="under_construction">Under construction</option>
+                <option value="in_service">In service</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+            <div>
+              <label for="confidence">Location evidence</label
+              ><select id="confidence">
+                <option value="">All evidence</option>
+                <option value="verified">Reviewed</option>
+                <option value="official">Official coordinates</option>
+                <option value="tentative">Tentative</option>
+                <option value="unresolved">Unlocated</option>
+              </select>
+            </div>
+          </div>
+          <label class="check"
+            ><input type="checkbox" id="viewport" /> Limit records to map
+            area</label
+          >
+          <div class="layer-controls">
+            <span class="eyebrow">MAP LAYERS</span
+            ><label class="check"
+              ><input type="checkbox" id="projectLayer" checked /> Transmission
+              plans</label
+            ><label class="check"
+              ><input type="checkbox" id="alertLayer" /> Live NWS alert
+              polygons</label
+            >
+          </div>
+          <div class="tabs" role="tablist" aria-label="Results">
+            <button role="tab" aria-selected="true" data-tab="projects">
+              Projects</button
+            ><button role="tab" aria-selected="false" data-tab="pairs">
+              Candidates</button
+            ><button role="tab" aria-selected="false" data-tab="alerts">
+              Alerts
+            </button>
+          </div>
+          <p id="resultMeta" class="result-meta" role="status">
+            Loading the validated catalog…
+          </p>
+          <div id="results" tabindex="-1" class="results"></div>
+          <button id="more" hidden>Load more</button>
+        </aside>
+        <div class="map-column">
+          <div class="map-toolbar">
+            <span id="scopeLabel">United States</span
+            ><span id="mapScale">Aggregated overview</span
+            ><button id="timeLens">3D time lens ↗</button
+            ><button id="fit" title="Fit the selected scope">
+              Fit scope ↗
+            </button>
+          </div>
+          <div id="map" aria-label="Interactive national project map"></div>
+          <div id="mapNotice" class="map-notice" role="status">
+            Numbers mark groups of located records. Zoom in to see individual
+            locations.
+          </div>
+          <div class="legend">
+            <span><i class="dot verified"></i>Reviewed</span
+            ><span><i class="dot official"></i>Official coordinates</span
+            ><span><i class="dot tentative"></i>Tentative</span
+            ><span><i class="dot hazard"></i>NWS alert</span>
+          </div>
+          <div class="timeline">
+            <div class="timeline-title">
+              <div>
+                <span class="eyebrow">FILED IN-SERVICE YEAR</span>
+                <p>Milestones, not construction windows</p>
+              </div>
+              <button id="clearYear" class="text-button" hidden>
+                Clear year
+              </button>
+            </div>
+            <div
+              id="timeline"
+              aria-label="Records by filed in-service year"
+            ></div>
+            <p id="unknownDates"></p>
+          </div>
+        </div>
+        <aside
+          id="detail"
+          class="detail"
+          aria-label="Evidence panel"
+          aria-live="polite"
+        >
+          <div class="detail-intro">
+            <span class="eyebrow">FROM A SIGNAL TO A SOURCE</span>
+            <h2>Find the work<br />next to yours.</h2>
+            <p>
+              Choose a project to inspect its filed date, location evidence and
+              nearby candidates.
+            </p>
+            <div class="step">
+              <b>01</b>
+              <p>Explore a state, owner or planning region.</p>
+            </div>
+            <div class="step">
+              <b>02</b>
+              <p>Compare proximity and date precision.</p>
+            </div>
+            <div class="step">
+              <b>03</b>
+              <p>Review the filing before contacting a partner.</p>
+            </div>
+            <div class="note">
+              A tentative point is a research lead. A missing date remains
+              unknown. An alert is not an outage prediction.
+            </div>
+          </div>
+        </aside>
+      </section>
+      <footer>
+        <p id="datasetNote">Loading source receipt…</p>
+        <div>
+          <button id="export" class="text-button">
+            Export filtered records ↓</button
+          ><a href="index.html">Back to Gridlock overview ↗</a>
+        </div>
+      </footer>
+    </main>
+    <dialog id="coverageDialog">
+      <div class="dialog-heading">
+        <h2>Coverage, not certainty.</h2>
+        <button id="closeCoverage" aria-label="Close coverage">✕</button>
+      </div>
+      <div id="coverageContent"></div>
+    </dialog>
+    <dialog id="weatherDialog" class="planning-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">HISTORICAL WORK-WINDOW LAB</span>
+          <h2 id="weatherTitle">Selected location</h2>
+        </div>
+        <button id="closeWeather" aria-label="Close weather planner">✕</button>
+      </div>
+      <div id="weatherSources"></div>
+      <fieldset id="weatherRules" hidden>
+        <legend>Editable scenario assumptions</legend>
+        <label
+          >Workdays
+          <input id="workdays" type="number" min="1" max="60" value="20"
+        /></label>
+        <label
+          >Stop at rain ≥ (in/day)
+          <input
+            id="rainStop"
+            type="number"
+            min="0.01"
+            max="10"
+            step="0.05"
+            value="0.5"
+        /></label>
+        <label
+          ><span
+            ><input
+              id="useWind"
+              type="checkbox"
+              aria-label="Enable wind stop"
+            />
+            Wind stop ≥ (mph)</span
+          ><input
+            id="windStop"
+            type="number"
+            aria-label="Wind threshold in mph"
+            min="1"
+            max="200"
+            value="28"
+        /></label>
+        <label
+          ><span
+            ><input
+              id="useHeat"
+              type="checkbox"
+              aria-label="Enable heat stop"
+            />
+            Heat stop ≥ (°F)</span
+          ><input
+            id="heatStop"
+            type="number"
+            aria-label="Heat threshold in Fahrenheit"
+            min="32"
+            max="150"
+            value="95"
+        /></label>
+        <label
+          ><span
+            ><input
+              id="useFreeze"
+              type="checkbox"
+              aria-label="Enable freeze stop"
+            />
+            Freeze stop ≤ (°F)</span
+          ><input
+            id="freezeStop"
+            type="number"
+            aria-label="Freeze threshold in Fahrenheit"
+            min="-80"
+            max="60"
+            value="32"
+        /></label>
+      </fieldset>
+      <div id="replayResults" aria-live="polite"></div>
+    </dialog>
+    <dialog id="timeDialog" class="time-dialog">
+      <div class="dialog-heading">
+        <div>
+          <span class="eyebrow">GEOGRAPHY × FILED MILESTONES</span>
+          <h2>A different perspective on timing.</h2>
+        </div>
+        <button id="closeTime" aria-label="Close time lens">✕</button>
+      </div>
+      <div class="time-controls">
+        <label
+          >Base year
+          <input
+            id="baseYear"
+            type="number"
+            min="1900"
+            max="2199"
+            value="2020" /></label
+        ><label
+          >Through year
+          <input
+            id="throughYear"
+            type="range"
+            min="2020"
+            max="2050"
+            value="2050"
+          /><output id="throughLabel">2050</output></label
+        ><button id="playTime">Play filed years</button
+        ><button id="flatTime">Flatten / tilt</button>
+      </div>
+      <div
+        id="timeMap"
+        aria-label="Three-dimensional filed milestone map"
+      ></div>
+      <p id="timeStatus" role="status">Loading time lens…</p>
+      <div class="legend">
+        <span><i class="dot verified"></i>Reviewed</span
+        ><span><i class="dot official"></i>Official coordinates</span
+        ><span><i class="dot tentative"></i>Tentative</span>
+      </div>
+      <p class="note">
+        Height represents a filed date, never structure height or risk. Thin
+        stems connect locations to dates; wider caps span the filed day, month
+        or year. Undated records stay on the ground. Markers represent
+        locations, not project footprints. Zoom into a group for dated records;
+        click a record to open its evidence. The current explorer filters carry
+        into this view.
+      </p>
+    </dialog>
+  </body>
+</html>

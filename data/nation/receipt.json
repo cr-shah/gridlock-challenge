@@ -1,0 +1,20 @@
+{
+  "sha256": "2a8a72ec14c4edcf3e06989756c58b7de4b253a0cd1795a49c526055d936dbe6",
+  "reference": {
+    "repository": "https://github.com/fradicus/Shellhacks-2026",
+    "commit": "26b3b70451faa7ba8c54d2c57662cbaa3086ac4e",
+    "permission": "User-confirmed author agreement at ShellHacks, 2026-10-06"
+  },
+  "imported_at": "2026-10-07T02:29:15.166247+00:00",
+  "counts": {
+    "records": 12256,
+    "mapped": 5340,
+    "confidence": {
+      "verified": 612,
+      "unresolved": 6916,
+      "tentative": 4451,
+      "official": 277
+    },
+    "pairs": 1352
+  }
+}

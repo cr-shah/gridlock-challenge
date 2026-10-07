@@ -10,6 +10,7 @@ from analyst.core import ROOT, answer, configuration, AnalystError
 
 load_dotenv(ROOT/'.env')
 GATE=BoundedSemaphore(3)
+NATION_GATE=BoundedSemaphore(8)
 def allowed_asset(name):
     path=ROOT/name
     allowed=(path.parent==ROOT and path.suffix in {'.html','.css','.js'}) or (path.parent==ROOT/'data/published' and path.suffix=='.json')
@@ -22,7 +23,21 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path=urlsplit(self.path).path
         if path=='/api/analyst/status':return self.respond(200,configuration())
-        name=path.lstrip('/') or 'index.html'
+        if path.startswith('/api/nation/'):
+            if not NATION_GATE.acquire(blocking=False):
+                return self.respond(429,{'error':'Explorer is busy. Retry shortly.'})
+            try:
+                from nation.api import dispatch
+                return self.respond(200,dispatch(self.path))
+            except KeyError:
+                return self.respond(404,{'error':'Record or endpoint not found.'})
+            except (ValueError,TypeError) as exc:
+                return self.respond(400,{'error':str(exc)})
+            except Exception:
+                return self.respond(503,{'error':'National catalog unavailable. Existing regional tools remain available.'})
+            finally:
+                NATION_GATE.release()
+        name=path.lstrip('/') or ('index.html' if 'view=radar' in urlsplit(self.path).query else 'nationwide.html')
         if not allowed_asset(name):return self.respond(404,{'error':'Not found'})
         body=(ROOT/name).read_bytes()
         self.send_response(200);self.send_header('Content-Type',mimetypes.guess_type(name)[0] or 'application/octet-stream');self.send_header('Content-Length',str(len(body)));self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.end_headers();self.wfile.write(body)
