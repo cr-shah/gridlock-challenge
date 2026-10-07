@@ -1,0 +1,16 @@
+# One frontend + Python API service; no database, disk, or paid instance.
+services:
+  - type: web
+    name: gridlock-nationwide
+    runtime: python
+    plan: free
+    region: virginia
+    repo: https://github.com/cr-shah/gridlock-challenge
+    branch: main
+    buildCommand: pip install -r requirements-hosting.txt
+    startCommand: gunicorn --config deploy/gunicorn.conf.py deploy.wsgi:application
+    healthCheckPath: /healthz
+    autoDeployTrigger: "off"
+    envVars:
+      - key: GRIDLOCK_OFFLINE
+        value: "0"

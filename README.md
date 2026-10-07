@@ -1,5 +1,13 @@
 # Gridlock — coordination radar
 
+## Public hosting
+
+The full app can run as one Free Python service using the included `render.yaml`
+and production Gunicorn entrypoint. [Deploy on Render](https://render.com/deploy?repo=https://github.com/cr-shah/gridlock-challenge)
+requires a signed-in hosting account. See [deployment instructions and checks](docs/DEPLOYMENT.md).
+This is a deployment link, not an already-live app URL. No keys are needed for the
+national tools; the public paid AI analyst is disabled. Local AI setup is unchanged.
+
 ## Nationwide intelligence
 
 The local landing page now opens the national explorer: 12,334 filing records, 5,399

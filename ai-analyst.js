@@ -88,7 +88,7 @@
   }
   form.addEventListener('submit',event=>{event.preventDefault();send(input.value);});
   input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send(input.value);}});
-  fetch('/api/analyst/status').then(r=>{if(!r.ok)throw Error();return r.json();}).then(s=>{status.textContent=s.ready?'':'Setup required · configure .env using AI_ANALYST.md';}).catch(()=>{status.textContent='AI backend offline · run python3 -m analyst.server and open port 8002';});
+  fetch('/api/analyst/status').then(r=>{if(!r.ok)throw Error();return r.json();}).then(s=>{status.textContent=s.ready?'':(s.reason||'Setup required · configure .env using AI_ANALYST.md');}).catch(()=>{status.textContent='AI backend offline · run python3 -m analyst.server and open port 8002';});
   if(window.gridlockAnalystContext)context=window.gridlockAnalystContext;
   addMessage("Hi! How can I help with your projects?",'assistant');
   refreshContext();
