@@ -2,11 +2,13 @@
 
 ## Public hosting
 
-The full app can run as one Free Python service using the included `render.yaml`
-and production Gunicorn entrypoint. [Deploy on Render](https://render.com/deploy?repo=https://github.com/cr-shah/gridlock-challenge)
-requires a signed-in hosting account. See [deployment instructions and checks](docs/DEPLOYMENT.md).
-This is a deployment link, not an already-live app URL. No keys are needed for the
-national tools; the public paid AI analyst is disabled. Local AI setup is unchanged.
+[Open the live nationwide app](https://gridlock-nationwide.onrender.com/).
+The frontend and Python API run together on Render Free using `render.yaml` and
+Gunicorn. The first request after inactivity may take about a minute to wake.
+See [deployment instructions and verified public checks](docs/DEPLOYMENT.md).
+No keys are needed for the national tools; the public paid AI analyst is disabled.
+Local AI setup is unchanged. [Deploy your own instance](https://render.com/deploy?repo=https://github.com/cr-shah/gridlock-challenge)
+requires a signed-in hosting account.
 
 ## Nationwide intelligence
 
